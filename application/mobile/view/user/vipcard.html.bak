@@ -1,0 +1,113 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>会员卡</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+    <link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/sm.min.css">
+    <link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/sm-extend.min.css">
+<style>
+.bar {
+    background-color: #1E90FF;
+}
+.bar .button-link {
+    color: #FFFFFF;
+}
+.title {
+    color: #FFFFFF;
+}
+
+</style>
+  </head>
+  <body>
+    <div class="page-group">
+        <div class="page page-current">
+        <!-- 你的html代码 -->
+		<header class="bar bar-nav">
+		  <button class="button button-link button-nav pull-left" onclick="window.history.go(-1)">
+    <span class="icon icon-left"></span>
+    返回
+  </button>
+  <h1 class="title">会员卡</h1>
+</header>
+<div class="content">
+
+  <div class="card demo-card-header-pic">
+    <div valign="bottom" class="card-header color-white no-border no-padding">
+      		<img src="/yhq.png" width="100%" height="170px">
+				</div>
+    </div>
+	 <div class="list-block media-list inset">
+    <ul>
+      <li>
+	  <li>
+        <a href="#" class="item-link item-content">
+           <div class="item-inner">
+            <div class="item-title-row">
+              <div class="item-title"></div>
+            </div>
+            <div class="item-subtitle">会员卡说明：</div>
+			 <div class="item-subtitle">1：开通VIP会员卡后,有效期为30天,限申请</div>
+			 <div class="item-subtitle">一次借款使用,过期自动消失,可从新购买</div>
+			  <div class="item-subtitle">2：使用VIP会员卡申请借款,不限借款时间</div>
+			   <div class="item-subtitle">不限借款额度</div>
+			   <div class="item-subtitle">3：最终解释权归和信贷所有</div>
+          </div>
+        </a>
+      </li>
+	 <!-- <li>
+        <a href="#" class="item-link item-content">
+          <div class="item-media"><img src="http://we.biosyun.com/guanggao/dai.jpg" style='width: 2.2rem;'></div>
+           <div class="item-inner">
+            <div class="item-title-row">
+              <div class="item-title">更多借款</div>
+            </div>
+            <div class="item-subtitle">敬请期待</div>
+          </div>
+        </a>
+		 </li>
+      -->
+
+    </ul>
+  </div>
+  </div>
+
+          
+</div>
+		<!-- 你的html代码 -->
+        </div>
+    </div>
+
+    <script type='text/javascript' src='//g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
+    <script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm.min.js' charset='utf-8'></script>
+    <script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm-extend.min.js' charset='utf-8'></script>
+	<script>
+	$(document).on('click','.confirm-ok', function () {
+      $.confirm('是否购买VIP会员卡?', function () {
+            $.ajax({
+                        //几个参数需要注意一下
+                        type: "POST",//方法类型
+                        dataType: "json",//预期服务器返回的数据类型
+                        url: '/mobile/pay/viporder.html' ,//url
+                        success: function (result) {
+                        console.log(result);
+                          if(result.code == 1){
+              $.toast('会员卡购买成功...');
+                        window.setTimeout("window.history.go(0)",2000); 
+                        }else{
+              $.toast('余额不足购买失败...'); 
+                }
+                        }
+    });
+      });
+  });
+
+	</script>
+  </body>
+</html>

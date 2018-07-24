@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<!-- saved from url=(0046)https://cs.biosyun.com/mobile/index/index.html -->
+<html class="am-touch js cssanimations">
+<head lang="en">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <title>秒极速贷-借款如此简单</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <link rel="alternate icon" type="image/png" href="https://cs.biosyun.com/public/assets/i/favicon.png">
+    <link rel="stylesheet" href="/public/src/css/amazeui.min.css">
+    <script src="/public/src/javascript/jquery-1.7.2.min.js"></script>
+    <style>
+        .get {
+            position: relative;
+            background: #dd514c;
+            color: #fff;
+            text-align: center;
+            height: 200px;
+        }
+
+        .get-title {
+            font-size: 15px;
+            width: 80%;
+            margin: 0px auto;
+            border: 2px solid #fff;
+            padding: 20px;
+            height: 300px;
+            display: inline-block;
+            background: #fff;
+            border-radius: 4px;
+            color: #716F6F;
+            box-shadow: 0 0 15px #989797;
+        }
+
+        .get-btn {
+            font-size: 23px;
+            color: #000;
+        }
+
+        .detail {
+            background: #fff;
+            height: 34rem;
+            width: 80%;
+            margin: 0px auto;
+			margin-bottom:10rem;
+        }
+
+        .footer {
+            border-top: 2px solid #ddd;
+            color: #7f8c8d;
+            text-align: center;
+            margin-top: 5rem;
+        }
+
+        .jiebutton {
+            box-shadow: 0 0 10px #FF8D00;
+            background: #FFA500;
+            color: #fff;
+        }
+
+        .cesebolo {
+            text-align: center;
+            margin-top: 17rem;
+        }
+
+        .boxder {
+            border-radius: 4 p x;
+            border: 1px solid #fff;
+            box-shadow: 0 0 15px #989797;
+            margin: 1px 2.5rem 10px 2.5rem;
+        }
+
+        .imgs {
+            width: 37px;
+        }
+
+        .box_sha {
+            border-radius: 4px;
+            border: 1px solid #fff;
+            box-shadow: 0 0 15px #989797;
+            margin-top: 2.5rem;
+            padding: 4px 0px;
+        }
+
+        .get_wrap {
+            position: absolute;
+            left: 0px;
+            width: 100%;
+
+        }
+
+        .cssborder {
+            border: 0;
+            background: transparent;
+        }
+    </style>
+</head>
+<body>
+<div class="get">
+    <h1 style="padding-top: 2rem;" onclick="test()">光速审核 秒速放款</h1>
+    <div class="am-g">
+        <div class="am-u-lg-12">
+            <div class="get_wrap" style="z-index:999999999999">
+                <form action="/mobile/loan/index.html" method="post" id="LoanForm">
+                    <div class="get-title">
+                        <b>我的额度</b>
+                        <br>
+                        <span class="get-btn" id="money-limit" style="font-weight: 700;"><b>0.00</b></span>
+                        <br>
+                        <div class="am-g am-g-fixed">
+                            <div class="am-u-sm-6">借款金额</div>
+                            <div class="am-u-sm-6">
+                                <select name="borrowMoney" id="loan-money" class="cssborder" style="border:1px solid #e5e5e5;">
+                                    {volist name="data" id="vo"}
+                                    <option value="{$vo}" >{$vo}</option>
+                                    {/volist}
+                                </select>元
+                            </div>
+                        </div>
+                        <br>
+                        <div class="am-g am-g-fixed">
+                            <div class="am-u-sm-6">借款期限</div>
+                            <div class="am-u-sm-6">
+							<select name="borrowTime" id="loan-time" class="cssborder" style="border:1px solid #e5e5e5;">
+                                {volist name="data2" id="vo"}
+                                <option value="{$vo}" >{$vo}</option>
+                                {/volist}
+                            </select> 期
+                            </div>
+                            <br>
+                            <div id="txt" style="margin-top: 2rem;margin-bottom: 2rem;">
+                                <p style="text-align:center;margin-bottom: 0.2rem;margin-top: 0.1rem;">
+                                    每期还款：<span style="color:red;">800.00</span>元
+                                </p>
+                            </div>
+
+                            <button type="submit" class="am-btn am-round jiebutton" style="z-index: 9999999999">马上借钱
+                            </button>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="detail">
+    <div class="am-g am-container">
+        <div class="am-u-lg-12">
+
+            <div class="am-g cesebolo">
+                <div class="am-g am-g-fixed">
+                    <div class="am-u-sm-5 box_sha"
+                         onclick="javascript:window.location.href=&#39;/mobile/loan/lists.html&#39;">
+                        <img src="/public/src/images/jiekuan.png" class="imgs"><br>借款记录
+                    </div>
+                    <div class="am-u-sm-5 box_sha"
+                         onclick="javascript:window.location.href='/mobile/user/userconfirm'"><img
+                            src="/public/src/images/renzheng.png" class="imgs"><br>立即认证
+                    </div>
+                </div>
+                <div class="am-g am-g-fixed">
+                    <div class="am-u-sm-5 box_sha"
+                         onclick="javascript:window.location.href=&#39;/mobile/user/coin.html&#39;">
+                        <img
+                                src="/public/src/images/qianbao.png" class="imgs"><br>我的钱包
+                    </div>
+                    <div class="am-u-sm-5 box_sha"
+                         onclick="javascript:window.location.href=&#39;/mobile/user/vipcard.html&#39;">
+                        <img
+                                src="/public/src/images/dovip.png" class="imgs"><br>我的会员
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<footer class="footer" style="position:fixed;bottom: 0;background:#fff;
+left: 0;width: 100%;border-top: 2px solid #ddd;height: 6.5rem;">
+    <div class="am-g am-g-fixed">
+        <a href="/mobile/index/newindex.html" style="width:20%;float: none;text-align:center;">
+            <div class="am-u-sm-4" style="width:20%;color: #7a7a7a;font-size: 1.2rem!important;">
+                <img src="/public/src/images/sy.png" class="imgs"><br><b>资讯</b>
+            </div>
+        </a>
+
+        <a href="/mobile/loan/lists" style="width:20%;float: none;text-align:center;">
+            <div class="am-u-sm-4" style="width:20%;color: #7a7a7a;font-size: 1.2rem!important;"><img src="/public/src/images/jl.png" class="imgs"><br><b>借款记录</b>
+            </div>
+        </a>
+
+        <a href="/mobile/index/index.html" style="width:20%;float: none;text-align:center;">
+            <div class="am-u-sm-4" style="width:20%;color: #E9524B;font-size: 1.2rem!important;">
+                <img src="/public/src/images/sp.png" class="imgs"><br><b>首页</b>
+            </div>
+        </a>
+        <a href="/mobile/user/index" style="width:20%;float: none;text-align:center;">
+            <div class="am-u-sm-4" style="width:20%;color: #7a7a7a;font-size: 1.2rem!important;">
+                <img src="/public/src/images/user.png" class="imgs"><br><b>我的</b></div>
+        </a>
+
+        <a href="/mobile/user/coin" style="width:20%;float: none;text-align:center;">
+            <div class="am-u-sm-4" style="width:20%;color: #7a7a7a;font-size: 1.2rem!important;">
+                <img src="/public/src/images/qb.png" class="imgs"><br><b>钱包</b></div>
+        </a>
+    </div>
+</footer>
+
+
+</body>
+</html>
+
+<script>
+
+    function test()
+    {
+        $.ajax(
+        {
+            url:'/mobile/index/test',
+            data:{},
+            type:'post',
+            success:function(data)
+            {
+                console.log(data);
+            },
+            error:function(err)
+            {
+                console.log(err);
+            },
+        })
+    }
+
+
+
+    $(function()
+    {
+       // 10000  12   66
+       //899.3 - 66 = 833.3
+
+
+        //一个月的利息 = 金额 * 0.0066;
+        //金额 10000 元 期限：12期  11110元
+
+        var rate = '{$rate}';
+        console.log(rate);
+
+        var money = $('#loan-money').val();
+        var time = $('#loan-time').val();
+
+        $('#txt').html('每期还款：' + '<span style="color:red;font-weight: 700;">' + (toTotal(money,time) + '</span>'  +'元'));
+
+
+        //算法
+        function toTotal(m,t)
+        {
+            var money = parseInt(m);
+            var time = parseInt(t);
+            var result = ((money * rate ) * time + money)/time;
+            return result.toFixed(2);
+        }
+
+        //改变期数或金额
+        function changeMoneyOrExpect()
+        {
+            var money = $('#loan-money').val();
+            var time = $('#loan-time').val();
+            $('#txt').html('每期还款：' + '<span style="color:red;font-weight: 700;">' + (toTotal(money,time) + '</span>'  +'元'));
+        }
+
+        $('#loan-money').change(function()
+        {
+            changeMoneyOrExpect();
+        });
+
+        $('#loan-time').change(function()
+        {
+            changeMoneyOrExpect();
+        });
+
+
+
+        //根据用户是否审核通过 处理我的额度问题
+        getStatus();
+        function  getStatus()
+        {
+            $.post("/mobile/loan/getlist.html", {page: 1}, function (data, state)
+            {
+
+                if (data.code == 1)
+                {
+                    var status =
+                        [
+                            {'str': '待审核'},//0
+                            {'str': '已还清'},
+                            {'str': '失败'},
+                            {'str': '待还款'},
+                            {'str': '审核通过'},//4 原：待放款
+                            {'str': '审核通过'},
+                            {'str': '打款中'}
+                        ];
+                    status_num = data.data[0].status;
+                    var money = 0;
+                    if(status_num != 0)
+                    {
+                        money = data.data[0].borrowmoney;
+                    }
+                    $('#money-limit').html(money);
+                }
+            });
+        }
+
+    });
+</script>

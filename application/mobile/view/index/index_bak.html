@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="cache-control" content="no-cache"/>
+    <meta content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=0" name="viewport">
+    <meta content="yes" name="apple-mobile-web-app-capable"/>
+    <meta content="black" name="apple-mobile-web-app-status-bar-style"/>
+    <meta content="telephone=no" name="format-detection"/>
+    <title>和信贷</title>
+    <meta name="description" content="和信贷"/>
+    <meta name="keywords" content="和信贷"/>
+    <link rel="stylesheet" href="/public/static/css/mobile/common.css">
+
+    <link rel="stylesheet" href="/public/static/css/mobile/loading.css">
+    <style>
+        /* range控件 */
+
+        input[type=range] {
+            display: block;
+            position: relative;
+            width: 70%;
+            height: 48px;
+            margin: 8px 0;
+            padding: 0 15%;
+            background: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            cursor: pointer;
+        }
+
+        input[type=range]:hover:before,
+        input[type=range]:hover:after {
+            color: #D3D3D3;
+        }
+
+        input[type=range]:hover::-webkit-slider-runnable-track {
+            background-color: #1E90FF;
+        }
+
+        input[type=range]:hover::-moz-range-track {
+            background-color: #85b200;
+        }
+
+        input[type=range]:focus::-webkit-slider-runnable-track {
+            background-color: #85b200;
+        }
+
+        /*range前后图标*/
+
+        input[type=range]:before {
+            content: "-";
+            border: 1px solid #1E90FF;
+            border-radius: 10px;
+            display: block;
+            position: absolute;
+            top: 8px;
+            width: 32px;
+            height: 32px;
+            line-height: 32px;
+            font-size: 32px;
+            color: #1E90FF;
+            text-align: center;
+            font-family: "tff.tff" !important;
+            speak: none;
+            font-style: normal;
+            font-weight: normal;
+            font-variant: normal;
+            text-transform: none;
+            -webkit-font-smoothing: antialiased;
+            -ms-font-smoothing: antialiased;
+            -o-font-smoothing: antialiased;
+            font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        input[type=range]:after {
+            content: "+";
+            border: 1px solid #1E90FF;
+            border-radius: 10px;
+            display: block;
+            position: absolute;
+            top: 8px;
+            width: 32px;
+            height: 32px;
+            line-height: 32px;
+            font-size: 32px;
+            color: #1E90FF;
+            text-align: center;
+            font-family: "tff.tff" !important;
+            speak: none;
+            font-style: normal;
+            font-weight: normal;
+            font-variant: normal;
+            text-transform: none;
+            -webkit-font-smoothing: antialiased;
+            -ms-font-smoothing: antialiased;
+            -o-font-smoothing: antialiased;
+            font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        input[type=range]:before {
+            left: 16px;
+        }
+
+        input[type=range]:after {
+            right: 16px;
+        }
+
+        input[type=range]#sort_tra:before {
+            content: "\e000";
+        }
+
+        input[type=range]#sort_tra:after {
+            content: "\e001";
+        }
+
+        /*range中心圆点*/
+
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            height: 18px;
+            width: 18px;
+            border-radius: 100%;
+            background-color: #FF0000;
+            cursor: pointer;
+            margin-top: -7px;
+            -webkit-box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4);
+            box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4);
+        }
+
+        input[type=range]::-moz-range-thumb {
+            -moz-appearance: none;
+            appearance: none;
+            height: 18px;
+            width: 18px;
+            border-radius: 100%;
+            background-color: #fff;
+            cursor: pointer;
+            -moz-box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4);
+            box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4);
+        }
+
+        input[type=range]::-ms-thumb {
+            -ms-appearance: none;
+            appearance: none;
+            height: 18px;
+            width: 18px;
+            border-radius: 100%;
+            background-color: #fff;
+            cursor: pointer;
+            -ms-box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4);
+            box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4);
+        }
+
+        input[type=range]::slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            height: 18px;
+            width: 18px;
+            border-radius: 100%;
+            background-color: #fff;
+            cursor: pointer;
+            margin-top: -6px;
+            -webkit-box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4);
+            box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4);
+        }
+
+        /*range轨道*/
+
+        input[type=range]::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 8px;
+            background-color: #DCDCDC;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        input[type=range]::-moz-range-track {
+            width: 100%;
+            height: 8px;
+            background-color: #DCDCDC;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        input[type=range]::-ms-track {
+            width: 100%;
+            height: 6px;
+            border-color: transparent;
+            color: transparent;
+            border-radius: 6px;
+            background: transparent;
+            cursor: pointer;
+        }
+
+        /*已达进度*/
+
+        input[type=range]::-ms-fill-lower {
+            background-color: #D3D3D3;
+        }
+
+        /*未达进度*/
+
+        input[type=range]::-ms-fill-upper {
+            background-color: #D3D3D3;
+        }
+
+        input[type=range]::-ms-ticks-before {
+            display: none;
+        }
+
+        input[type=range]::-ms-ticks-after {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+{php}
+$borrowMoney = explode(',',config('loan')['money']);
+$borrowTime = explode(',',config('loan')['time']);
+$tc=count($borrowTime)-1;
+$t=$borrowTime[$tc];
+
+$mc=count($borrowMoney)-1;
+$m=$borrowMoney[$mc];
+{/php}
+<div class="head-ad">
+    <img src="/public/static/img/mobile/miaolabanner.jpg"/>
+</div>
+<form action="/mobile/loan/index.html" method="post" id="LoanForm">
+
+    <div class="ml_borrowMonth bg_fff">
+        <p class="f_88868F f18 tac bg_fff">借款期限</p>
+        <ul class="ml_borrowMonthChoice">
+
+
+        </ul>
+        <div class="f_88868F f18 tac bg_fff" style="background-color: rgba(244, 244, 244, 0);">
+            <input id="value"
+                                                                       value="0"
+                                                                                                      style="color:#FF0000;border-radius: 5px;width:35px;">
+        </div>
+
+
+        <input id="range" type="range" name="borrowTime" min="{$borrowTime[0]}" max="{$t}" value="{$borrowTime[0]}" step="6"
+               oninput="change()" onchange="change()">
+
+        <div class="clear"></div>
+    </div>
+    <div class="ml_borrowMoney bg_fff">
+        <p class="f18 tac f_88868F bg_fff">借款金额</p>
+        <div class="ml_borrowMoneyNum clearfix bg_fff">
+
+            <div class="f_88868F f13 tac bg_fff" style="background-color: rgba(244, 244, 244, 0);"><input id="value1"
+                                                                                                          name="borrowMoney"
+                                                                                                          value="0"
+                                                                                                          style="color:#FF0000;border-radius: 5px;width:55px;">
+            </div>
+            <input id="range1" type="range" min="{$borrowMoney[0]}" max="{$m}" value="{$borrowMoney[0]}" step="5000"
+                   oninput="change1()" onchange="change1()">
+
+
+        </div>
+        <div class="clear"></div>
+    </div>
+</form>
+<p class="borrowInfo tac">
+
+</p>
+
+<div class="jk_registerSubmit">
+    <input type="button" value="开始申请" class="jk_btn jk_btnmiaoApply"/>
+</div>
+
+<script>var siteurl = "http://hy2.biosyun.com";</script>
+<script src="/public/static/js/jquery-1.7.2.min.js"></script>
+<script src="/public/static/js/mobile/layer.js"></script>
+<script>
+    function showXieYi(url) {
+        // layer.open({
+        //     type: 1
+        //     ,content: '<iframe id="myiframe" src="'+url+'" style="width:100%;" frameborder="0"></iframe>'
+        //     ,anim: 'up'
+        //     ,style: 'border: none;width: 80%;left: 10%;top: 10%;bottom: 10%;'
+        // });
+        // var ifm= document.getElementById("myiframe");
+        // ifm.height=document.documentElement.clientHeight;
+        window.location.href = url;
+    }
+
+    function ajaxState(state) {
+        if (state != 'success') {
+            layer.open({
+                content: '请求失败:'.state,
+                btn: '确定'
+            });
+            return false;
+        }
+        return true;
+    }
+</script>
+{include file='public/foot'}
+
+
+<script>
+    function change1() {
+        var value = document.getElementById('range1').value;
+
+        document.getElementById('value1').value = value;
+        viewRate();
+    }
+
+    function change() {
+        var value = document.getElementById('range').value;
+        document.getElementById('value').value = value;
+        viewRate();
+    }
+</script>
+<script>
+    var rate = "{$Think.config.loan.rate}";
+    var servicecharge = "{$Think.config.loan.servicecharge}";
+    var repaymenttype = "{$Think.config.loan.repaymenttype}";
+    var serviceStatus = "{$Think.config.loan.serviceStatus}";
+
+    function viewRate() {
+        var money = $('#value1').val();
+        var month = $('#value').val();
+//        var rateMoney = serviceStatus == 1 ? parseFloat((money * rate) / 100 * month) +  parseFloat((servicecharge / 100) * money) : parseFloat((money * rate) / 100 * month);
+        // 手续费
+        var rateMoney = parseFloat((money * rate) / 100 * month);
+        rateMoney = toDecimal(rateMoney);
+        // 实际到账金额
+        var realMoney = toDecimal(parseFloat(parseFloat(money) - rateMoney));
+
+        if (repaymenttype == "1") {
+            var allMoney = toDecimal(parseFloat(parseFloat(money) + rateMoney));
+        } else {
+            var allMoney = toDecimal(parseFloat(money));
+        }
+
+        if (repaymenttype == "1") {
+            if (serviceStatus == "1") {
+                $(".borrowInfo").html("借款期限:<span>" + month + "</span>月到期还款:<span>" + allMoney + "</span>元。<br>含服务费:<span class='service'>" + ((servicecharge / 100) * money) + "</span>元");
+            } else {
+                $(".borrowInfo").html("借款期限:<span>" + month + "</span>月到期还款:<span>" + allMoney + "</span>元。");
+            }
+        } else {
+            if (serviceStatus == "1") {
+                $(".borrowInfo").html("到账金额:<span>" + realMoney + "</span>元 借款期限:<span>" + month + "</span>天<br>到期还款:<span>" + allMoney + "</span>元<br>审核费用:<span class='service'>" + ((servicecharge / 100) * money) + "</span>元");
+            } else {
+                $(".borrowInfo").html("到账金额:<span>" + realMoney + "</span>元 借款期限:<span>" + month + "</span>天<br>到期还款:<span>" + allMoney + "</span>元");
+            }
+        }
+    }
+
+    function toDecimal(x) {
+        var f = parseFloat(x);
+        if (isNaN(f)) {
+            return;
+        }
+        f = Math.round(x * 100) / 100;
+        return f;
+    }
+
+    $(function () {
+        var value = document.getElementById("range1").value;
+        document.getElementById('value1').value = value;
+        var value1 = document.getElementById("range").value;
+        document.getElementById('value').value = value1;
+        viewRate();
+        $(".ml_borrowMoneyNum span.fl").on('click', function () {
+            $(".ml_borrowMoneyNum span.activeMoney").removeClass('activeMoney');
+            $(this).addClass('activeMoney');
+            $('.loanAmountActive').val($(this).html());
+            viewRate();
+        });
+        $(".ml_borrowMonthChoice li span").on('click', function () {
+            $(".ml_borrowMonthChoice li span.activeMonth").removeClass('activeMonth');
+            $(this).addClass('activeMonth');
+            $(".loanMonthActive").val($(this).attr('data-val'));
+            viewRate();
+        });
+        $(".jk_btnmiaoApply").on('click', function () {
+            $("#LoanForm").submit();
+        });
+    });
+</script>
+
+</body>
+</html>

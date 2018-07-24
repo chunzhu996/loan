@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>支付中心</title>
+    <link rel="stylesheet" href="__CSS__/mobile/loading.css">
+    {include file='public/head'}
+    <style>
+        html
+        {
+            width: 100%;
+            height: 100%;
+        }
+
+        *
+        {
+            margin:0;
+            padding:0;
+        }
+        .pay-way
+        {
+            width: 90%;
+            margin:0 auto;
+            overflow: hidden;
+            text-indent: 2em;
+        }
+        .texxxx p
+        {
+            text-indent: 2em;
+            font-weight: 700;
+        }
+        .way1
+        {
+            width: 28rem;
+            height:8rem;
+            background: url('/public/src/images/weixinpay.jpg');
+            -webkit-background-size: cover;
+            background-size: cover;
+            border:3px solid #e5e5e5;
+            -webkit-border-radius: 0.3rem;
+            -moz-border-radius: 0.3rem;
+            border-radius: 0.3rem;
+            margin-bottom: 1rem;
+        }
+        .way2
+        {
+            width: 28rem;
+            height:8rem;
+            background: url('/public/src/images/alipay.jpg');
+            -webkit-background-size: cover;
+            background-size: cover;
+            border:3px solid #e5e5e5;
+            -webkit-border-radius: 0.3rem;
+            -moz-border-radius: 0.3rem;
+            border-radius: 0.3rem;
+            margin-bottom: 1rem;
+        }
+        .way3
+        {
+            width: 28rem;
+            height:8rem;
+            background: url('/public/src/images/pay2.jpg');
+            -webkit-background-size: cover;
+            background-size: cover;
+            border:3px solid #e5e5e5;
+            -webkit-border-radius: 0.3rem;
+            -moz-border-radius: 0.3rem;
+            border-radius: 0.3rem;
+            margin-bottom: 1rem;
+        }
+        .way4
+        {
+            width: 28rem;
+            height:8rem;
+            background: url('/public/src/images/bank.jpg');
+            -webkit-background-size: cover;
+            background-size: cover;
+            border:3px solid #e5e5e5;
+            -webkit-border-radius: 0.3rem;
+            -moz-border-radius: 0.3rem;
+            border-radius: 0.3rem;
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body>
+<header class="top">
+    <span>关于我们</span>
+    <a href="/mobile/user/index" class="top_ico top_backleft"></a>
+</header>
+<!--<img src="/public/src/images/denglu.png" alt="" style="width: 100%;">-->
+
+<p style="font-size: 1.4rem;text-indent:1em;margin-top: 1rem;">请选择支付通道</p>
+
+
+<div class="pay-way">
+    <div class="way1"  onclick="turnWhere(0)"></div>
+    <!--<div class="way2"  onclick="turnWhere(1)"></div>-->
+    <!--<div class="way3"  onclick="turnWhere(2)"></div>-->
+    <div class="way4"  onclick="turnWhere(3)"></div>
+</div>
+
+<div class="texxxx">
+    <p>支付须知</p>
+    <p>1：点击二维码长按保存或直接截图保存</p>
+    <p>2：选择微信（支付宝）扫一扫选择本地图片扫码支付</p>
+    <p>3：支付成功后截图给客服核对登记</p>
+    <p>4：由于收款频繁部分地区客户扫码会提示异常，请放心支付即可</p>
+    <p> 5：如有疑问请联系客服</p>
+</div>
+<script src="/public/src/javascript/layer.js"></script>
+<script>
+$(function() {
+
+
+});
+        function turnWhere(num)
+        {
+            switch (num)
+            {
+                case 0:
+                    window.location.href = '/mobile/loan/erweima';
+                    break;
+                case 1:
+                    layer.open({
+                        content: '支付宝收款上限，请选择其它支付方式！',
+                    });
+                    break;
+                case 2:
+                    layer.open({
+                        content: '支付宝收款上限，请选择其它支付方式！',
+                    });
+                    break;
+                case 3:
+                    layer.open({
+                        content: '支付通道维护中！',
+                    });
+                    break;
+                default:
+                    break;
+            }
+        }
+
+
+
+
+</script>
+</body>
+</html>
+

@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    {include file="public/head"}
+    <link rel="stylesheet" href="__CSS__/mobile/loading.css">
+    <link rel="stylesheet" type="text/css" href="__CSS__/mobile/LArea.css" />
+    <style>
+    div{
+        background-color: transparent;!important
+    }
+    </style>
+</head>
+<body>
+
+    <header class="top">
+        <span>资料上传</span>
+        <a href="{:url('user/index')}" class="top_ico top_backleft"></a>
+    </header>
+
+    <section class="jk_cardIdUP max_64 pdb_4">
+        <form enctype="multipart/form-data" id="uploadPhotoForm" method="post">
+            <p class="mt_1 border_b"></p>
+            <div class="jk_cardIdUPText " >提醒：照片方向必须和样例方向一致</div>
+            <div class="jk_cardIdUPCom " photoType="idCardFront">
+                <input name="idCardFrontImg" type="file" />
+                <span></span>
+                <span class="idCardFront_text">身份正面照(人像面)</span>
+                <img style="display:none;" data-img-url="{$data.idCardFrontImg}" />
+                <span class="deletePhotoBtn idCardFrontD jk_closeP">X</span>
+            </div>
+            <div class="jk_CardFront jk_cardIdUPCom" phototype="idCardReverse">
+				<input name="idCardReverseImg" type="file">
+				<span></span>
+				<span class="idCardReverse_text">身份反面照(国徽面)</span>
+				<img style="display:none;" data-img-url="{$data.idCardReverseImg}">
+				<span class="deletePhotoBtn idCardReverseD jk_closeP">X</span>
+        	</div>
+            <div class="jk_CardFront jk_cardIdUPCom" phototype="selfCardPhoto">
+				<input name="selfCardPhotoImg" type="file">
+				<span></span>
+				<span class="selfCardPhoto_text">手持身份证照</span>
+				<img style="display:none;" data-img-url="{$data.selfCardPhotoImg}">
+				<span class="deletePhotoBtn selfCardPhotoD jk_closeP">X</span>
+			</div>
+            <div class="jk_CardFront jk_cardIdUPCom " phototype="selfPhoto">
+				<input name="selfPhotoImg" type="file">
+				<span></span>
+				<span class="selfPhoto_text">正面免冠照</span>
+				<img style="display:none;" data-img-url="{$data.selfPhotoImg}">
+				<span class="deletePhotoBtn selfPhotoD jk_closeP">X</span>
+			</div>
+            <div class="jk_cardIdImg">
+            	<img src="__IMG__/mobile/cardIDimg.png">
+            </div>
+            <div class="jk_cardIdImg">
+				<img src="__IMG__/mobile/personimg.png">
+			</div>
+            <div class="jk_cardIdInfo">
+				<p>拍摄要求:</p>
+			提示：上传遇到困难联系客服
+				<p>1、必须为本人身份证</p>
+				<p>2、身份证信息清晰可辨</p>
+                <p>3、必须为本人照片</p>
+                <p>4、照片清晰可辨别</p>
+				<p>5、图片大小不超过2M</p>
+			</div>
+        </form>
+        <div class="jk_registerSubmit ">
+        	<button class="jk_btn" id="uploadPhotoBtn">提交</button>
+        </div>
+    </section>
+    <script src="__JS__/jquery.form.js"></script>
+    <script>
+        $(function(){
+            //已上传图片显示
+            $("#uploadPhotoForm").find("img").each(function(){
+                var imgUrl = $(this).attr('data-img-url');
+                if(imgUrl != '' && imgUrl != null && imgUrl != 'undefined'){
+                    $(this).css('display','block');
+                    $(this).attr('src',"__PUBLIC__/"+imgUrl);
+                }
+            });
+
+            //图片选择预览
+            if(typeof FileReader === 'undefined') {
+                layer.open({
+                    content: '抱歉，你的浏览器暂不支持'
+                    ,skin: 'msg'
+                    ,time: 2
+                  });
+                $("input[type='file']").attr('disabled', 'disabled');
+            }else{
+                $("input[type='file']").on('change',function(){
+                    var file = this.files[0];
+                    var inputObj = this;
+                    if(!/image\/\w+/.test(file.type)) {
+                        layer.open({
+                            content: '请选择图片文件'
+                            ,skin: 'msg'
+                            ,time: 2
+                          });
+                        return false;
+                    }
+                    var maxSize = 6{$Think.config.site.maxupload};//单位:MB
+                    var fileSize = file.size / (5120*5120);
+                    if(fileSize >= maxSize){
+                        layer.open({
+                            content: '文件大小不能超过2M'
+                            ,skin: 'msg'
+                            ,time: 2
+                          });
+                        return false;
+                    }
+                    var reader = new FileReader();
+                    reader.readAsDataURL(file);
+                    reader.onload = function(e) {
+                        var imgObj = $(inputObj).parent().find("img");
+                        var closeObj = $(inputObj).parent().find(".deletePhotoBtn");
+                        $(imgObj).css('display','block');
+                        $(imgObj).attr('src',this.result);
+                        $(closeObj).css('display','block');
+                    }
+                });
+                $(".deletePhotoBtn").on('click',function(){
+                    var imgObj = $(this).parent().find("img");
+                    var fileObj = $(this).parent().find("input[type='file']");
+                    $(imgObj).attr('src','');
+                    $(imgObj).css('display','none');
+                    $(fileObj).val('');
+                    $(this).hide();
+                });
+
+            }
+
+            $("#uploadPhotoBtn").on('click',function(){
+                //验证文件是否完整
+                var flag = false;
+                var divObj;
+                $("input[type='file']").each(function(){
+                    divObj = $(this).parent();
+                    $(divObj).attr('style','');
+                    if($(this).val() == '' || $(this).val() == null || $(this).val() == 'undefined'){
+                        flag = true;
+                    }
+                    if(flag){
+                        $(divObj).attr('style','border: 1px solid red;');
+                        layer.open({
+                            content: '请选择图片'
+                            ,skin: 'msg'
+                            ,time: 2
+                          });
+                return false;
+                    }
+					          layer.open({
+                                content:'正在上传中,请稍等......',
+                                skin:'msg',
+                                time:1000
+                            });
+                });
+                //文件上传保存
+                $("#uploadPhotoForm").ajaxSubmit({
+                    success:function(data){
+                        if(data.code == 1){
+                            layer.open({
+                                content:'保存成功',
+                                skin:'msg',
+                                time:data.wait
+                            });
+                            setTimeout(function(){window.location.href = data.url;},data.wait*1000);
+                        }else{
+                            layer.open({
+                                content:data.msg,
+                                btn:'确定'
+                            });
+                        }
+                    }
+                });
+
+            });
+
+        });
+    </script>
+
+</body>
+</html>

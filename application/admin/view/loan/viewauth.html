@@ -1,0 +1,570 @@
+<link href="__CSS__/public.css" rel="stylesheet" type="text/css">
+<link href="__CSS__/font-awesome.min.css" rel="stylesheet" type="text/css">
+<link href="__CSS__/font-awesome-ie7.min.css" rel="stylesheet" type="text/css">
+<style>
+    table tr td:first-child{
+        width: 131px;
+    }
+</style>
+<script type="text/javascript" src="__JS__/jquery.min.js"></script>
+<script type="text/javascript" src="__JS__/jquery.form.js"></script>
+<script type="text/javascript" src="__JS__/global.js"></script>
+<script type="text/javascript" src="__JS__/md5.js"></script>
+<script>
+var controller_name = "{$Request.controller}";
+var action_name = "{$Request.action}";
+var fileupload_url="{:url('publics/Upload/index')}";
+var site_url = "http://{$Request.host}/";
+</script>
+<script type="text/javascript" src="__JS__/page/admin_common.js"></script>
+<script type="text/javascript" src="__JS__/layer/layer.js"></script>
+<script type="text/javascript" src="__JS__/jquery.tab.js"></script>
+<script type="text/javascript">
+    $(function(){ $(".idTabs").idTabs(); });
+</script>
+<div class="idTabs">
+<ul class="tab">
+    <li><a href="#identity">实名认证</a></li>
+    <li><a href="#person">联系人</a></li>
+    <li><a href="#mobile">运营商</a></li>
+    <li><a href="#taobao">淘宝数据</a></li>
+    <li><a href="#photo">照片资料</a></li>
+    <li><a href="#bank">银行卡</a></li>
+</ul>
+    <div class="items">
+        <div id="identity">
+<table width="100%" border="0" cellpadding="8" cellspacing="0" class="tableBasic">
+    {php}$identity = json_decode($data['identity'],true);{/php}
+    <tr>
+        <th width="131">名称</th>
+        <th>内容</th>
+    </tr>
+    <tr>
+        <td align="right">姓名</td>
+        <td>
+            <span>{$identity.name}</span>
+        </td>
+    </tr>
+    <tr>
+        <td align="right">身份证号</td>
+        <td>
+            <span>{$identity.idcard}</span>
+        </td>
+    </tr>
+</table>
+        </div>
+        <div id="person">
+<table width="100%" border="0" cellpadding="8" cellspacing="0" class="tableBasic">
+    {php}$person = json_decode($data['person'],true);{/php}
+    <tr>
+        <th width="131">名称</th>
+        <th>内容</th>
+    </tr>
+    <tr>
+        <td align="right">学历</td>
+        <td>
+            <span>{$person.eduation}</span>
+        </td>
+    </tr>
+    <tr>
+        <td align="right">居住地址</td>
+        <td>
+            <span>{$person.address}  {$person.streetName}</span>
+        </td>
+    </tr>
+    <tr>
+        <td align="right">单位名称</td>
+        <td>
+            <span>{$person.workUnit}</span>
+        </td>
+    </tr>
+    <tr>
+        <td align="right">单位地址</td>
+        <td>
+            <span>{$person.workAddress}  {$person.workDetailAddress}</span>
+        </td>
+    </tr>
+    <tr>
+        <td align="right">①联系人关系</td>
+        <td>
+            <span>{$person.relationship1}</span>
+        </td>
+    </tr>
+    <tr>
+        <td align="right">①联系人名称</td>
+        <td>
+            <span>{$person.rs_realname1}</span>
+        </td>
+    </tr>
+    <tr>
+        <td align="right">①联系人电话</td>
+        <td>
+            <span>{$person.rs_phone1}</span>
+        </td>
+    </tr>
+    <tr>
+        <td align="right">②联系人关系</td>
+        <td>
+            <span>{$person.relationship2}</span>
+        </td>
+    </tr>
+    <tr>
+        <td align="right">②联系人名称</td>
+        <td>
+            <span>{$person.rs_realname2}</span>
+        </td>
+    </tr>
+    <tr>
+        <td align="right">②联系人电话</td>
+        <td>
+            <span>{$person.rs_phone2}</span>
+        </td>
+    </tr>
+</table>
+        </div>
+        <div id="mobile">
+<table width="100%" border="0" cellpadding="8" cellspacing="0" class="tableBasic">
+    {php}$mobile = json_decode($data['mobile'],true);{/php}
+    <tr><th></th><th align="left">报告基本信息</th></tr>
+    {php}$base = $mobile['basicInfo'];{/php}
+    <tr>
+        <td align="right">报告时间</td>
+        <td>
+            <span>{$base.reportTime}</span>
+        </td>
+    </tr>
+    <tr>
+        <td align="right">姓名</td>
+        <td>
+            <span>{$base.name}</span>
+        </td>
+    </tr>
+    <tr>
+        <td align="right">身份证号</td>
+        <td>
+            <span>{$base.certNo}</span>
+        </td>
+    </tr>
+    <tr>
+        <td align="right">登记手机号</td>
+        <td>
+            <span>{$base.phoneNo}</span>
+        </td>
+    </tr>
+    <tr>
+        <td align="right">年龄</td>
+        <td>
+            <span>{$base.age}</span>
+        </td>
+    </tr>
+    <tr>
+        <td align="right">性别</td>
+        <td>
+            <span>{$base.sex}</span>
+        </td>
+    </tr>
+    <tr>
+        <td align="right">出生日期</td>
+        <td>
+            <span>{$base.birthday}</span>
+        </td>
+    </tr>
+    <tr>
+        <td align="right">出生地</td>
+        <td>
+            <span>{$base.birthArea}</span>
+        </td>
+    </tr>
+    <tr>
+        <td align="right">手机归属地</td>
+        <td>
+            <span>{$base.phoneBelongArea}</span>
+        </td>
+    </tr>
+    <tr><th></th><th align="left">运营商基本信息</th></tr>
+    {php}$phone = $mobile['phoneInfo'];{/php}
+    <tr>
+        <td align="right">运营商类型</td>
+        <td>
+            <span>{$phone.operator}</span>
+        </td>
+    </tr>
+    <tr>
+        <td align="right">入网时间</td>
+        <td>
+            <span>{$phone.inNetDate}</span>
+        </td>
+    </tr>
+    <tr>
+        <td align="right">实名认证</td>
+        <td>
+            <span>{$phone.realName}</span>
+        </td>
+    </tr>
+    <tr>
+        <td align="right">认证身份证号</td>
+        <td>
+            <span>{$phone.certNo}</span>
+        </td>
+    </tr>
+    <tr>
+        <td align="right">手机号</td>
+        <td>
+            <span>{$phone.phoneNo}</span>
+        </td>
+    </tr>
+    <tr>
+        <td align="right">登记邮箱</td>
+        <td>
+            <span>{$phone.email}</span>
+        </td>
+    </tr>
+    <tr>
+        <td align="right">当前余额</td>
+        <td>
+            <span>{$phone.balance}</span>
+        </td>
+    </tr>
+    <tr>
+        <td align="right">会员等级</td>
+        <td>
+            <span>{$phone.vipLevel}</span>
+        </td>
+    </tr>
+    <tr>
+        <td align="right">积分值</td>
+        <td>
+            <span>{$phone.pointValue}</span>
+        </td>
+    </tr>
+    <tr>
+        <td align="right">网龄</td>
+        <td>
+            <span>{$phone.netAge}</span>
+        </td>
+    </tr>
+    <tr>
+        <td align="right">最早一次通话时间</td>
+        <td>
+            <span>{$phone.firstCallDate}</span>
+        </td>
+    </tr>
+    <tr>
+        <td align="right">最近一次通话时间</td>
+        <td>
+            <span>{$phone.lastCallDate}</span>
+        </td>
+    </tr>
+    <tr>
+        <td align="right">登记地址</td>
+        <td>
+            <span>{$phone.addr}</span>
+        </td>
+    </tr>
+    <tr><th></th><th align="left">欺诈风险</th></tr>
+    {php}$deceitRisk = $mobile['deceitRisk'];{/php}
+    <tr>
+        <td align="right">身份证号码有效性</td>
+        <td>
+            <span>{if condition="$deceitRisk['certNoIsValid']"}有效{else/}无效{/if}</span>
+        </td>
+    </tr>
+    <tr>
+        <td align="right">运营商是否实名</td>
+        <td>
+            <span>{if condition="$deceitRisk['phoneIsAuth'] eq 'True'"}已实名{else/}未实名{/if}</span>
+        </td>
+    </tr>
+    <tr>
+        <td align="right">运营商实名是否与登记人一致</td>
+        <td>
+            <span>{if condition="$deceitRisk['samePeople'] eq 'True'"}一致{else/}不一致{/if}</span>
+        </td>
+    </tr>
+    <tr>
+        <td align="right">是否出现长时间待机</td>
+        <td>
+            <span>{if condition="$deceitRisk['longTimePowerOff'] eq 'True'"}是{else/}否{/if} (5天以上无短信记录，无通话记录)</span>
+        </td>
+    </tr>
+    <tr>
+        <td align="right">申请人信息是否命中网贷黑名单</td>
+        <td>
+            <span>{if condition="$deceitRisk['inBlacklist'] eq 'True'"}是{else/}否(或无记录){/if}</span>
+        </td>
+    </tr>
+    <tr>
+        <td align="right">是否出现法院相关号码呼叫</td>
+        <td>
+            <span>{if condition="$deceitRisk['calledByCourtNo'] eq 'True'"}是{else/}否(或无记录){/if}</span>
+        </td>
+    </tr>
+    <tr>
+        <td align="right">是否和紧急联系人联系过</td>
+        <td>
+            <span>{if condition="$deceitRisk['emergency_contacted'] eq 'True'"}是{else/}否{/if}</span>
+        </td>
+    </tr>
+    <tr><th></th><th align="left">运营商消费分析</th></tr>
+    {php}$consumeInfo = $mobile['consumeInfo'];{/php}
+    <tr>
+        <th>月份</th>
+        <th>主叫时间（分）</th>
+        <th>被叫时间（分）</th>
+        <th>短信数（条）</th>
+        <th>话费充值额（元）</th>
+    </tr>
+    {volist name="consumeInfo" id="vo"}
+        <tr>
+            <td align="center">{$vo.month}</td>
+            <td align="center">{$vo.callTime}</td>
+            <td align="center">{$vo.calledTime}</td>
+            <td align="center">{$vo.totalSmsNumber}</td>
+            <td align="center">{$vo.payMoney}</td>
+        </tr>
+    {/volist}
+    <tr><th></th><th align="left">通话记录分析</th></tr>
+    {php}$callRecordsInfo = $mobile['callRecordsInfo'];{/php}
+    <tr>
+        <th>号码</th>
+        <th>通话时长</th>
+        <th>通话次数</th>
+        <th>号码归属地</th>
+        <th>被叫次数</th>
+        <th>主叫次数</th>
+        <th>号码标识</th>
+    </tr>
+    {volist name="callRecordsInfo" id="vo"}
+        <tr>
+            <td align="center">{$vo.phoneNo}</td>
+            <td align="center">{$vo.connTime}</td>
+            <td align="center">{$vo.connTimes}</td>
+            <td align="center">{$vo.belongArea}</td>
+            <td align="center">{$vo.calledTimes}</td>
+            <td align="center">{$vo.callTimes}</td>
+            <td align="center">{$vo.identifyInfo}</td>
+        </tr>
+    {/volist}
+    <tr><th></th><th align="left">短信记录</th></tr>
+    {php}$messageRecordsInfo = $mobile['messageRecordsInfo'];{/php}
+    <tr>
+        <th>号码</th>
+        <th>号码归属地</th>
+        <th>条数</th>
+        <th>号码标识</th>
+    </tr>
+    {volist name="messageRecordsInfo" id="vo"}
+        <tr>
+            <td align="center">{$vo.phoneNo}</td>
+            <td align="center">{$vo.belongArea}</td>
+            <td align="center">{$vo.totalSmsNumber}</td>
+            <td align="center">{$vo.identifyInfo}</td>
+        </tr>
+    {/volist}
+    <tr><th></th><th align="left">联系人区域分析</th></tr>
+    {php}$contactAreaInfo = $mobile['contactAreaInfo'];{/php}
+    <tr>
+        <th>地区</th>
+        <th>号码数量</th>
+        <th>主叫次数</th>
+        <th>主叫时间</th>
+        <th>被叫次数</th>
+        <th>被叫时间</th>
+        <th>占比</th>
+    </tr>
+    {volist name="contactAreaInfo" id="vo"}
+        <tr>
+            <td align="center">{$vo.area}</td>
+            <td align="center">{$vo.totalNumber}</td>
+            <td align="center">{$vo.callTimes}</td>
+            <td align="center">{$vo.callTime}</td>
+            <td align="center">{$vo.calledTimes}</td>
+            <td align="center">{$vo.calledTime}</td>
+            <td align="center">{$vo['percent'] * 100}%</td>
+        </tr>
+    {/volist}
+</table>
+        </div>
+        <div id="taobao">
+<table width="100%" border="0" cellpadding="8" cellspacing="0" class="tableBasic">
+    {php}$taobao = json_decode($data['taobao'],true);{/php}
+    {php}
+        $accountSafeInfo = $taobao['accountSafeInfo'];
+        $personalInfo = $taobao['personalInfo'];
+        $bindAccountInfo = $taobao['bindAccountInfo'];
+    {/php}
+    <tr><th></th><th align="left">基本信息</th></tr>
+    <tr>
+        <td align="right">用户名</td>
+        <td>{$accountSafeInfo.username}</td>
+    </tr>
+    <tr>
+        <td align="right">会员等级</td>
+        <td>{$personalInfo.taobaoLevel}</td>
+    </tr>
+    <tr>
+        <td align="right">绑定手机号</td>
+        <td>{$accountSafeInfo.bindMobile}</td>
+    </tr>
+    <tr>
+        <td align="right">登录邮箱</td>
+        <td>{$accountSafeInfo.loginEmail}</td>
+    </tr>
+    <tr>
+        <td align="right">实名信息</td>
+        <td>{$bindAccountInfo.identity}</td>
+    </tr>
+    <tr>
+        <td align="right">账户类型</td>
+        <td>{$bindAccountInfo.accountType}</td>
+    </tr>
+    <tr>
+        <td align="right">账户安全等级</td>
+        <td>{$accountSafeInfo.safeLevel}</td>
+    </tr>
+    <tr>
+        <td align="right">极速退款授信额度</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td align="right">淘宝成长值</td>
+        <td>{$personalInfo.growthValue}</td>
+    </tr>
+    <tr>
+        <td align="right">天猫经验值</td>
+        <td>{$personalInfo.tianmaoExperience}</td>
+    </tr>
+    <tr>
+        <td align="right">天猫等级</td>
+        <td>{$personalInfo.tianMaoLevel}</td>
+    </tr>
+    <tr>
+        <td align="right">买家信用积分</td>
+        <td>{$personalInfo.buyerCreditPoint}</td>
+    </tr>
+    <tr>
+        <td align="right">天猫积分</td>
+        <td>{$personalInfo.tianMaoPoints}</td>
+    </tr>
+    <tr><th></th><th align="left">支付宝</th></tr>
+    <tr>
+        <td align="right">支付宝账户</td>
+        <td>{$bindAccountInfo.alipatAccount}</td>
+    </tr>
+    <tr>
+        <td align="right">支付宝余额</td>
+        <td>{$personalInfo.aliPayRemainingAmount}</td>
+    </tr>
+    <tr>
+        <td align="right">蚂蚁花呗总额度</td>
+        <td>{$personalInfo.huabeiTotalAmount}</td>
+    </tr>
+    <tr>
+        <td align="right">蚂蚁花呗剩余额度</td>
+        <td>{$personalInfo.huabeiCanUseMoney}</td>
+    </tr>
+    <tr><th></th><th align="left">收货地址</th></tr>
+    {php}$addrs = $taobao['addrs'];{/php}
+    <tr>
+        <th>收货人</th>
+        <th>电话</th>
+        <th>收货地址</th>
+    </tr>
+    {volist name="addrs" id="vo"}
+        {php}$arr = explode('|',$vo);{/php}
+        <tr>
+            <td align="center">{$arr[0]}</td>
+            <td align="center">{$arr[4]}</td>
+            <td align="center">{$arr[1]}{$arr[2]}</td>
+        </tr>
+    {/volist}
+    <tr><th></th><th align="left">订单记录</th></tr>
+    {php}$orderList = $taobao['orderList'];{/php}
+    {volist name="orderList" id="vo"}
+        <table width="100%" border="0" cellpadding="8" cellspacing="0" class="tableBasic">
+        <tr>
+            <td align="right">订单编号:</td>
+            <td>{$vo.orderid}</td>
+            <td align="right">订单状态:</td>
+            <td>{$vo.orderStatus}</td>
+        </tr>
+        {php}$orderProducts = $vo['orderProducts'];{/php}
+        {volist name="orderProducts" id="v"}
+        <tr>
+            <td align="right">商品名称:</td>
+            <td>{$v.productName}</td>
+            <td align="right">单价:</td>
+            <td>{$v.productPrice}元</td>
+        </tr>
+        {/volist}
+        <tr>
+            <td align="right">订单时间:</td>
+            <td>{$vo.businessDate}</td>
+            <td align="right">订单总额:</td>
+            <td>{$vo.orderTotalPrice}元</td>
+        </tr>
+        </table>
+        <br>
+    {/volist}
+</table>
+        </div>
+        <div id="photo">
+<table width="100%" border="0" cellpadding="8" cellspacing="0" class="tableBasic">
+    {php}$photo = json_decode($data['photo'],true);{/php}
+    <tr>
+        <th width="131">名称</th>
+        <th>内容</th>
+    </tr>
+    <tr>
+        <td align="right">身份证正面</td>
+        <td>
+            <img src="__PUBLIC__/{$photo.idCardFrontImg}" alt="身份证正面" style="max-width: 500px;" />
+        </td>
+    </tr>
+    <tr>
+        <td align="right">身份证反面</td>
+        <td>
+            <img src="__PUBLIC__/{$photo.idCardReverseImg}" alt="身份证反面" style="max-width: 500px;" />
+        </td>
+    </tr>
+    <tr>
+        <td align="right">手持身份证照</td>
+        <td>
+            <img src="__PUBLIC__/{$photo.selfCardPhotoImg}" alt="手持身份证照" style="max-width: 500px;" />
+        </td>
+    </tr>
+    <tr>
+        <td align="right">正面免冠照</td>
+        <td>
+            <img src="__PUBLIC__/{$photo.selfPhotoImg}" alt="头部半身照" style="max-width: 500px;" />
+        </td>
+    </tr>
+</table>
+        </div>
+        <div id="bank">
+<table width="100%" border="0" cellpadding="8" cellspacing="0" class="tableBasic">
+    {php}$bank = json_decode($data['bank'],true);{/php}
+    <tr>
+        <th width="131">名称</th>
+        <th>内容</th>
+    </tr>
+    <tr>
+        <td align="right">银行卡号</td>
+        <td>
+            {$bank.card}
+        </td>
+    </tr>
+    <tr>
+        <td align="right">预留手机号</td>
+        <td>
+            {$bank.phone}
+        </td>
+    </tr>
+</table>
+        </div>
+
+
+
+
+    </div>
+</div>

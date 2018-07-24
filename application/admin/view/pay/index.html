@@ -1,0 +1,60 @@
+{include file="Public/mainHead"}
+<h3>
+    充值订单列表
+</h3>
+
+<div class="filter">
+    <form method="get" ajax='0'>
+        <input name="seach[id]" type="text" class="inpMain" value="{$seach.id}" placeholder="以订单ID查找" size="20" />
+        <input name="seach[ordernum]" type="text" class="inpMain" value="{$seach.ordernum}" placeholder="以订单编号查找" size="20" />
+        <input name="seach[username]" type="text" class="inpMain" value="{$seach.username}" placeholder="以用户名查找" size="20" />
+        <select name="seach[status]">
+            <option value="-1">全部订单</option>
+            <option value="0" {if condition="$seach['status'] eq 0"}selected{/if} >待支付</option>
+            <option value="1" {if condition="$seach['status'] eq 1"}selected{/if} >已支付</option>
+        </select>
+        <input name="submit" class="btnGray" type="submit" value="筛选" />
+    </form>
+</div>
+
+
+    <table width="100%" border="0" cellpadding="8" cellspacing="0" class="tableBasic">
+        <tr>
+            <th width="50" align="center">ID</th>
+            <th width="50" align="center">订单号</th>
+            <th align="center">充值用户</th>
+            <th align="center">充值金额</th>
+            <th align="center">订单创建时间</th>
+            <th align="center">状态</th>
+            <th align="center">操作</th>
+        </tr>
+        {php}$status = [0=>'等待支付',1=>'支付成功'];{/php}
+        {volist name="data" id="v"}
+        <tr dataId="{$v.id}">
+            <td align="center">{$v.id}</td>
+            <td align="center">{$v.ordernum}</td>
+            <td align="center">{$v.user.mobile|default="用户不存在"}</td>
+            <td align="center">{$v.money}元</td>
+            <td align="center">{$v.add_time|date="Y-m-d H:i:s",###}</td>
+            <td align="center">
+                {$status[$v['status']]}
+            </td>
+            <td align="center">
+                {if condition="$v['status'] eq 0"}
+                    <a href="javascript:confirmPay('{$v.ordernum}');" class="btn">确认支付</a>
+                {/if}
+                <a href="javascript:delOrder('{$v.id}','{$v.ordernum}');" class="btnRed">删除订单</a>
+            </td>
+        </tr>
+        {/volist}
+    </table>
+    <div class="list-page">
+        {$page}
+    </div>
+
+
+</div>
+
+
+{include file="Public/mainFoot"}
+<script src="__JS__/page/admin_pay_index.js"></script>

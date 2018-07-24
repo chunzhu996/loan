@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<!-- saved from url=(0048)https://cs.biosyun.com/mobile/user/newindex.html -->
+<html class="am-touch js cssanimations">
+<head lang="en">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>个人中心</title>
+    {include file='public/head' }
+</head>
+<body>
+<div class="get">
+    <div class="am-g">
+        <div class="am-u-lg-12">
+        </div>
+    </div>
+</div>
+<div class="detail">
+    <div class="am-g am-container">
+        <div class="am-u-lg-12">
+            <div class="get-title">
+            </div>
+            <div class="am-g cesebolo">
+                <br />
+                <span style="margin-left:18px;">18250050055<button type="button" onclick="kefu()" style="float: right;margin-top: -50%;padding: 5px;width: 34px;color: #FFF;background: rgba(0,0,0,.2);border-radius: 3px;border: 1px solid rgba(0,0,0,.2);"><i class=""></i> </button></span>
+                <span class="am-fr">软件版本:v1.89</span>
+                <br />
+                <br />
+                <div class="am-panel am-panel-default amdlou">
+                    <div class="am-panel-bd">
+                        <div onclick="javascript:window.location.href='/mobile/user/coin'">
+                            <img src="/public/src/images/sp1.png" class="iconsd" />&nbsp;&nbsp;我的钱包
+                            <span class="gos am-fr"><img src="/public/src/images/go.png" class="iconsd" /></span>
+                        </div>
+                        <hr />
+                        <div onclick="javascript:window.location.href='/quanbu/guanyu.html'">
+                            <img src="/public/src/images/lxr.png" class="iconsd" />&nbsp;&nbsp;关于我们
+                            <span class="gos am-fr"><img src="/public/src/images/go.png" class="iconsd" /></span>
+                        </div>
+                        <hr />
+                        <div onclick="javascript:window.location.href='/mobile/loan/lists.html'">
+                            <img src="/public/src/images/jl.png" class="iconsd" />&nbsp;&nbsp;借款记录
+                            <span class="gos am-fr"><img src="/public/src/images/go.png" class="iconsd" /></span>
+                        </div>
+                        <hr />
+                        <div onclick="javascript:window.location.href='/mobile/user/userconfirm'">
+                            <img src="/public/src/images/bank.png" class="iconsd" />&nbsp;&nbsp;立即认证
+                            <span class="gos am-fr"><img src="/public/src/images/go.png" class="iconsd" /></span>
+                        </div>
+                        <hr />
+                        <div onclick="javascript:window.location.href='/mobile/index/findpass.html'">
+                            <img src="/public/src/images/xiaoxi.png" class="iconsd" />&nbsp;&nbsp;修改密码
+                            <span class="gos am-fr"><img src="/public/src/images/go.png" class="iconsd" /></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="am-panel am-panel-default amdlou">
+                    <div class="am-panel-bd">
+                        <div>
+                            <img src="/public/src/images/lxwm.png" class="iconsd" />&nbsp;&nbsp;客服电话
+                            <span>400-107-1187</span>
+                            <span class="gos am-fr"><img src="/public/src/images/go.png" class="iconsd" /></span>
+                        </div>
+                        <hr />
+                        <div id="login_out_elem">
+                            <img src="/public/src/images/tui.png" class="iconsd" />&nbsp;&nbsp;退出登录
+                            <span class="gos am-fr"><img src="/public/src/images/go.png" class="iconsd" /></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<footer class="footer">
+    <div class="am-g am-g-fixed">
+        <a href="https://cs.biosyun.com/mobile/index/newindex.html">
+            <div class="am-u-sm-4" style="color: #7a7a7a;">
+                <img src="/public/src/images/sy.png" class="imgs" />
+                <br />
+                <b>首页</b>
+            </div> </a>
+        <a href="https://cs.biosyun.com/mobile/index/index.html">
+            <div class="am-u-sm-4" style="color: #7a7a7a;">
+                <img src="/public/src/images/sp1.png" class="imgs" />
+                <br />
+                <b>借款</b>
+            </div> </a>
+        <a href="https://cs.biosyun.com/mobile/user/newindex">
+            <div class="am-u-sm-4" style="color: #DD514C;">
+                <img src="/public/src/images/user1.png" class="imgs" />
+                <br />
+                <b>我的</b>
+            </div> </a>
+    </div>
+</footer>
+<script>
+    $("#login_out_elem").on('click', function () {
+        layer.open({
+            content: '确定要退出登录吗？'
+            , btn: ['取消', '确定']
+            , skin: 'footer'
+            , yes: function (index) {
+                layer.close(index);
+            }
+            , no: function (index) {
+                window.location.href = '/mobile/index/logout.html';
+            }
+        });
+    });
+
+
+</script>
+</body>
+</html>

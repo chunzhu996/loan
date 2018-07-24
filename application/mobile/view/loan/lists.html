@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<!-- saved from url=(0040)https://cs.biosyun.com/mobile/loan/lists -->
+<html lang="en" class="am-touch js cssanimations">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>借款列表</title>
+</head>
+<body>
+{include file='public/head'}
+<style>
+    div {
+        background-color: transparent;
+    !important
+    }
+
+    .msg_ico {
+        width: 2.6rem;
+        height: 2.6rem;
+        background: url(/public/src/images/msg.png) center no-repeat;
+        background-size: contain;
+        display: block;
+    }
+
+    .footercopy {
+        position: fixed;
+        bottom: 0;
+        border-top: 2px solid #ddd;
+        color: #7f8c8d;
+        text-align: center;
+        width: 100%;
+    }
+
+    .imgs {
+        width: 37px;
+    }
+
+    .am-btn-primary {
+        color: #fff;
+        background-color: #E9524B;
+        border-color: #E9524B;
+    }
+
+    .color_lv {
+        color: #dd514c !important;
+    }
+</style>
+<style>
+    p {
+        margin: 0 0 8px 0 !important;
+    }
+</style>
+<div class="wrap jie_list" style="font-size: 1.5rem;">
+    <div class="msg_box" onclick="window.location.href='/mobile/msg/index.html''" style="    background: #E9524B;padding: 8px;">
+        <i class="ico msg_ico"></i>
+        <span style="display:none;"></span>
+    </div>
+    <ul class="list_ul" id="showList" style="padding-left: 0;margin-top: 0;">
+    </ul>
+</div>
+<footer class="footer" style="position:fixed;bottom: 0;left: 0;width: 100%;border-top: 2px solid #ddd;height: 6.5rem;">
+    <div class="am-g am-g-fixed">
+        <a href="/mobile/index/newindex.html" style="width:20%;float: none;text-align:center;">
+            <div class="am-u-sm-4" style="width:20%;color: #7a7a7a;font-size: 1.2rem!important;">
+                <img src="/public/src/images/sy.png" class="imgs"><br><b>资讯</b>
+            </div>
+        </a>
+
+        <a href="/mobile/loan/lists" style="width:20%;float: none;text-align:center;">
+            <div class="am-u-sm-4" style="width:20%;color: #E9524B;font-size: 1.2rem!important;">
+                <img src="/public/src/images/jiekuan.png" class="imgs"><br><b>借款记录</b>
+            </div>
+        </a>
+
+        <a href="/mobile/index/index.html" style="width:20%;float: none;text-align:center;">
+            <div class="am-u-sm-4" style="width:20%;color: #7a7a7a;font-size: 1.2rem!important;"><img src="/public/src/images/sp1.png" class="imgs"><br><b>首页</b>
+            </div>
+        </a>
+        <a href="/mobile/user/index" style="width:20%;float: none;text-align:center;">
+            <div class="am-u-sm-4" style="width:20%;color: #7a7a7a;font-size: 1.2rem!important;">
+                <img src="/public/src/images/user.png" class="imgs"><br><b>我的</b></div>
+        </a>
+
+        <a href="/mobile/user/coin" style="width:20%;float: none;text-align:center;">
+            <div class="am-u-sm-4" style="width:20%;color: #7a7a7a;font-size: 1.2rem!important;">
+                <img src="/public/src/images/qb.png" class="imgs"><br><b>钱包</b></div>
+        </a>
+    </div>
+</footer>
+
+<script>
+    //请求未读消息
+    $.get("/mobile/msg/getunreadnum.html", function (data, state) {
+        if (ajaxState(state)) {
+            layer.closeAll();
+            if (data.code == 1) {
+                var num = data.data;
+                if (num > 0) {
+                    var obj = $(".msg_box span");
+                    $(obj).html(num);
+                    $(obj).show();
+                }
+            }
+        }
+    });
+
+    function showXieYi(url) {
+        // layer.open({
+        //     type: 1
+        //     ,content: '<iframe id="myiframe" src="'+url+'" style="width:100%;" frameborder="0"></iframe>'
+        //     ,anim: 'up'
+        //     ,style: 'border: none;width: 80%;left: 10%;top: 10%;bottom: 10%;'
+        // });
+        // var ifm= document.getElementById("myiframe");
+        // ifm.height=document.documentElement.clientHeight;
+        window.location.href = url;
+    }
+
+    function ajaxState(state) {
+        if (state != 'success') {
+            layer.open({
+                content: '请求失败:'.state,
+                btn: '确定'
+            });
+            return false;
+        }
+        return true;
+    }
+</script>
+<script type="text/javascript">
+    var page = 1;
+
+    $(function () {
+        layer.open({
+            type: 2,
+            shadeClose: false
+        });
+        getList();
+    });
+
+
+    function getList() {
+        //获取消息列表
+        $.post(
+            "/mobile/loan/getlist",
+            {page: page},
+            function (data, state) {
+                layer.closeAll();
+               // console.log(data);
+                if(!data.data)
+                {
+                    layer.open({
+                        content: "您暂时没有申请借款哦！",
+                        btn: '立即借款',
+                        yes:function(){
+                            window.location.href = '/mobile/index/index';
+                        }
+
+                    });
+                    return;
+                }
+                if (ajaxState(state))
+                {
+                    if (data.code == 1) {
+                        var list = data.data;
+
+
+                        console.log(list);
+                        var html;
+                        if (page == 1) html = '';
+                        else html = $("#showList").html();
+                        for (var i = 0; i < list.length; i++) {
+                            var tmp = list[i];
+                            var money = tmp.borrowmoney;
+                            var ratamoney = tmp.ratemoney;
+                            var oid = tmp.id;
+                            var servicecharge = tmp.servicecharge;
+                            var status = tmp.status;
+                            var payok = tmp.payok;
+                            var time = maketime(tmp.add_time);
+                            var lalastime = maketime(tmp.add_time);
+
+
+
+                            var lasttime = getDateAfter_n(tmp.add_time.substr(0,10),30,null);
+
+                            var allmoney = tmp.allmoney;
+                            var overdue = tmp.overdue;
+                            var status_num;
+                            var status_str;
+                            var overdue_str = '';
+
+                            if (overdue != '0.00' && overdue != null) overdue_str = '(逾期费用 <span> ' + overdue + ' </span>元)';
+                            var status = [
+                                {'str': '待审核'},
+                                {'str': '已还清'},
+                                {'str': '失败'},
+                                {'str': '待还款'},
+                                {'str': '审核通过'},
+                                {'str': '审核通过'},//待提现
+                                {'str': '打款中'},
+                                {'str': '首期'},
+                                {'str': '冻结'},
+                                {'str': '流水不足'},
+                                {'str': '验证还款'},
+                                {'str': '入账成功'},
+                                {'str': '打款中'},
+                                {'str': '退款中'},
+                                {'str': '通道维护'},
+                                ];
+                            status_num = tmp.status;
+                            status_str = status[status_num]['str'];
+                            var buttt = '';
+                            if (status_num == '3') {
+
+                                var buttt = '<button type="button" class="am-btn am-btn-primary am-btn-block" onclick="'
+                                    + "pay('" + oid + "','" + status_num + "','" + (parseInt(money) + list[i].borrowtime * (list[i].ratemoney*100) ).toFixed(2) + "');" + '">还款</button>';
+                            }
+
+
+                            html = html + '<li>' +
+                                '<div class="biaoqian_l' + status_num + ' biaoqian">' +
+                                '<p class="am-text-center">' + status_str +
+                                '</p></div><div class="jie_top am-text-center">' +
+                                '<p class="jie_tit color_hui01" style="font-size: 1.8rem;">借款金额</p>' +
+                                '<p class="jie_jine color_red font_b">' + money + '</p>' +
+                                '<p class="jie_yhuan">还款总金额:<span class="color_red">' +
+                                (parseInt(list[i].borrowmoney) +(list[i].ratemoney*100) ).toFixed(2) +
+                                '</span>&nbsp;&nbsp;&nbsp;首期还款日: <span class="color_lv">' + lasttime + '</span></p></div><div class="am-u-sm-5 am_sm">' +
+                                '<p>总利息:<span class="color_red">' + (ratamoney*100).toFixed(2) + '</span></p>' +
+                                '<p>姓名:'+ list[i].username +'</p></div><div class="am-u-sm-7 am_sm">' +
+                                '<p>申请时间:<span class="color_lv">' + lalastime + '</span></p><p>证件:'+ list[i].idcard +'</p></div><div class="clear"></div>' + buttt + '</li>';
+                        }
+                        $("#showList").html(html);
+                        page++;
+                    } else {
+                        if (page == 1) {
+                            $(".loadmore").hide();
+                        } else {
+                            layer.open({
+                                content: data.msg,
+                                btn: '确定'
+                            });
+                        }
+                    }
+                }
+
+            }
+        );
+    }
+
+    function maketime(timestr) {
+        var str = timestr;
+
+        var str2 = str.replace(/-/g, '/');
+        var thistime = new Date(str2).Format("MM-dd hh:mm");
+
+        return thistime;
+    }
+    function getDateAfter_n(initDate, days, flag) {
+
+        if (!days) {
+            return initDate;
+        }
+        initDate = initDate.replace(/-/g, '');
+        flag = $.trim(flag);
+        var date;
+        // 是否设置了起始日期
+        if (!$.trim(initDate)) { // 没有设置初始化日期，就默认为当前日期
+            date = new Date();
+        } else {
+            var year = initDate.substring(0, 4);
+            var month = initDate.substring(4, 6);
+            var day = initDate.substring(6, 8);
+            date = new Date(year, month - 1, day); // 月份是从0开始的
+        }
+        date.setDate(date.getDate() + days);
+
+        var yearStr = date.getFullYear();
+        var monthStr = ("0" + (date.getMonth() + 1)).slice(-2, 8); // 拼接2位数月份
+        var dayStr = ("0" + date.getDate()).slice(-2, 8); // 拼接2位数日期
+        var result = "";
+        if (!flag) {
+            result = yearStr + "年" + monthStr + "月" + dayStr + "日";
+        } else {
+            result = yearStr + flag + monthStr + flag + dayStr + flag;
+        }
+        return result;
+    }
+
+
+
+
+    function getNowFormatDate() {
+        var date = new Date();
+        var seperator1 = "-";
+        var year = date.getFullYear();
+        var month = date.getMonth() + 1;
+        var strDate = date.getDate();
+        if (month >= 1 && month <= 9) {
+            month = "0" + month;
+        }
+        if (strDate >= 0 && strDate <= 9) {
+            strDate = "0" + strDate;
+        }
+        var currentdate = year + seperator1 + month + seperator1 + strDate;
+        return currentdate;
+    }
+
+
+
+    Date.prototype.Format = function (fmt) {
+
+        var date = this;
+        var o = {
+
+            "M+": date.getMonth() + 1, //月份
+            "d+": date.getDate(), //日
+            "h+": date.getHours(), //小时
+            "m+": date.getMinutes(), //分
+            "s+": date.getSeconds(), //秒
+            "q+": Math.floor((date.getMonth() + 3) / 3), //季度
+            "S": date.getMilliseconds() //毫秒
+        };
+
+        if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (date.getFullYear() + "").substr(4 - RegExp.$1.length));
+        for (var k in o)
+            if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+
+        return fmt;
+    }
+
+    function pay(oid, status, money) {
+        if (status == 3) {
+            layer.open({
+                content: '您将进行账单还款' +
+                '<br>请确认绑定银行卡无误<br>' +
+                '还款金额: ' + money + ' 元<br><hr>支付方式<hr><input type="radio" id="paytype2" name="paytype" value="ylpay" title="易连支付" checked>易连支付&nbsp;&nbsp;<input type="radio" id="paytype1" name="paytype" value="alipay" title="支付宝" checked>支付宝&nbsp;&nbsp;<input type="radio" id="paytype" name="paytype" value="sandpay" title="快捷支付">快捷支付&nbsp;&nbsp;'
+                , btn: ['确定还款', '暂时不还']
+                , yes: function (index) {
+                    layer.open({
+                        type: 2,
+                        shadeClose: false
+                    });
+                    //请求还款
+                    //开始判断支付选中状态
+                    if ($('#paytype').is(':checked')) {
+                        var paytype = $('#paytype').val();
+                    }
+                    if ($('#paytype1').is(':checked')) {
+                        var paytype = $('#paytype1').val();
+                    }
+                    if ($('#paytype2').is(':checked')) {
+                        var paytype = $('#paytype2').val();
+                    }
+                    $.post(
+                        "/mobile/loan/repayment.html",
+                        {oid: oid, paytype: paytype},
+                        function (data, state) {
+                            layer.closeAll();
+
+                            window.location.href = data.url;
+
+
+                        }
+                    );
+                }
+            });
+        }
+    }
+
+    function xssd(oid, servicecharge) {
+    }
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    {include file="public/head"}
+    <style>
+    div{
+        background-color: transparent;!important
+    }
+        .recharge,.withdraw
+        {
+            border: none;
+            height: 4rem;
+            -webkit-border-radius: 0.4rem;
+            -moz-border-radius: 0.4rem;
+            border-radius: 0.4rem;
+            margin-top: 1rem;
+            font-size: 1.4rem;
+            font-weight: 700;
+            background: #ff9fa7;
+            color: #fff;
+
+        }
+        .activeeee
+        {
+            background: #ff4a49;
+            color: #fff;
+        }
+    .imgs {
+        width: 37px;
+    }
+    </style>
+</head>
+<body>
+    <article class="page44">
+        <div class="pt_15 banner">
+        	<div class="b_top">
+                <div class="msg_box" onclick="window.location.href='{:url("Msg/index")}';">
+                    <i class="ico msg_ico"></i>
+                    <span style="display:none;"></span>
+                </div>
+            	<div class="photo">
+                    <img id="photoSrc" src="__IMG__/mobile/about_1.png" width="100%">
+                </div>
+            </div>
+            <div class="tc fc_f fs_16 b_center">
+            	<span id="userMobile"></span>
+            </div>
+            <div class="tc b_bott hide">
+                <a id="realNameAuth" href="javascript:;">请先实名制认证</a>
+            </div>
+        </div>
+        <article class="bg_white mb_15 pd no1 h_65">
+            <div class="clearfix con_bott" >
+                <div class="l">
+                    <h4>账户余额(元)</h4>
+                    <p class="fc_orange airal bott">
+                        <span id="userMoney" class="fs_18">0.00</span>
+                    </p>
+                </div>
+                <div class="r border_l">
+                    <h4>待还金额(元)</h4>
+                    <p class="fc_orange airal bott">
+                        <span id="shouldBack" class="fs_18">0.00</span>
+                    </p>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </article>
+
+<article style="background: #fff;height: 170px;width:90%;margin:20px;font-size:20px;margin-bottom: 15px;">
+		<div style="/*padding-left:10%;padding-right:10%;*/">
+				<a href="/mobile/user/vipcard.html"><img src="/public/src/images/whq.png" style="height:170px;width:100%;"></a>
+				</div>
+		</article>
+
+
+        <div class="margin_lr mb_15 tc btn_box" style="margin-top: 2.5rem;">
+            <input type="button" value="金 额" class="recharge btn btn_orange l"
+                   onclick="$('#payinDiv').show();$('#payoutDiv').hide();
+                    $('.recharge').addClass('activeeee');$('.withdraw').removeClass('activeeee');    ">
+            <input style="" type="button" value="提 现" class="withdraw r J_WithdrawnBtn" onclick="
+            $('#payoutDiv').show();$('#payinDiv').hide();
+            $('.withdraw').addClass('activeeee');$('.recharge').removeClass('activeeee');
+">
+        </div>
+    </article>
+
+    <section id="payinDiv" class="foot_bottom clearfix pt_10  border_t" style="display:none;">
+        <div class="margin_lr clearfix" style="background-color: #fff;padding-bottom: 1.5rem;padding-top: 1.5rem;">
+            <div class="ft_l fl">
+                <div class="input_c100">
+                    <input type="text" name="amount" value="" id="investmentAmount" class="money" maxlength="12" placeholder="请输入金额">
+                    <span class="fr">元</span>
+                </div>
+            </div>
+
+            <div class="">
+
+
+                <div style="clear:both;"></div>
+                <div style="text-align:left;margin-top: 1rem;">
+                   <span style="margin-left: 2.4rem;font-size: 1.4rem;font-weight: 700;">通道类型:</span>
+
+                    <a  class="change-type"
+                       style="display: inline-block;
+                              width: 5rem;
+                              height: 1.8rem;
+                              text-align:center;
+                              /*border-radius: 50%;*/
+                              background:#ff4a49;
+                              line-height: 1.8rem;
+                              color: white;
+                              margin-left: 1rem;
+                        ">
+                        充值</a>
+                    <a  class="change-type" style="display: inline-block;
+                              width: 5rem;
+                              height: 1.8rem;
+                              text-align:center;
+                              /*border-radius: 50%;*/
+                              background:#ff9fa7;
+                              line-height: 1.8rem;
+                              color: white;
+                               margin-left: 1rem;
+                        "
+                    >验证</a>
+                    <a  class="change-type"
+                       style="display: inline-block;
+                              width: 5rem;
+                              height: 1.8rem;
+                              text-align:center;
+                              /*border-radius: 50%;*/
+                              background:#ff9fa7;
+                              line-height: 1.8rem;
+                              color: white;
+                               margin-left: 1rem;
+                        "
+                    >异常</a>
+                </div>
+               	<input style="
+               	margin-top: 1.5rem;
+               	width: 30%;
+
+               	height: 3.5rem;
+background:#ff4a49;
+color: #fff;
+font-size: 1.4rem;
+font-weight: 700;
+-webkit-border-radius: 0.5rem;-moz-border-radius: 0.5rem;border-radius: 0.5rem;"
+                       type="button"
+                       id="commit_btn"
+                       value="下一步"
+                       class="btn btn_orange w_10">
+                <input style="margin-top: 1.5rem;width: 30%;
+
+               	height: 3.5rem;
+background:#c6bcc4;
+color: #fff;
+font-size: 1.4rem;
+font-weight: 700;
+-webkit-border-radius: 0.5rem;-moz-border-radius: 0.5rem;border-radius: 0.5rem;"
+                       type="button"
+                       value="取消"
+                       class="btn"
+                       onclick="$('#payinDiv').hide();">
+            </div>
+
+
+        </div>
+    </section>
+    <section id="payoutDiv" class="foot_bottom clearfix pt_10  border_t" style="display:none;">
+        <div class="margin_lr clearfix" style="background-color: #fff;padding-bottom: 1.5rem;padding-top: 1.5rem;">
+            <div class="ft_l fl">
+                <div class="input_c100">
+                    <input type="text" name="amount" value="" id="payoutAmount" class="money" maxlength="12" placeholder="请输入金额">
+                    <span class="fr">元</span>
+                </div>
+            </div>
+			{eq name="$Think.config.loan.ismoneycode" value="1"}
+			 <div class="ft_l fl">
+                <div class="input_c100">
+                    <input type="text" name="moneycode" value="" id="moneycode" class="money" maxlength="12" placeholder="请输入验证编号">
+                    
+                </div>
+            </div>
+			{/eq}
+            <div class="">
+               	<input style="
+margin-top: 1.5rem;
+               	width: 30%;
+               	height: 3.5rem;
+background:#ff4a49;
+color: #fff;
+font-size: 1.4rem;
+font-weight: 700;
+-webkit-border-radius: 0.5rem;-moz-border-radius: 0.5rem;border-radius: 0.5rem;border: none;" type="button" id="commit_btn_out" value="提现" class="btn btn_white r J_WithdrawnBtn">
+                <input style="
+                margin-top: 1.5rem;
+               	width: 30%;
+               	height: 3.5rem;
+background:#c6bcc4;
+color: #fff;
+font-size: 1.4rem;
+font-weight: 700;
+-webkit-border-radius: 0.5rem;-moz-border-radius: 0.5rem;border-radius: 0.5rem;" type="button" value="取消" class="btn" onclick="$('#payoutDiv').hide();">
+            </div>
+        </div>
+    </section>
+
+
+    <p class="fs_16  hint_top tc mt_10">
+    	<img src="/public/src/images/yw_5.png" width="24" height="24" style="padding-right:.5rem;width: auto;">
+    		账户资金安全由银行保障
+    </p>
+    <footer class="footer_all">
+        <div class="tc">
+    	    <span class="pr_15 fc_blue" onclick="window.location.href='tel:88888888'">
+                
+            </span>
+    	    <span class="pr_15 fc_blue" onclick="window.location.href='tel:88888888'">
+               
+            </span>
+        </div>
+        <p class="tc fc_9 fs_14">
+            &copy;2018 和信贷  京ICP证 100953号<br>
+        </p>
+    </footer>
+
+
+
+
+    <footer class="footer" style="position:fixed;bottom: 0;left: 0;width: 100%;border-top: 2px solid #ddd;height: 6.5rem;">
+        <div class="am-g am-g-fixed">
+            <a href="/mobile/index/newindex.html" style="width:20%;float: none;text-align:center;">
+                <div class="am-u-sm-4" style="width:20%;color: #7a7a7a;font-size: 1.2rem!important;">
+                    <img src="/public/src/images/sy.png" class="imgs"><br><b>资讯</b>
+                </div>
+            </a>
+
+            <a href="/mobile/loan/lists" style="width:20%;float: none;text-align:center;">
+                <div class="am-u-sm-4" style="width:20%;color: #7a7a7a;font-size: 1.2rem!important;"><img src="/public/src/images/jl.png" class="imgs"><br><b>借款记录</b>
+                </div>
+            </a>
+
+            <a href="/mobile/index/index.html" style="width:20%;float: none;text-align:center;">
+                <div class="am-u-sm-4" style="width:20%;color: #7a7a7a;font-size: 1.2rem!important;">
+                    <img src="/public/src/images/sp1.png" class="imgs"><br><b>首页</b>
+                </div>
+            </a>
+            <a href="/mobile/user/index" style="width:20%;float: none;text-align:center;">
+                <div class="am-u-sm-4" style="width:20%;color: #7a7a7a;font-size: 1.2rem!important;">
+                    <img src="/public/src/images/user.png" class="imgs"><br><b>我的</b></div>
+            </a>
+
+            <a href="/mobile/user/index" style="width:20%;float: none;text-align:center;">
+                <div class="am-u-sm-4" style="width:20%;color: #E9524B;font-size: 1.2rem!important;">
+                    <img src="/public/src/images/qb1.png" class="imgs"><br><b>钱包</b></div>
+            </a>
+        </div>
+    </footer>
+
+
+
+
+
+
+    <script>
+    $(function(){
+        //初始化用户钱包信息并定时刷新
+        getUserMoney();
+        setInterval("getUserMoney();","10000");
+        /*-----------------------------------------------------*/
+        layer.open({
+            type: 2,
+            shadeClose:false
+        });
+        //请求个人信息
+        $.get("{:url('Info/getInfoAuth')}",function(data,state){
+            if(ajaxState(state)){
+                layer.closeAll();
+                if(data.code == 1){
+                    var data = data.data;
+                    //实名认证状态
+                    if(data.name == 1 && data.idcard == 1){
+                        $("#realNameAuth").html('已实名认证');
+                    }
+                }else{
+                    layer.open({
+                        content:'信息请求失败'
+                    });
+                }
+            }
+        });
+        //请求未读消息
+        $.get("{:url('Msg/getUnreadNum')}",function(data,state){
+            if(ajaxState(state)){
+                layer.closeAll();
+                if(data.code == 1){
+                    var num = data.data;
+                    if(num > 0){
+                        var obj = $(".msg_box span");
+                        $(obj).html(num);
+                        $(obj).show();
+                    }
+                }
+            }
+        });
+        $('#commit_btn').on('click',function(){
+            var money = $("#investmentAmount").val();
+            if(money == '' || money == null){
+                layer.open({
+                    content: '充值金额必须大于0元',
+                    btn:'确定'
+                });
+                return false;
+            }
+            money = parseFloat(money);
+            money = money.toFixed(2);
+            if(money <= 0){
+                layer.open({
+                    content: '充值金额必须大于0元',
+                    btn:'确定'
+                });
+            }else{
+                window.location.href = '/mobile/loan/payCenter';
+            }
+                // $.post("{:url('Pay/newOrder')}",{money:money},function(data,state){
+                //     if(ajaxState(state)){
+                //         if(data.code == 1){
+                //             window.location.href = data.url;
+                //         }else{
+                //             layer.open({
+                //                 content: data.msg,
+                //                 btn:'确定'
+                //             });
+                //         }
+                //     }
+                // });
+            //}
+        });
+        $("#commit_btn_out").on('click',function(){
+            var money = $("#payoutAmount").val();
+			{eq name="$Think.config.loan.ismoneycode" value="1"}
+			var moneycode = $("#moneycode").val();
+			{/eq}
+            if(money == '' || money == null){
+                layer.open({
+                    content: '提现金额不规范',
+                    btn:'确定'
+                });
+                return false;
+            }
+            money = parseFloat(money);
+            money = money.toFixed(2);
+            if(money <= 0){
+                layer.open({
+                    content: '提现金额不规范',
+                    btn:'确定'
+                });
+            }else{
+                $.post("{:url('Withdrawals/index')}",{
+				{eq name="$Think.config.loan.ismoneycode" value="1"}
+				money:money,moneycode:moneycode
+				{/eq}
+				{eq name="$Think.config.loan.ismoneycode" value="0"}
+				money:money
+				{/eq}
+				},function(data,state){
+                    if(ajaxState(state)){
+                        if(data.code == 1){
+                            data.msg = '恭喜您，提现成功！';
+                        }
+                        layer.open({
+                            content: data.msg,
+                            btn:'确定'
+                        });
+                    }
+                });
+            }
+        });
+
+
+
+
+        $('.change-type').click(function()
+        {
+            $('.change-type').css({'background':'#ff9fa7'});
+            $(this).css({'background':'#ff4a49'});
+        });
+
+    });
+    function getUserMoney(){
+        $.get(siteurl+"/mobile/user/getuserinfo",function(data){
+
+            if(data.code == 1){
+                var data = data.data;
+                var money = data.money;
+                var their = data.their;
+                $("#userMoney").html(money);
+				{eq name="$isds" value="1"}
+                $("#their").html(their);
+			{/eq}
+				{eq name="$isds" value="0"}
+               $("#their").html('0.00');
+			{/eq}
+				$("#userMobile").html(data.mobile);
+            }
+        });
+    }
+
+
+    //获取用户借款状态码
+    function getList() {
+        //获取消息列表
+        $.post(
+            "/mobile/loan/getlist",
+            {page: 1},
+            function (data, state)
+            {
+                console.log(data.data);
+
+                if(data.data[0].status > 5)
+                {
+                    var per_expect = parseInt(data.data[0].borrowmoney) / parseInt(data.data[0].borrowtime) + data.data[0].ratemoney  * 100 / parseInt(data.data[0].borrowtime);
+                    $('#shouldBack').html(per_expect.toFixed(2));
+                }
+            }
+        );
+    }
+    getList();
+
+
+    </script>
+
+</body>
+</html>

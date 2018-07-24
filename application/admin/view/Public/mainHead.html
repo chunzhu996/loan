@@ -1,0 +1,124 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="zh-CN">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>管理中心</title>
+    <meta name="Copyright" content="CvPHP 1.0" />
+    <link href="__CSS__/public.css" rel="stylesheet" type="text/css">
+    <link href="__CSS__/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="__CSS__/font-awesome-ie7.min.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="__JS__/jquery.min.js"></script>
+    <script type="text/javascript" src="__JS__/jquery.form.js"></script>
+    <script type="text/javascript" src="__JS__/global.js"></script>
+    <script type="text/javascript" src="__JS__/md5.js"></script>
+    <script>
+    var controller_name = "{$Request.controller}";
+    var action_name = "{$Request.action}";
+    var fileupload_url="{:url('publics/Upload/index')}";
+    var site_url = "http://{$Request.host}/";
+    </script>
+    <script type="text/javascript" src="__JS__/page/admin_common.js"></script>
+    <script type="text/javascript" src="__JS__/layer/layer.js"></script>
+</head>
+<body>
+
+<div id="dcWrap">
+    <div id="dcHead">
+        <div id="head">
+            <div class="logo">
+                <a href="{:url('Index/index')}">
+                    <img src="__STATIC__/images/logo.png" alt="CvPHPx2.0.1">
+                </a>
+            </div>
+            <div class="nav">
+                <ul>
+                    <li class="M"><a href="JavaScript:void(0);" class="">查看站点</a>
+                        <div class="drop mTopad">
+                            <a href="{$Request.domain}" target="_blank">网站首页</a>
+                            <a href="{$Request.domain}/mobile" target="_blank">手机版</a>
+                        </div>
+                    </li>
+                    <li><a href="{:url('Index/clear_cache')}">清除缓存</a></li>
+                    <li class="noRight"><a href="http://www.suyouxf.wang" target="_blank">和信贷  京ICP证 100953号</a></li>
+                </ul>
+                <ul class="navRight">
+                    <li class="M noLeft"><a href="JavaScript:void(0);">您好，{$Think.session.CVPHP_ADMIN.username}</a>
+                        <div class="drop mUser">
+                            <a href="{:url('Admin/modifypass')}">修改密码</a>
+                            <!-- <a href="{:url('Admin/log')}">操作日志</a> -->
+                        </div>
+                    </li>
+                    <li class="noRight"><a href="javascript:logout('{:url('Index/logout')}');">退出</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- dcHead 结束 -->
+    <div id="dcLeft">
+        <div id="menu">
+            <ul class="top">
+                <li><a href="{:url('Index/index')}"><i class="dou home"></i><em>管理首页</em></a></li>
+            </ul>
+            <ul>
+                <li id="nav_Setting_index">
+                    <a href="{:url('Setting/index')}">
+                        <i class="dou system"></i><em>网站设置</em>
+                    </a>
+                </li>
+                <!-- <li><a href="{:url('Setting/theme')}"><i class="dou theme"></i><em>模板设置</em></a></li> -->
+            </ul>
+
+            <ul>
+                <li id="nav_Loan_index">
+                    <a href="{:url('Loan/index')}">
+                        <i class="icon icon-book"></i><em>借款列表</em>
+                    </a>
+                </li>
+                <li id="nav_Loan_overdue">
+                    <a href="{:url('Loan/overdue')}">
+                        <i class="icon icon-table"></i><em>逾期借款</em>
+                    </a>
+                </li>
+            </ul>
+
+            <ul>
+                <li id="nav_User_index">
+                    <a href="{:url('User/index')}">
+                        <i class="icon icon-user"></i><em>用户管理</em>
+                    </a>
+                 </li>
+                 <ul>
+                <li id="nav_Pay_index">
+                    <a href="{:url('Pay/index')}">
+                        <i class="icon icon-signin"></i><em>充值订单</em>
+                    </a>
+                </li>
+                <li id="nav_Withdrawals_index">
+                    <a href="{:url('Withdrawals/index')}">
+                        <i class="icon icon-money"></i><em>提现订单</em>
+                    </a>
+					 </li>
+            </ul>
+            {if condition="$Think.session.CVPHP_ADMIN.level eq 1"}
+            <ul class="bot">
+                <li id="nav_Admin_index"><a href="{:url('Admin/index')}"><i class="dou manager"></i><em>管理员列表</em></a></li>
+                <!-- <li id="nav_Admin_alllog"><a href="{:url('Admin/log')}"><i class="dou managerLog"></i><em>操作记录</em></a></li> -->
+                <li id="nav_Admin_add"><a href="{:url('Admin/add')}"><i class="icon icon-user"></i><em>添加管理员</em></a></li>
+            </ul>
+            {/if}
+            <!-- 预留模块菜单 -->
+
+            <!-- 预留模块菜单 -->
+        </div>
+          </div>
+      <div id="dcMain">
+        <!-- 最新公告 -->
+        <div id="urHere">
+            <span>最新公告:</span>
+            <marquee direction="left" scrollamount="5" scrolldelay="100" height="28px" style="position:absolute;color:#000;" width="50%">
+                {foreach name="notice" item="vo" key="k" }
+
+                {/foreach}
+            </marquee>
+        </div>
+        <div id="index" class="mainBox" style="height:auto!important;height:550px;min-height:550px;">

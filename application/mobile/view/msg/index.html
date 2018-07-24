@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    {include file="public/head"}
+    <link rel="stylesheet" href="__CSS__/mobile/loading.css">
+    <style>
+    div{
+        background-color: transparent;!important
+    }
+    </style>
+</head>
+<body>
+
+    <header class="top">
+        <span>我的消息</span>
+        <a href="{:url('user/coin')}" class="top_ico top_backleft"></a>
+    </header>
+
+    <article class="ks-tabs-panel ks-tabs-panel-selected in_con no1 editor_all">
+        <div class="clearfix bg_white">
+            <ul class="bg_white editor_msg" id="showList" style="transform-origin: 0px 0px 0px; opacity: 1; transform: scale(1, 1);">
+                <div class="tc pd empty"><span class="img"></span><p class="fc_9 pt_5 tex">暂无数据</p></div>
+            </ul>
+        </div>
+    </article>
+
+    <div class="loadmore" onclick="getList();">加载更多数据</div>
+
+    {include file="public/foot"}
+
+    <script type="text/javascript">
+        var page = 1;
+        $(function(){
+            layer.open({
+                type: 2,
+                shadeClose:false
+            });
+            getList();
+        });
+
+        function getList(){
+            //获取消息列表
+            $.post(
+                "{:url('Msg/getMsg')}",
+                {page:page},
+                function(data,state){
+                    layer.closeAll();
+                    if(ajaxState(state)){
+                        if(data.code == 1){
+                            var list = data.data;
+                            //console.log(list);
+                            var html;
+                            if(page == 1) html = '';
+                            else html = $("#showList").html();
+                            for (var i = 0; i < list.length; i++){
+                                var tmp = list[i];
+                                var title = tmp.title;
+                                var content = tmp.content;
+                                var status = tmp.status;
+                                var time = maketime(tmp.add_time);
+                                var sta_str = 'fc_9';
+                                if(status == 0) sta_str = '';
+                                html = html + '<li class="editor_ing msg_response" onclick="setLiView(this);"><div class="clearfix fc_3 line1"><div class="elli bt '+sta_str+' ">'+title+'</div><div class="elli  date '+sta_str+' ">'+time+'</div></div><div class="fs_14 fc_9 line2 showTitle elli">'+content+'</div>';
+                            }
+                            $("#showList").html(html);
+                            page ++;
+                        }else{
+                            if(page == 1){
+                                $(".loadmore").hide();
+                            }else{
+                                layer.open({
+                                    content:data.msg,
+                                    btn:'确定'
+                                });
+                            }
+                        }
+                    }
+                }
+            );
+        }
+
+        function maketime(timestr){
+			var str = timestr;
+
+			var str2 = str.replace(/-/g, '/');
+            var thistime = new Date(str2).Format("MM-dd hh:mm");
+			
+            return thistime;
+        }
+        Date.prototype.Format = function (fmt) {
+            var o = {
+                "M+": this.getMonth() + 1, //月份
+                "d+": this.getDate(), //日
+                "h+": this.getHours(), //小时
+                "m+": this.getMinutes(), //分
+                "s+": this.getSeconds(), //秒
+                "q+": Math.floor((this.getMonth() + 3) / 3), //季度
+                "S": this.getMilliseconds() //毫秒
+            };
+            if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+            for (var k in o)
+            if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+            return fmt;
+        }
+
+        function setLiView(obj){
+            var obj1 = $(obj).find(".line1");
+            var obj2 = $(obj).find(".line2");
+            $($(obj1).find(".bt")).addClass("fc_9");
+            $($(obj1).find(".date")).addClass("fc_9");
+            $("#showList li").each(function(){
+                $($(obj).find(".line2")).addClass("elli");
+            });
+            $(obj2).removeClass("elli");
+        }
+
+    </script>
+
+</body>
+</html>

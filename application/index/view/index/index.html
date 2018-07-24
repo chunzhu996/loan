@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8" />
+	<title>{$Think.config.site.title|default="CvPHP"}</title>
+	<meta name="description" content="{$Think.config.site.description|default="CvPHP"}"/>
+    <meta name="keywords" content="{$Think.config.site.keywords|default="CvPHP"}" />
+	<link rel="stylesheet" href="__CSS__/jquery.fullPage.css">
+	<link rel="stylesheet" href="__CSS__/officalWeb.css">
+	<style type="text/css">
+	.center-wrap {
+		position: relative;
+		z-index: 1;
+		width: 1160px;
+		height: 100%;
+		margin: 0 auto;
+	}
+
+	.tablecell .center-wrap {
+		padding-top: 80px;
+	}
+
+	.layout .center-wrap {
+		padding-top: 0px;
+		min-width: 1160px;
+		width: 100%;
+	}
+
+	.footer .center-wrap {
+		padding-top: 0px;
+		width: 84%;
+	}
+
+	.footer .fp-tableCell {
+		vertical-align: bottom;
+	}
+
+	.copyright p a {
+		color: rgb(135, 135, 135);
+	}
+
+	.copyright p a:hover {
+		cursor: pointer;
+		color: #666;
+	}
+</style>
+
+</head>
+<body>
+
+	<div id="ccl_Container">
+        <div class="section section-apply" data-anchor="firstpage">
+            <div class="apply-top ">
+                <div class="header">
+                    <div class="center-wrap">
+                        <img class="header-left" src="__PUBLIC__{$Think.config.site.logo}" alt="{$Think.config.site.title}" />
+                        <div class="header-right">
+                            <p>您的信用卫士</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="main-content view1 tablecell">
+                    <div class="center-wrap">
+                        <img src="__IMG__/word.png" class="word"  />
+                    </div>
+                    <img src="__IMG__/cloud.png" class="ccl-cloud cloud1" />
+                    <img src="__IMG__/cloud.png" class="ccl-cloud cloud2" />
+                    <img src="__IMG__/cloud.png" class="ccl-cloud cloud3" />
+                    <img src="__IMG__/cloud.png" class="ccl-cloud cloud4" />
+                    <img src="__IMG__/cloud.png" class="ccl-cloud cloud5" />
+                    <img src="__IMG__/kakatu.png" class="ccl-rabbit" />
+                    <img src="__IMG__/bus.png" class="ccl-bus" />
+                    <div class="ccl-arrow page-display">
+                        <a href="#twopage"><img src="__IMG__/officalWeb_arrow.png" /></a>
+                    </div>
+                </div>
+
+            </div>
+            <div class="apply-bottom"></div>
+        </div>
+        <div class="section section2" data-anchor="twopage">
+            <div class="main-content tablecell">
+                <div class="center-wrap">
+                    <div class="videoWrap">
+                        <button class="jp-video-play-icon" role="button" tabindex="0">play</button>
+                        <img src="__IMG__/tvin.png" class="ccl-tvin" />
+                        <video src="" width="680" height="580" class="ccl-video" id="video1">
+			        			您的浏览器不支持
+			        		</video>
+                        <img src="__IMG__/tv.png" class="ccl-tv" />
+                    </div>
+                    <img src="__IMG__/coffe_kakatu.png" class="ccl-coffeTu" />
+                    <img src="__IMG__/smoke.png" class="ccl-smoke" />
+                </div>
+
+            </div>
+        </div>
+        <div class="section section3" data-anchor="threepage">
+            <div class="leftPart">
+                <div>
+                    <img src="__IMG__/money_kkatu.png" class="ccl-sectionTu ccl-moneyTu" />
+                    <img src="__IMG__/left_word.png" class="ccl-leftword" alt="额度循环使用，最高可达5万" />
+                </div>
+
+                <div class="section3_leftCloud">
+                    <img src="__IMG__/cloud.png" class="ccl-leftcloud left-cloud1" />
+                    <img src="__IMG__/cloud.png" class="ccl-leftcloud left-cloud2" />
+                    <img src="__IMG__/cloud.png" class="ccl-leftcloud left-cloud3" />
+                    <img src="__IMG__/cloud.png" class="ccl-leftcloud left-cloud4" />
+                </div>
+                <div>
+                    <div class="goldHolder"></div>
+                </div>
+
+            </div>
+            <div class="rightPart">
+				<div>
+                    <img src="__IMG__/phoneTu1.png" class="ccl-sectionTu ccl-phoneTu phoneTu1" />
+                    <img src="__IMG__/phoneTu2.png" class="ccl-sectionTu ccl-phoneTu phoneTu2 page-display" />
+                    <img src="__IMG__/word4_right.png" class="ccl-rightword4" alt="移动端快速注册，2步解决信用卡烦恼" />
+                </div>
+
+                <div class="section3_rightCloud">
+                    <img src="__IMG__/cloud.png" class="ccl-rightcloud right-cloud1" />
+                    <img src="__IMG__/cloud.png" class="ccl-rightcloud right-cloud2" />
+                    <img src="__IMG__/cloud.png" class="ccl-rightcloud right-cloud3" />
+                </div>
+            </div>
+        </div>
+
+        <div class="section footer fp-auto-height fp-section" style="min-height: 540px;" data-anchor="fourpage">
+            <div class="top-content center-wrap">
+                <div class="layout tablecell">
+                    <div class="introduce center-wrap">
+                        <div class="item_list">
+                            <div class="title">
+                                <span>关于{$Think.config.site.name}</span>
+                            </div>
+                            <div class="content">
+                                <span>
+									(这里的文字请按照自身情况按需填写替换) <br>
+	        						移动互联网贷款服务平台，为您提供信用卡余额代偿服务。您可以通过卡卡贷微信服务号，提交申请信息、验证个人资料。在完成借款审核之后款项将进入您的个人账户钱包,可随时提现到您的银行卡中。
+		        				</span>
+                            </div>
+                        </div>
+                        <div class="item_list">
+                            <div class="title">
+                                <span>关于****</span>
+                            </div>
+                            <div class="content">
+                                <span>
+									(这里的文字请按照自身情况按需填写替换) <br>
+	        						“****”是一家科技金融企业，在国内拥有包括小额贷款、融资担保、融资租赁、金融服务在内的多家子公司及业务分部。公司业务覆盖全国五十多个主要城市，拥有强大的服务网络，为客户提供全方位的金融服务。公司于2000年根据中国香港法律注册成立，注册资本**亿港币。
+		        				</span>
+                            </div>
+                        </div>
+                        <div class="item_list">
+                            <div class="title">
+                                <span>客服热线</span>
+                            </div>
+                            <div class="content hot-line">
+                                <p>400-000-0000</p>
+                                <p>周一至周日 9:00 —21:00</p>
+                                <p>（法定节假日休息）</p>
+                                </span>
+                            </div>
+                        </div>
+                        <!-- <div class="QRCode_item">
+                            <div class="QRCode-App item_list">
+                                <img src="__IMG__/app.png" alt="下载官方APP" />
+                            </div>
+                            <div class="QRCode-WeChat item_list">
+                                <img src="__IMG__/mobile.png" alt="{$Think.config.site.title|default="CvPHP"}-手机在线借款" />
+                            </div>
+                        </div> -->
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>版权所有 © *****公司</p>
+                <p>联系地址：******(请自行替换)</p>
+                <p>
+					<a href='http://www.miitbeian.gov.cn/state/outPortal/loginPortal.action' target="_blank">
+						{$Think.config.site.icp}
+					</a>
+				</p>
+            </div>
+
+        </div>
+    </div>
+    <div id="nav" class="onepage-pagination">
+        <ul id="menu">
+            <div class="pageCircle">
+                <li data-menuanchor="firstpage" class="">
+                    <a href="#firstpage" class="firstpage"><img src="__IMG__/circle.png" /></a>
+                </li>
+                <li data-menuanchor="twopage" class="">
+                    <a href="#twopage" class="twopage"><img src="__IMG__/circle.png" /></a>
+                </li>
+                <li data-menuanchor="threepage" class="active">
+                    <a href="#threepage" class="threepage"><img src="__IMG__/circle.png" /></a>
+                </li>
+                <li data-menuanchor="fourpage" class="">
+                    <a href="#fourpage" class="fourpage"><img src="__IMG__/circle.png" /></a>
+                </li>
+            </div>
+            <div class="menuBlock">
+                <li class="menu-option page-display">
+                    <a href="#menu_QRCode2" class="menu-QRCode2"><img src="__IMG__/noTouch_QRCode1.png" alt="手机在线申请" /></a>
+                    <img src="__IMG__/menu_wap.png" class="QRCode2" style="display:none" />
+                </li>
+                <li class="menu-option page-display">
+                    <a href="#firstpage" class="menu-topBut"><img src="__IMG__/noTouch_top.png" /></a>
+                </li>
+            </div>
+        </ul>
+    </div>
+
+</body>
+<script>var PUBLIC_URL = "__PUBLIC__";</script>
+<script src="__JS__/jquery.min.js"></script>
+<script src="__JS__/jquery.fullPage.min.js"></script>
+<script src="__JS__/animateForPage.js"></script>
+<script src="__JS__/officalweb.js"></script>
+<script src="__JS__/stars.js"></script>
+<script src="__JS__/jquery.posterSwing.min.js"></script>
+<div style="display:none;">
+    {$Think.config.site.code}
+</div>
+</html>

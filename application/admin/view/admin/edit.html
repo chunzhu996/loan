@@ -1,0 +1,45 @@
+{include file="Public/mainHead"}
+    <h3>
+        编辑管理员信息
+    </h3>
+    <form action="{:url('Admin/edit',['id'=>$data['id'] ])}" method="post">
+        <table width="100%" border="0" cellpadding="8" cellspacing="0" class="tableBasic">
+            <tr>
+                <td width="100" align="right">管理员名称</td>
+                <td>
+                    <input type="text" name="username" size="40" class="inpMain" value="{$data.username}" />
+                </td>
+            </tr>
+            <tr>
+                <td align="right">新密码</td>
+                <td>
+                    <input type="password" name="password" size="40" class="inpMain" />
+                    <span>* 留空不修改</span>
+                </td>
+            </tr>
+            <tr>
+                <td align="right">确认密码</td>
+                <td>
+                    <input type="password" name="password_confirm" size="40" class="inpMain" />
+                </td>
+            </tr>
+            <tr>
+                <td align="right">状态</td>
+                <td>
+                    <label for="status_on">
+                       <input type="radio" name="status" value="0" {if condition="$data.status eq 0"}checked="true"{/if} >
+                    禁用</label>
+                    <label for="status_off">
+                       <input type="radio" name="status" value="1" {if condition="$data.status eq 1"}checked="true"{/if} >
+                    正常</label>
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <input type="submit" name="submit" class="btn" value="提交" />
+                </td>
+            </tr>
+        </table>
+    </form>
+{include file="Public/mainFoot"}

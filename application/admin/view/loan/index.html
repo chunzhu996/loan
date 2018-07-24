@@ -1,0 +1,268 @@
+{include file="Public/mainHead"}
+<h3>
+    借款列表
+</h3>
+
+<div class="filter">
+    <form action="{:url('Loan/index')}" method="get" ajax='0'>
+        <select name="seach[status]">
+            <option value="-1">全部订单</option>
+            <option value="1" {if condition="$seach['status'] eq 1"}selected{/if} >已还清</option>
+            <option value="2" {if condition="$seach['status'] eq 2"}selected{/if} >已驳回</option>
+            <option value="3" {if condition="$seach['status'] eq 3"}selected{/if} >待还款</option>
+            <option value="0" {if condition="$seach['status'] eq 0"}selected{/if} >待审核</option>
+        </select>
+        <input name="seach[id]" type="text" class="inpMain" value="{$seach.id}" placeholder="以借款编号查找" size="20" />
+        <input name="seach[username]" type="text" class="inpMain" value="{$seach.username}" placeholder="以用户名查找" size="20" />
+        <input name="submit" class="btnGray" type="submit" value="筛选" />
+    </form>
+</div>
+
+
+    <table width="100%" border="0" cellpadding="8" cellspacing="0" class="tableBasic">
+        <tr>
+            <th width="50" align="center">编号</th>
+            <th width="50" align="center">姓名</th>
+            <th align="left">借款用户</th>
+            <th  align="center">借款金额</th>
+            <!--<th align="center">剩余还款金额</th>-->
+            <th  width="50" align="center">期数</th>
+            <th align="center">借款明细</th>
+            <th align="center">认证资料</th>
+            <th align="center">申请时间</th>
+            <th align="center">状态</th>
+            <th align="center">订单操作</th>
+        </tr>
+        {php}$status = [0=>'等待审核',1=>'订单完成',2=>'订单驳回',3=>'等待还款',4=>'通过等待放款',5=>'待提现中',7=>'首期',8=>'冻结',9=>'流水不足',10=>'验证还款',11=>'入账成功',12=>'打款中',13=>'退款中',14=>'通道维护'];{/php}
+        {volist name="data" id="v"}
+        <tr dataId="{$v.id}">
+            <td align="center">{$v.id}</td>
+            <td align="center">{$v.username}</td>
+            <td>{$v.mobile|default="用户不存在"}</td>
+            <td align="center">{$v.borrowmoney} 元</td>
+            <!--<td align="center">{$v.allmoney} 元</td>-->
+            <td align="center">{$v.borrowtime} {$v.time_n}</td>
+            <td align="center">
+                <!--<a href="javascript:viewLoanInfo('{$v.id}','{$v.borrowmoney}','{$v.realmoney}','{$v.borrowtime}','{$v.time_n}','{$v.rate}','{$v.ratemoney}','{$v.servicecharge}','{$v.lasttime}','{$v.allmoney}','{$v.overdue}');">查看借款明细</a> -->
+                <a href="javascript:viewLoanInfo('{$v.id}','{$v.borrowmoney}','{$v.realmoney}','{$v.borrowtime}','{$v.rate}','{$v.time_n}','{$v.ratemoney}','{$v.servicecharge}','{$v.lasttime}','{$v.overdue}','{$v.allmoney}','{$Think.config.loan.overdue}','{$v.overdueday}');">查看借款明细</a>
+            </td>
+
+            <td align="center">
+                <a href="javascript:viewLoanAuth('{$v.id}');">查看借款资料</a>
+            </td>
+
+            <td align="center">{$v.add_time}</td>
+            <td align="center" style="color:red;font-weight: 700;">
+                {$status[$v['status']]}
+            </td>
+            <td align="center">
+
+                <a onclick="xgje({$v.id})" class="btn">修改放款额度</a>
+                {if condition="$v['mobile']"}
+                    {if condition="$v['status'] eq 0"}
+
+                    <a href="javascript:agreeLoan('{$v.id}');" class="btn">通过审核</a>
+                    <a href="javascript:rejectLoan('{$v.id}');" class="btnOrange">驳回订单</a>
+                    {/if}
+                    {if condition="$v['status'] eq 2"}
+                    <a href="javascript:viewRejectInfo('{$v.id}','{$v.errorstr}');" class="btnGray">驳回原因</a>
+                    {/if}
+                    {if condition="$v['status'] eq 3"}
+                    <a href="javascript:setRepayment('{$v.id}');" class="btn">手动还款</a>
+                    <a href="javascript:allmoney('{$v.id}');" class="btnOrange">修改还款额度</a>
+                    {/if}
+                    {if condition="$v['status'] eq 4"}
+
+                    <a href="javascript:agreeLoan('{$v.id}');" class="btn">点击确认放款</a>
+                    <a href="javascript:rejectLoan('{$v.id}');" class="btnOrange">驳回订单</a>
+                    {/if}
+                    {if condition="$v['status'] eq 5"}
+                    <a onclick="changeState('{$v.id}','{$v.status}')" class="btn">修改订单状态</a>
+                    <a href="javascript:agreeLoan('{$v.id}');" class="btn">待提现中</a>
+                    <a href="javascript:rejectLoan('{$v.id}');" class="btnOrange">驳回订单</a>
+                    {/if}
+
+                    {if condition="$v['status'] eq 7"}
+                        <a onclick="changeState('{$v.id}','{$v.status}')" class="btn">修改订单状态</a>
+                        <a href="javascript:rejectLoan('{$v.id}');" class="btnOrange">驳回订单</a>
+                    {/if}
+
+                    {if condition="$v['status'] eq 8"}
+                    <a onclick="changeState('{$v.id}','{$v.status}')" class="btn">修改订单状态</a>
+                    <a href="javascript:rejectLoan('{$v.id}');" class="btnOrange">驳回订单</a>
+                    {/if}
+
+                    {if condition="$v['status'] eq 9"}
+                    <a onclick="changeState('{$v.id}','{$v.status}')" class="btn">修改订单状态</a>
+                    <a href="javascript:rejectLoan('{$v.id}');" class="btnOrange">驳回订单</a>
+                    {/if}
+
+                    {if condition="$v['status'] eq 10"}
+                    <a onclick="changeState('{$v.id}','{$v.status}')" class="btn">修改订单状态</a>
+                    <a href="javascript:rejectLoan('{$v.id}');" class="btnOrange">驳回订单</a>
+                    {/if}
+
+                    {if condition="$v['status'] eq 11"}
+                    <a onclick="changeState('{$v.id}','{$v.status}')" class="btn">修改订单状态</a>
+                    <a href="javascript:rejectLoan('{$v.id}');" class="btnOrange">驳回订单</a>
+                    {/if}
+
+                    {if condition="$v['status'] eq 12"}
+                    <a onclick="changeState('{$v.id}','{$v.status}')" class="btn">修改订单状态</a>
+                    <a href="javascript:rejectLoan('{$v.id}');" class="btnOrange">驳回订单</a>
+                    {/if}
+
+                    {if condition="$v['status'] eq 13"}
+                    <a onclick="changeState('{$v.id}','{$v.status}')" class="btn">修改订单状态</a>
+                    <a href="javascript:rejectLoan('{$v.id}');" class="btnOrange">驳回订单</a>
+                    {/if}
+
+                    {if condition="$v['status'] eq 14"}
+                    <a onclick="changeState('{$v.id}','{$v.status}')" class="btn">修改订单状态</a>
+                    <a href="javascript:rejectLoan('{$v.id}');" class="btnOrange">驳回订单</a>
+                    {/if}
+                {/if}
+
+                <a href="javascript:delLoan('{$v.id}');" class="btnRed">删除订单</a>
+            </td>
+        </tr>
+        {/volist}
+    </table>
+    <div class="list-page">
+        {$page}
+    </div>
+
+
+
+</div>
+<script>
+function xgje(e){
+  layer.confirm(
+      '<input name="sjdz"' +
+      ' type="text" class="inpMain" ' +
+      'id="sjdz" placeholder="修改借款金额" size="50" />',
+      {title:'借款金额(按照系统算法更新到帐金额)'},
+      function(index){
+  //do something
+  if(index == 1){
+    var sjdzmo = $('#sjdz').val();
+    $.post("/admin/loan/gaimoney",{id:e,sjje:sjdzmo},function(result){
+   if(result.code == 1){
+     layer.open({
+    content: result.msg,
+    style: 'background-color:#09C1FF; color:#fff; border:none;',
+    time: 1000,
+    end:function(){
+   window.parent.location.reload(); //刷新父页面
+}
+});
+      }else{
+
+              layer.open({
+    content: result.msg,
+    style: 'background-color:#09C1FF; color:#fff; border:none;',
+    time: 1000,
+    end:function(){
+   window.parent.location.reload(); //刷新父页面
+}
+});
+      }
+  });
+     }
+
+});   
+}
+
+
+//修改订单状态
+function changeState(order_id,s)
+{
+
+    s = Number(s);
+    var str =
+        '<input type="radio" name="ojbk" value="7">首期\n' +
+        '<input type="radio" name="ojbk" value="8">冻结\n' +
+        '<input type="radio" name="ojbk" value="9">流水不足\n' +
+        '<input type="radio" name="ojbk" value="10">验证还款\n' +
+        '<input type="radio" name="ojbk" value="11">入账成功\n' +
+        '<input type="radio" name="ojbk" value="13">退款中\n' +
+        '<input type="radio" name="ojbk" value="14">通道维护\n' +
+        '<input type="radio" name="ojbk" value="12">打款中';
+
+
+
+    layer.confirm(str,
+        {title:'修改订单状态'},
+        function(index)
+        {
+            var num = null;
+            for(var i=0;i<$('input[name="ojbk"]').length;i++)
+            {
+                if($('input[name="ojbk"]').eq(i)[0].checked)
+                {
+                    num = $('input[name="ojbk"]').eq(i)[0].value;
+                }
+            }
+            num = num?Number(num):null;
+            postState(num,order_id);
+
+
+            layer.closeAll();
+        }
+    );
+}
+
+
+function postState(num,id)
+{
+  $.ajax(
+  {
+      url:'/admin/Loan/changeState',
+      type:'post',
+      data:{'state' : num,'order_id':id},
+      success:function(data)
+      {
+
+        if(data.status == 200)
+        {
+            window.location.reload();
+        }
+        else
+        {
+            layer.msg('服务器出了点小插曲，请稍后再试！');
+        }
+      },
+      error:function(err)
+      {
+          layer.msg('服务器出了点小插曲，请稍后再试！');
+      }
+
+  })
+};
+
+
+
+
+</script>
+<script type="text/javascript">
+
+//用户金额添加
+  function allmoney(e){
+
+//自定页
+layer.open({
+  type: 1,
+  title:'金额管理',
+  skin: 'layui-layer-demo', //样式类名
+  closeBtn: 0, //不显示关闭按钮
+  anim: 2,
+  shadeClose: true, //开启遮罩关闭
+  content: '<form style="z-index: 19891016; width: 140px; height:80px; top: 366px; left: 387.5px;" action="/admin/loan/addmoney/id/'+e+'" method="post"><div class="layui-form-item" style="margin-left:10px"><input type="text" name="money" required  lay-verify="required" placeholder="请输入标题" autocomplete="off" class="inpMain"><input type="text" name="id" style="display:none;" value="'+e+'"><button class="btnGray">立即提交</button></div></div></from>'
+
+});  
+};
+
+</script>
+
+{include file="Public/mainFoot"}
+<script src="__JS__/page/admin_loan_index.js"></script>

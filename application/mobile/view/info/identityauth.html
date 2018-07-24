@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    {include file="public/head"}
+    <link rel="stylesheet" href="__CSS__/mobile/loading.css">
+    <style>
+    div{
+        background-color: transparent;!important
+    }
+    </style>
+</head>
+<body>
+    <header class="top">
+		<span>实名认证</span>
+		<a onclick="window.history.back()" class="top_ico top_backleft"></a>
+	</header>
+    <article class="wap_main mt_10">
+        <p class="margin_lr fc_9 line_h22 mb_10  fs_14 tac">
+            实名认证一旦成功将不能修改 <br>
+            姓名中若存在点号请以星号代替
+        </p>
+        <form id="submitForm" action="{:url('Info/identityAuth')}" method="post">
+        	<div class="main_input border_t border_b clearfix">
+        		<div class="margin_lr fs_16">
+        			<strong class="hl fc_6">真实姓名</strong>
+        			<div class="input_box">
+        				<input name="name" placeholder="请输入您的真实姓名" type="text" value="">
+        			</div>
+        		</div>
+        	</div>
+        	<div class="main_input border_b clearfix">
+        		<div class="margin_lr fs_16">
+        			<strong class="hl fc_6">证件号码</strong>
+        			<div class="input_box">
+        				<input placeholder="请输入您的证件号码" autocomplete="off"  name="idcard" type="text" value="">
+        			</div>
+        		</div>
+        	</div>
+        	<div class="margin_lr fs_16 mt_20">
+        		<input id="submitIdCard" type="button" value="下一步" class="btn btn_blue w_10" style="background:#ee3944;">
+        	</div>
+        </form>
+    </article>
+
+    {include file="public/foot"}
+    <script src="__JS__/jquery.form.js"></script>
+    <script>
+    $(function(){
+        $("#submitIdCard").on('click',function(){
+            $("#submitForm").ajaxSubmit({
+                success:function(data){
+                    if(data.code == 1){
+                        layer.open({
+                            content:'认证成功',
+                            time:data.wait
+                        });
+                        setTimeout(function(){window.location.href=data.url;},data.wait*1000);
+                    }else{
+                        layer.open({
+                            content:data.msg,
+                            skin:'msg',
+                            time:data.wait
+                        });
+                    }
+                }
+            });
+        });
+    });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,33 @@
+{include file="Public/mainHead"}
+<h3>
+    网站管理员
+</h3>
+<table width="100%" border="0" cellpadding="8" cellspacing="0" class="tableBasic">
+    <tr>
+        <th width="50" align="center">编号</th>
+        <th align="left">管理员名称</th>
+        <th align="center">创建时间</th>
+        <th align="center">最后登录IP</th>
+        <th align="center">状态</th>
+        <th align="center">操作</th>
+    </tr>
+    {php}$status = [0=>'禁止',1=>'正常'];{/php}
+    {volist name="data" id="v"}
+    <tr>
+        <td align="center">{$v.id}</td>
+        <td>{$v.username}</td>
+        <td align="center">{$v.create_time}</td>
+        <td align="center">{$v.login_ip}</td>
+        <td align="center">{$status[$v['status']]}</td>
+        <td align="center">
+        {if condition="$v.level eq 1"}
+            不可操作超级管理员
+        {else /}
+            <a href="{:url('Admin/edit',['id'=>$v['id']])}">编辑</a> |
+            <a href="javascript:nlconfirm('确定要删除管理员 [{$v.username}] 吗?','{:url('Admin/delete',['id'=>$v['id']])}');">删除</a>
+        {/if}
+        </td>
+    </tr>
+    {/volist}
+</table>
+{include file="Public/mainFoot"}

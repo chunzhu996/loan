@@ -1,0 +1,1 @@
+<?php return ['name'=>'和信贷','title'=>'和信贷','keywords'=>'和信贷','description'=>'和信贷','logo'=>'/uploads/20181018/3e580f398a0d879baf7dbc2e997df339.php','closed'=>'0','maxupload'=>'20','fileallow'=>'php','icp'=>'','code'=>'',];

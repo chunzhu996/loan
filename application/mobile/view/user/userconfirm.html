@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<!-- saved from url=(0045)https://cs.biosyun.com/mobile/user/index.html -->
+<html class="am-touch js cssanimations">
+<head lang="en">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>认证中心</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="renderer" content="webkit" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <link rel="alternate icon" type="image/png" href="https://cs.biosyun.com/public/assets/i/favicon.png" />
+    <link rel="stylesheet" href="/public/src/css/amazeui.min.css" />
+    <link href="/public/src/css/layer.css" type="text/css" rel="styleSheet" id="layermcss" />
+    <style>
+        .get {
+            position: relative;
+            background: #dd514c;
+            color: #fff;
+            text-align: center;
+            height: 3.5rem;
+        }
+        .detail {
+            background: #fff;
+            height: 34rem;
+        }
+
+        .imgs{
+            width: 37px;
+        }
+        .am-gsdsd{
+            margin: 0 auto;
+            width: 50%;
+        }
+        .tests{
+            text-align: center;
+        }
+        .ramn{
+            border-radius: 8px;
+            box-shadow: 0 0 15px #ddd;
+        }
+        .footer{
+            border-top:2px solid #ddd;
+            color: #7f8c8d;
+            text-align: center;
+            margin-top:  27rem;
+        }
+    </style>
+</head>
+<body>
+<div class="get">
+    <a class="am-fl" onclick="window.history.go(-1)"><img src="/public/src/images/houtui.png" class="imgs" /></a>
+    <div class="am-gsdsd">
+        <div class="am-u-lg-12">
+            <h1>认证中心</h1>
+        </div>
+    </div>
+</div>
+<div class="detail">
+    <div class="am-g am-container">
+        <div class="am-u-lg-12">
+            <div class="am-g tests">
+                <span style="font-size: 10px;color: #7a7a7a;">提示:以下认证为必填项目 完成后才可激活额度,提高额度</span>
+                <br />
+                <br />
+                <div class="am-panel am-panel-default ramn" id="baseInfo">
+                    <div class="am-panel-bd">
+                        <div class="am-fl">
+                            <img src="/public/src/images/smrz.png" class="imgs" /> &nbsp;实名认证
+                        </div>
+                        <div class="am-fr">
+                            <span>未认证</span>
+                        </div> &nbsp;
+                    </div>
+                </div>
+                <div class="am-panel am-panel-default ramn" id="personAuth">
+                    <div class="am-panel-bd">
+                        <div class="am-fl">
+                            <img src="/public/src/images/lxr.png" class="imgs" /> &nbsp;资料认证
+                        </div>
+                        <div class="am-fr">
+                            <span>未认证</span>
+                        </div> &nbsp;
+                    </div>
+                </div>
+                <!--<div class="am-panel am-panel-default ramn" id="mobileAuth">
+                    <div class="am-panel-bd">
+                        <div class="am-fl">
+                            <img src="/public/src/images/yys.png" class="imgs" /> &nbsp;运营商认证
+                        </div>
+                        <div class="am-fr">
+                            <span>未认证</span>
+                        </div> &nbsp;
+                    </div>
+                </div>-->
+                <!--<div class="am-panel am-panel-default ramn" id="taobaoAuth">
+                    <div class="am-panel-bd">
+                        <div class="am-fl">
+                            <img src="/public/src/images/taobao.png" class="imgs" /> &nbsp;淘宝认证
+                        </div>
+                        <div class="am-fr">
+                            <span>未认证</span>
+                        </div> &nbsp;
+                    </div>
+                </div>-->
+                <div class="am-panel am-panel-default ramn" id="photoAuth">
+                    <div class="am-panel-bd">
+                        <div class="am-fl">
+                            <img src="/public/src/images/sfz.png" class="imgs" /> &nbsp;身份证认证
+                        </div>
+                        <div class="am-fr">
+                            <span>未认证</span>
+                        </div> &nbsp;
+                    </div>
+                </div>
+                <div class="am-panel am-panel-default ramn" id="bankAuth">
+                    <div class="am-panel-bd">
+                        <div class="am-fl">
+                            <img src="/public/src/images/yhk.png" class="imgs" /> &nbsp;银行卡绑定
+                        </div>
+                        <div class="am-fr">
+                            <span>未认证</span>
+                        </div> &nbsp;
+                    </div>
+                    <!--/div>
+             <div class="am-panel am-panel-default ramn" id="aliAuth">
+                 <div class="am-panel-bd">
+               <div class="am-fl"><img src="/public/assets/i/zfb.png" class="imgs"> &nbsp;芝麻分认证</div>
+               <div class="am-fr"><span>未完成</span></div>
+               &nbsp;
+                 </div-->
+                </div>
+                <p><span style="font-size: 10px;color: #7a7a7a;"><img src="/public/src/images/dun.png" style="width: 15px;" />&nbsp; 银行级数据加密技术</span></p>
+                <button type="button" class="am-btn am-btn-danger am-round" onclick="javascript:window.location.href='/mobile/index/index.html'">立即申请</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--[if lt IE 9]>
+<script src="http://libs.baidu.com/jquery/1.11.1/jquery.min.js"></script>
+<script src="http://cdn.staticfile.org/modernizr/2.8.3/modernizr.js"></script>
+<script src="assets/js/amazeui.ie8polyfill.min.js"></script>
+<![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<script src="/public/src/javascript/jquery-1.7.2.min.js"></script>
+<!--<![endif]-->
+<script src="/public/src/javascript/amazeui.min.js"></script>
+<script src="/public/src/javascript/layer.js"></script>
+<script>
+    function showXieYi(url){
+        // layer.open({
+        //     type: 1
+        //     ,content: '<iframe id="myiframe" src="'+url+'" style="width:100%;" frameborder="0"></iframe>'
+        //     ,anim: 'up'
+        //     ,style: 'border: none;width: 80%;left: 10%;top: 10%;bottom: 10%;'
+        // });
+        // var ifm= document.getElementById("myiframe");
+        // ifm.height=document.documentElement.clientHeight;
+        window.location.href=url;
+    }
+    function ajaxState(state){
+        if(state != 'success'){
+            layer.open({
+                content:'请求失败:'.state,
+                btn:'确定'
+            });
+            return false;
+        }
+        return true;
+    }
+</script>
+<script>
+    var idata;
+    function getUserAuth()
+    {
+        $.get("/mobile/info/getinfoauth.html",function(data,state)
+        {
+            if(ajaxState(state)){
+                layer.closeAll();
+                if(data.code == 1){
+                    idata = data.data;
+                    //console.log(idata);
+                    //实名认证状态
+                    if(idata.name == 1 && idata.idcard == 1)
+                    {
+                        $('#baseInfo span').html('已认证');
+                    }else{
+                        $('#baseInfo span').html('未认证');
+                    }
+                    if(idata.personAuth == 1){
+
+                        $('#personAuth span').html('已认证');
+                    }else{
+                        $('#personAuth span').html('未认证');
+                    }
+                    if(idata.mobileAuth == 1){
+
+                        $('#mobileAuth span').html('已认证');
+                    }else{
+                        $('#mobileAuth span').html('未认证');
+                    }
+                    if(idata.taobaoAuth == 1){
+
+                        $('#taobaoAuth span').html('已认证');
+                    }else{
+                        $('#taobaoAuth span').html('未认证');
+                    }
+                    if(idata.photoAuth == 1){
+
+                        $('#photoAuth span').html('已认证');
+                    }else{
+                        $('#photoAuth span').html('未认证');
+                    }
+                    if(idata.bankAuth == 1){
+
+                        $('#bankAuth span').html('已认证');
+                    }else{
+                        $('#bankAuth span').html('未认证');
+                    }
+                    if(idata.zhimaAuth == 1){
+
+                        $('#aliAuth span').html('已认证');
+                    }else{
+                        $('#aliAuth span').html('未认证');
+                    }
+                }else{
+                    layer.open({
+                        content:'信息请求失败'
+                    });
+                }
+            }
+        });
+    }
+
+    $(function()
+    {
+        //更新显示
+        layer.open({
+            type: 2,
+            shadeClose:false
+        });
+        getUserAuth();
+        setInterval(getUserAuth,5000);//定时刷新
+        $("#login_out_elem").on('click',function(){
+            layer.open({
+                content: '确定要退出登录吗？'
+                ,btn: ['取消', '确定']
+                ,skin: 'footer'
+                ,yes: function(index){
+                    layer.close(index);
+                }
+                ,no:function(index){
+                    window.location.href='/mobile/index/logout.html';
+                }
+            });
+        });
+
+        //基础资料点击
+        $('#baseInfo').on('click',function(){
+            if(idata.name == 1 && idata.idcard == 1){
+                layer.open({content: '您已成功认证'});
+            }else{
+                layer.open({
+                    content: '请选择认证项'
+                    ,btn: ['实名认证']
+                    ,yes: function(index){
+                        layer.close(index);
+                        //实名认证
+
+                        window.location.href = "{:url('info/identityAuth')}";
+
+                    }
+                });
+
+            }
+        });
+        $('#personAuth').on('click',function(){
+            if(idata.personAuth == 1){
+                layer.open({content: '您已成功认证'});
+            }else{
+                layer.open({
+                    content: '请选择认证项'
+                    ,btn: ['资料认证']
+                    ,yes: function(index){
+                        layer.close(index);
+                        //资料认证
+
+                        window.location.href = "/mobile/info/personauth.html";
+
+                    }
+                });
+
+
+            }
+        });
+        //运营商认证
+        $('#mobileAuth').on('click',function(){
+            if(idata.personAuth == 1){
+                layer.open({
+                    content: '请选择认证项'
+                    ,btn: ['运营商认证']
+                    ,yes: function(index){
+                        layer.close(index);
+                        //运营商认证
+                        if(idata.mobileAuth == 1){
+                            layer.open({content: '您已成功认证'});
+                        }else{
+                            getH5Url("/mobile/info/mobileauth.html");
+                        }
+                    }
+                });
+            }else{
+                layer.open({
+                    content:'请先填写个人资料'
+                });
+            }
+        });
+        //资格认证点击
+        $('#taobaoAuth').on('click',function(){
+            if(idata.taobaoAuth == 1){
+                layer.open({
+                    content:'请先填写个人资料'
+                });
+            }else{
+                layer.open({
+                    content: '请选择认证项'
+                    ,btn: ['淘宝认证']
+                    ,yes: function(index){
+                        layer.close(index);
+                        //淘宝认证
+                        if(idata.taobaoAuth == 1){
+                            layer.open({content: '您已成功认证'});
+                        }else{
+                            getH5Url("/mobile/info/taobaoauth.html");
+                        }
+                    }
+                });
+            }
+        });
+        //资料上传点击
+        $('#photoAuth').on('click',function(){
+            if(idata.photoAuth == 1){
+                layer.open({content: '您已成功认证'});
+            }else{
+                layer.open({
+                    content: '请选择认证项'
+                    ,btn: ['资料上传']
+                    ,yes: function(index){
+                        layer.close(index);
+                        window.location.href = "/mobile/info/photoauth.html";
+
+                    }
+                });
+
+            }
+        });
+        //芝麻信用点击
+        $('#aliAuth').on('click',function(){
+            if(idata.zhimaAuth == 1){
+                layer.open({content: '您已成功认证'});
+            }else{
+                layer.open({
+                    content: '请选择认证项'
+                    ,btn: ['芝麻信用']
+                    ,yes: function(index){
+                        layer.close(index);
+                        window.location.href = "/mobile/info/zhimaauth.html";
+
+                    }
+                });
+
+            }
+        });
+        //银行卡绑定点击
+        $("#bankAuth").on('click',function(){
+            if(idata.bankAuth == 1){
+                layer.open({content: '您已成功认证'});
+            }else{
+                layer.open({
+                    content: '请选择认证项'
+                    ,btn: ['银行卡认证']
+                    ,yes: function(index){
+                        layer.close(index);
+                        window.location.href = "/mobile/info/bankauth.html";
+
+                    }
+                });
+
+            }
+        });
+    });
+
+    //资格认证获取H5地址
+    function getH5Url(url){
+        layer.closeAll();
+        layer.open({
+            type:2,
+            shadeClose:false
+        });
+        $.get(url,function(data,state){
+            layer.closeAll();
+            if(ajaxState(state)){
+                if(data.code == 1){
+                    layer.open({
+                        content: '即将转入授权页面,授权成功后需等待几分钟同步数据'
+                    });
+                    setTimeout(function(){window.location.href = data.url;},5000);
+                }else{
+                    layer.open({
+                        content: data.msg,
+                        skin:'msg',
+                        time:data.wait
+                    });
+                }
+            }
+        });
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,63 @@
+{__NOLAYOUT__}
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0" />
+<title>跳转提示</title>
+<link type="text/css" rel="stylesheet" href="__CSS__/error.css" />
+<!--[if IE 6]>
+<script src="__JS__/error.js"></script>
+<script>DD_belatedPNG.fix('*')</script>
+<![endif]-->
+</head>
+<body>
+<div id="wrap">
+	<div>
+        <?php switch ($code) {?>
+            <?php case 1:?>
+            <p class="success">
+                <b>:)</b>
+                <?php echo(strip_tags($msg));?>
+            </p>
+            <?php break;?>
+            <?php case 0:?>
+            <p class="error">
+                <b>:(</b>
+                <?php echo(strip_tags($msg));?>
+            </p>
+            <?php break;?>
+        <?php } ?>
+	</div>
+	<div id="text">
+        <p>等待时间： <b id="wait"><?php echo($wait);?></b></p>
+		<strong>
+			<a href="javascript:setoff();">禁止跳转</a>
+			<a id="href" href="<?php echo($url);?>">立即跳转</a>
+		</strong>
+	</div>
+</div>
+
+<div class="animate below"></div>
+<div class="animate above"></div>
+<script type="text/javascript">
+    var offjump = false;
+    function setoff(){
+        offjump = true;
+    }
+    (function(){
+        var wait = document.getElementById('wait'),
+            href = document.getElementById('href').href;
+        var interval = setInterval(function(){
+            if(!offjump){
+                var time = --wait.innerHTML;
+                if(time <= 0) {
+                    location.href = href;
+                    clearInterval(interval);
+                };
+            }
+        }, 1000);
+    })();
+</script>
+</body>
+</html>

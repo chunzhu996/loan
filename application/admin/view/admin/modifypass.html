@@ -1,0 +1,41 @@
+{include file="Public/mainHead"}
+
+<h3>
+    修改管理密码
+</h3>
+
+<form action="{:url('Admin/modifypass')}" method="post" id="modifypassForm">
+    <table width="100%" border="0" cellpadding="8" cellspacing="0" class="tableBasic">
+        <tr>
+            <td width="100" align="right">管理员名称</td>
+            <td>
+                <span>{$Think.session.CVPHP_ADMIN.username}</span>
+            </td>
+        </tr>
+        <tr>
+            <td align="right">原密码</td>
+            <td>
+                <input type="password" name="oldpass" size="40" class="inpMain" />
+            </td>
+        </tr>
+        <tr>
+            <td align="right">新密码</td>
+            <td>
+                <input type="password" name="password" size="40" class="inpMain" />
+            </td>
+        </tr>
+        <tr>
+            <td align="right">确认密码</td>
+            <td>
+                <input type="password" name="password_confirm" size="40" class="inpMain" />
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>
+                <input type="submit" name="submit" class="btn" value="提交" />
+            </td>
+        </tr>
+    </table>
+</form>
+{include file="Public/mainFoot"}

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    {include file="public/head"}
+    <link rel="stylesheet" href="__CSS__/mobile/loading.css">
+    <style>
+    div{
+        background-color: transparent;!important
+    }
+    </style>
+</head>
+<body>
+
+    <header class="top">
+        <span>银行卡绑定</span>
+        <a href="{:url('user/index')}" class="top_ico top_backleft"></a>
+    </header>
+
+    <section class="jk_bindCredit max_64">
+        <form method="post" id="addDebitCardForm">
+            <div class="jk_wrapInput border_t   mt_1">
+                <span>姓名</span>
+                <input value="*{$info.name|substr=###,3}"  class="input_common bankSplit" readonly="" />
+            </div>
+            <div class="jk_wrapInput border_t ">
+                <span>身份证号</span>
+                <input value="{$info.idcard|substr=###,0,5}*******{$info.idcard|substr=###,12}"  class="input_common bankSplit" readonly="" />
+            </div>
+            <div class="jk_wrapInput border_t border_b">
+                <span>银行卡号</span>
+                <input type="tel" name="bankcard" value="" placeholder="请输入您的借记卡卡号" class="input_common bankSplit" />
+            </div>
+            <div class="jk_wrapInput border_b">
+                <span>预留手机号</span>
+                <input name="phone" type="tel" class="input_common" placeholder="银行预留手机号码 " data-required="true" data-descriptions="add_phonenumber" />
+            </div>
+            <div class="jk_bindCreditInfo mt_1">
+				<p>请确认：</p>
+				<p>1. 借记卡在本人名下</p>
+				<p>2. 借款审批通过后，提现资金将发放到该银行卡（仅限借记卡）</p>
+				<p>3. 预留手机填写正确（影响资金提现）</p>
+			</div>
+            <div class="jk_loginSubmit" style="margin-top: 1.5rem;">
+                <input type="submit" value="确认绑定" id="addDebitCardBtn" class="jk_btn"  />
+            </div>
+        </form>
+    </section>
+
+    {include file="public/foot"}
+    <script src="__JS__/jquery.form.js"></script>
+    <script>
+        $(function(){
+            $("#addDebitCardBtn").on('click',function(){
+                layer.open({
+                    type:2,
+                    shadeClose:false
+                });
+                $("#addDebitCardForm").ajaxSubmit({
+                    success:function(data){
+                        layer.closeAll();
+                        if(data.code == 1){
+                            layer.open({
+                                content: '绑定成功',
+                                time: data.wait
+                            });
+                            setTimeout(function(){
+                                window.location.href = data.url;
+                            },data.wait*1000);
+                        }else{
+                            layer.open({
+                                content: data.msg,
+                                btn: '确定'
+                            });
+                        }
+                    }
+                });
+                return false;
+            });
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,103 @@
+{include file="Public/mainHead"}
+<h3>
+    用户列表
+</h3>
+
+<div class="filter">
+    <form method="get" ajax='0'>
+        <input name="seach[id]" type="text" class="inpMain" value="{$seach.id}" placeholder="以用户编号查找" size="20" />
+        <input name="seach[username]" type="text" class="inpMain" value="{$seach.username}" placeholder="以用户名查找" size="20" />
+        <input name="submit" class="btnGray" type="submit" value="筛选" />
+    </form>
+</div>
+
+
+    <table width="100%" border="0" cellpadding="8" cellspacing="0" class="tableBasic">
+        <tr>
+            <th width="50" align="center">用户编号</th>
+            <th align="center">姓名</th>
+            <th align="center">登录手机号</th>
+            <th align="center">钱包余额</th>
+            <th align="center">待还金额</th>
+            <th align="center">借款次数</th>
+            <th align="center">用户资料</th>
+            <th align="center">注册时间</th>
+            <th align="center">操作</th>
+        </tr>
+        {volist name="data" id="v"}
+        <tr dataId="{$v.id}">
+            <td align="center">
+                {$v.id}
+            </td>
+            <td align="center">{$v.username}</td>
+            <td align="center">{$v.mobile}</td>
+            <td align="center">{$v.money}元</td>
+            <td align="center">{$v.their}元</td>
+            <td align="center">{$v.loan_count}次</td>
+            <td align="center">
+                {if condition="$v['info']['bankAuth']"}
+                    <a href="javascript:viewUserAuth('{$v.id}');" >查看资料</a>
+                {else/}
+                    资料不完整
+                {/if}
+            </td>
+            <td align="center">{$v.create_time}</td>
+            <td align="center">
+			<a class="btn" onclick="xgyhk({$v.id},'{$v.bankcard}')">修改银行卡</a>
+                <a href="javascript:userPay('{$v.id}');" class="btn">账户充值</a>
+                <a href="javascript:userPayOut('{$v.id}');" class="btnOrange">手动扣款</a>
+                <a href="javascript:delUser('{$v.id}');" class="btnRed">删除会员</a>
+            </td>
+        </tr>
+        {/volist}
+    </table>
+    <div class="list-page">
+        {$page}
+    </div>
+
+
+</div>
+<script>
+function xgyhk(e,card)
+{
+//alert(e);
+
+  layer.confirm('<input name="card" value="'+ card +'" type="text" class="inpMain" id="card" placeholder="修改银行卡" size="50" />', {title:'修改银行卡'}, function(index){
+  //do something
+
+    var card = $('#card').val();
+    $.post("/admin/user/gaicard",{id:e,card:card},function(result){
+    if(result.code == 1)
+    {
+    layer.open({
+        content: result.msg,
+        style: 'background-color:#09C1FF; color:#fff; border:none;',
+        time: 1000,
+        end:function()
+        {
+            window.parent.location.reload(); //刷新父页面
+        }
+    });
+    }
+    else
+    {
+
+              layer.open({
+                    content: result.msg,
+                    style: 'background-color:#09C1FF; color:#fff; border:none;',
+                    time: 1000,
+                    end:function(){
+                    window.parent.location.reload(); //刷新父页面
+                    }
+            });
+    }
+  });
+
+
+});   
+}
+
+</script>
+
+{include file="Public/mainFoot"}
+<script src="__JS__/page/admin_user_index.js"></script>

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	{include file='public/head'}
+	<link rel="stylesheet" href="__CSS__/mobile/loading.css">
+</head>
+<body>
+	{php}
+		$borrowMoney = explode(',',config('loan')['money']);
+		$borrowTime = explode(',',config('loan')['time']);
+	{/php}
+	<div class="head-ad">
+		<img src="__IMG__/mobile/miaolabanner.jpg"/>
+	</div>
+	<form action="{:url('Loan/index')}" method="post" id="LoanForm">
+		<div class="ml_borrowMoney bg_fff">
+			<p class="f13 tac f_88868F bg_fff">借款金额</p>
+			<div class="ml_borrowMoneyNum clearfix bg_fff">
+				{volist name="borrowMoney" id="vo" length='1'}
+					<span class="fl activeMoney">{$vo}</span>
+				{/volist}
+				{volist name="borrowMoney" id="vo" offset='1'}
+					<span class="fl">{$vo}</span>
+				{/volist}
+				<input type="hidden" name="borrowMoney" value="{$borrowMoney[0]}" class="loanAmountActive" />
+			</div>
+			<div class="clear"></div>
+		</div>
+		<div class="ml_borrowMonth bg_fff">
+			<p class="f_88868F f13 tac bg_fff">借款期限</p>
+			<ul class="ml_borrowMonthChoice">
+				{volist name="borrowTime" id="vo" length='1'}
+					<li>
+						<span data-val='{$vo}' class="activeMonth">
+							{$vo}
+							{$Think.config.loan.time_n == 'day' ?'天':'个月'}
+						</span>
+					</li>
+				{/volist}
+				{volist name="borrowTime" id="vo" offset='1'}
+					<li>
+						<span data-val='{$vo}'>
+							{$vo}
+							{$Think.config.loan.time_n == 'day' ?'天':'个月'}
+						</span>
+					</li>
+				{/volist}
+			</ul>
+			<input type="hidden" name="borrowTime" value="{$borrowTime[0]}" class="loanMonthActive" />
+			<div class="clear"></div>
+		</div>
+	</form>
+	<p class="borrowInfo tac">
+
+	</p>
+
+	<div class="jk_registerSubmit">
+		<input type="button" value="开始申请" class="jk_btn jk_btnmiaoApply" />
+	</div>
+
+	{include file='public/foot'}
+
+	<script>
+    var rate = "{$Think.config.loan.rate}";
+    var servicecharge = "{$Think.config.loan.servicecharge}";
+	var repaymenttype = "{$Think.config.loan.repaymenttype}";
+	var serviceStatus = "{$Think.config.loan.serviceStatus}";
+
+    function viewRate(){
+        var money = $('.loanAmountActive').val();
+        var month = $('.loanMonthActive').val();
+//        var rateMoney = serviceStatus == 1 ? parseFloat((money * rate) / 100 * month) +  parseFloat((servicecharge / 100) * money) : parseFloat((money * rate) / 100 * month);
+		// 手续费
+        var rateMoney = parseFloat((money * rate) / 100 * month);
+        rateMoney = toDecimal(rateMoney);
+		// 实际到账金额
+		var realMoney =  toDecimal(parseFloat(parseFloat(money) - rateMoney));
+
+		if(repaymenttype == "1"){
+			var allMoney = toDecimal(parseFloat(parseFloat(money) + rateMoney));
+		}else{
+			var allMoney = toDecimal(parseFloat(money));
+		}
+
+		if(repaymenttype == "1"){
+		    if(serviceStatus == "1"){
+                $(".borrowInfo").html("您需要在<span>"+month+"</span>{$Think.config.loan.time_n == 'day' ?'天':'个月'}后还款<span>"+allMoney+"</span>元。<br>含服务费<span class='service'>"+((servicecharge / 100 )*money)+"</span>元");
+			}else{
+                $(".borrowInfo").html("您需要在<span>"+month+"</span>{$Think.config.loan.time_n == 'day' ?'天':'个月'}后还款<span>"+allMoney+"</span>元。");
+			}
+		}else{
+		    if(serviceStatus == "1"){
+                $(".borrowInfo").html("实际到账金额<span>"+realMoney+"</span>元<br>您需要在<span>"+month+"</span>{$Think.config.loan.time_n == 'day' ?'天':'个月'}后还款<span>"+allMoney+"</span>元。<br>审核费用<span class='service'>"+((servicecharge / 100) *money)+"</span>元");
+			}else{
+                $(".borrowInfo").html("实际到账金额<span>"+realMoney+"</span>元<br>您需要在<span>"+month+"</span>{$Think.config.loan.time_n == 'day' ?'天':'个月'}后还款<span>"+allMoney+"</span>元。");
+			}
+		}
+    }
+    function toDecimal(x) {
+        var f = parseFloat(x);
+        if (isNaN(f)) {
+            return;
+        }
+        f = Math.round(x*100)/100;
+        return f;
+    }
+	$(function(){
+        viewRate();
+		$(".ml_borrowMoneyNum span.fl").on('click',function(){
+			$(".ml_borrowMoneyNum span.activeMoney").removeClass('activeMoney');
+			$(this).addClass('activeMoney');
+			$('.loanAmountActive').val($(this).html());
+            viewRate();
+		});
+		$(".ml_borrowMonthChoice li span").on('click',function(){
+			$(".ml_borrowMonthChoice li span.activeMonth").removeClass('activeMonth');
+			$(this).addClass('activeMonth');
+			$(".loanMonthActive").val($(this).attr('data-val'));
+            viewRate();
+		});
+		$(".jk_btnmiaoApply").on('click',function(){
+			$("#LoanForm").submit();
+		});
+	});
+	</script>
+
+</body>
+</html>

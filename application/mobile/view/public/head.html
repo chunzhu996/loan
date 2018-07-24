@@ -1,0 +1,51 @@
+<meta charset="UTF-8" />
+<!--[if lt IE 9]>
+<script src="/public/src/javascript/jquery-1.7.2.min.js"></script>
+<![endif]-->
+<meta http-equiv="cache-control" content="no-cache" />
+<meta content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=0" name="viewport">
+<meta content="yes" name="apple-mobile-web-app-capable" />
+<meta content="blac" name="apple-mobile-web-app-status-bar-style" />
+<meta content="telephone=no" name="format-detection" />
+<title>{$Think.config.site.title|default="CvPHP"}</title>
+<meta name="description" content="{$Think.config.site.description|default="CvPHP"}"/>
+<meta name="keywords" content="{$Think.config.site.keywords|default="CvPHP"}" />
+<link rel="stylesheet" href="__CSS__/mobile/common.css">
+<link rel="stylesheet" href="/public/src/css/common.css">
+<link rel="stylesheet" href="/public/src/css/style.css">
+<link rel="stylesheet" href="/public/src/css/layer.css">
+<script src="/public/src/javascript/jquery-1.7.2.min.js"></script>
+<script src="/public/src/images/amazeui.js" ></script>
+<script src="/public/src/javascript/layer.js"></script>
+
+<link rel="stylesheet" href="/public/src/css/amazeui.min.css">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="format-detection" content="telephone=no">
+<meta name="renderer" content="webkit">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+<script>
+    function showXieYi(url){
+        // layer.open({
+        //     type: 1
+        //     ,content: '<iframe id="myiframe" src="'+url+'" style="width:100%;" frameborder="0"></iframe>'
+        //     ,anim: 'up'
+        //     ,style: 'border: none;width: 80%;left: 10%;top: 10%;bottom: 10%;'
+        // });
+        // var ifm= document.getElementById("myiframe");
+        // ifm.height=document.documentElement.clientHeight;
+        window.location.href=url;
+    }
+    function ajaxState(state){
+        if(state != 'success'){
+            layer.open({
+                content:'请求失败:'.state,
+                btn:'确定'
+            });
+            return false;
+        }
+        return true;
+    }
+</script>
+
+<script>var siteurl="http://<?php echo \think\Request::instance()->host(); ?>";</script>

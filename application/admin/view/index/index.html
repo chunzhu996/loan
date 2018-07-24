@@ -1,0 +1,40 @@
+{include file="Public/mainHead"}
+    <!-- <div class="warning">您还没有删除 install 文件夹，出于安全的考虑，我们建议您删除 install 文件夹。</div> -->
+    <table width="100%" border="0" cellspacing="0" cellpadding="0" class="indexBoxTwo">
+        <tr>
+            <td width="100%">
+                <div class="indexBox">
+                    <div class="boxTitle">服务器信息</div>
+                    <ul>
+                        <table width="100%" border="0" cellspacing="0" cellpadding="7" class="tableBasic">
+                            {volist name="info" id="vo"}
+                            <tr>
+                                <td >{$key} :</td>
+                                <td>{$vo}</td>
+                            </tr>
+                            {/volist}
+                        </table>
+                    </ul>
+            </td>
+            <td>
+
+            </td>
+        </tr>
+    </table>
+
+
+    <div class="indexBox">
+        <div class="boxTitle">系统开发</div>
+        <ul>
+            <table width="100%" border="0" cellspacing="0" cellpadding="7" class="tableBasic">
+                <tr>
+                    <td width="120"> 官网： </td>
+                    <td><a href="#" target="_blank"></a>www.suyouxf.wang</td>
+                </tr>
+				<td width="120"> QQ： </td>
+                    <td><a href="#" target="_blank"></a>3583018820</td>
+                </tr>
+            </table>
+        </ul>
+    </div>
+{include file="Public/mainFoot"}

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<title>后台管理员登录</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="__CSS__/login.css" rel='stylesheet' type='text/css' />
+<script src="__JS__/jquery-1.7.2.min.js"></script>
+<script src="__JS__/jquery.form.js"></script>
+<script src="__JS__/layer/layer.js"></script>
+<script src="__JS__/page/admin_login.js"></script>
+</head>
+<body>
+	<div class="main">
+		<div class="login">
+			<h1>管理登录</h1>
+			<div class="inset">
+				<!--start-main-->
+				<form method="post" action="{:url('index/login')}">
+			         <div>
+			         	<h2>管理登录</h2>
+						<span><label>用户名</label></span>
+						<span><input type="text" class="textbox" name="username"></span>
+					 </div>
+					 <div>
+						<span><label>密码</label></span>
+					    <span><input type="password" class="password" name="password"></span>
+					 </div>
+					<div class="sign">
+                        <input type="submit" value="登录" class="submit" />
+					</div>
+				</form>
+                <!--//end-main-->
+			</div>
+		</div>
+	</div>
+
+<div class="copy-right">
+	<p>&copy; 2018 <a href="http://www.suyouxf.wamg" target="_blank">和信贷  京ICP证 100953号</a>. All Rights Reserved</p>
+</div>
+
+</body>
+</html>

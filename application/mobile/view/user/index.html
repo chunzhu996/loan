@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<!-- saved from url=(0048)https://cs.biosyun.com/mobile/user/newindex.html -->
+<html class="am-touch js cssanimations"><head lang="en"><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <title>个人中心</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+
+    <style>
+        .get {
+            position: relative;
+            background: #FFFFFF;
+            color: #fff;
+            text-align: center;
+            background-image: url(/public/src/images/userbg.png);
+            padding: 100px 0;
+            background-repeat:no-repeat;
+            background-size:100% 100%;
+            -moz-background-size:100% 100%;
+        }
+
+        .get-title {
+            position: absolute;
+            font-size: 15px;
+            width: 7rem;
+            border: 2px solid #fff;
+            left: 5rem;
+            top: -7rem;
+            height: 7rem;
+            display: inline-block;
+            background: #fff;
+            border-radius: 100px;
+            z-index: 99999;
+            box-shadow: 0 0 15px #989797;
+            background-image: url(/public/src/images/icon.png);
+            background-size: 100% 100%;
+            -moz-background-size: 100% 100%;
+            -webkit-background-size: 100% 100%;
+
+        }
+        .get-btn {
+            font-size: 23px;
+            color: #000;
+        }
+
+        .detail {
+            background: #fff;
+            height: 39rem;
+        }
+        .amdlou{
+            border-radius: 8px;
+            box-shadow: 0 0 15px #ddd;
+        }
+        .footer{
+            border-top:2px solid #ddd;
+            color: #7f8c8d;
+            text-align: center;
+        }
+        .imgs{
+            width: 37px;
+        }
+        .iconsd{
+            width: 20px;
+        }
+        div{
+            font-size: 1.6rem!important;
+        }
+        .amdlou
+        {
+            box-shadow: 0 0 15px #ddd;
+        }
+        /*box-shadow: 0 0 15px #ddd;*/
+    </style>
+
+{include file='public/head'}
+<body>
+<div class="get">
+    <div class="am-g">
+        <div class="am-u-lg-12">
+        </div>
+    </div>
+</div>
+
+<div class="detail">
+    <div class="am-g am-container" style="background:#fff;">
+        <div class="am-u-lg-12">
+            <div class="get-title">
+            </div>
+            <div class="am-g cesebolo" style="margin-bottom: 6rem;background:#fff;">
+                <br>
+                <span style="margin-left:18px;" id="user_phone">18250050055
+                    </span><span class="am-fr">软件版本:v1.89</span>
+                <br>
+                <br>
+                <div class="am-panel am-panel-default amdlou" style="background:#fff;box-shadow: 0 0 15px #ddd;-webkit-border-radius: 0.8rem;-moz-border-radius: 0.8rem;border-radius: 0.8rem;">
+                    <div class="am-panel-bd" style="background-color:#fff;">
+                        <div style="background-color:#fff;" onclick="javascript:window.location.href='/mobile/user/coin'"><img src="/public/src/images/sp1.png" class="iconsd">&nbsp;&nbsp;我的钱包<span class="gos am-fr"><img src="/public/src/images/go.png" class="iconsd"></span></div>
+                        <hr>
+                        <div style="background-color:#fff;" onclick="javascript:window.location.href='/mobile/user/aboutUs'"><img src="/public/src/images/lxr.png" class="iconsd">&nbsp;&nbsp;关于我们<span class="gos am-fr"><img src="/public/src/images/go.png" class="iconsd"></span></div>
+                        <hr>
+                        <div style="background-color:#fff;" onclick="javascript:window.location.href='/mobile/loan/lists.html'"><img src="/public/src/images/jl.png" class="iconsd">&nbsp;&nbsp;借款记录<span class="gos am-fr"><img src="/public/src/images/go.png" class="iconsd"></span></div>
+                        <hr>
+                        <div
+                                style="background-color:#fff;"
+                                onclick="javascript:window.location.href='/mobile/user/userconfirm'">
+                                <img src="/public/src/images/bank.png" class="iconsd">
+                                    &nbsp;&nbsp;立即认证
+                                <span class="gos am-fr">
+                                <img src="/public/src/images/go.png" class="iconsd"></span></div>
+                        <hr>
+                        <div style="background-color:#fff;" onclick="javascript:window.location.href='/mobile/index/findpass.html'"><img src="/public/src/images/xiaoxi.png" class="iconsd">&nbsp;&nbsp;修改密码<span class="gos am-fr"><img src="/public/src/images/go.png" class="iconsd"></span></div>
+                    </div>
+                </div>
+                <div class="am-panel am-panel-default amdlou" style="border-radius: 0.8rem;">
+                    <div class="am-panel-bd" style="background:#fff;" >
+                        <div style="background:#fff;"><img src="/public/src/images/lxwm.png" class="iconsd">&nbsp;&nbsp;客服电话 <span>400-107-1187</span><span class="gos am-fr"><img src="/public/src/images/go.png" class="iconsd"></span></div>
+                        <hr>
+                        <div style="background:#fff;" id="login_out_elem"><img src="/public/src/images/tui.png" class="iconsd">&nbsp;&nbsp;退出登录<span class="gos am-fr"><img src="/public/src/images/go.png" class="iconsd"></span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<footer class="footer" style="position:fixed;bottom: 0;left: 0;width: 100%;border-top: 2px solid #ddd;height: 6.5rem;">
+    <div class="am-g am-g-fixed">
+        <a href="/mobile/index/newindex.html" style="width:20%;float: none;text-align:center;">
+            <div class="am-u-sm-4" style="width:20%;color: #7a7a7a;font-size: 1.2rem!important;">
+                <img src="/public/src/images/sy.png" class="imgs"><br><b>资讯</b>
+            </div>
+        </a>
+
+        <a href="/mobile/loan/lists" style="width:20%;float: none;text-align:center;">
+            <div class="am-u-sm-4" style="width:20%;color: #7a7a7a;font-size: 1.2rem!important;"><img src="/public/src/images/jl.png" class="imgs"><br><b>借款记录</b>
+            </div>
+        </a>
+
+        <a href="/mobile/index/index.html" style="width:20%;float: none;text-align:center;">
+            <div class="am-u-sm-4" style="width:20%;color: #7a7a7a;font-size: 1.2rem!important;">
+                <img src="/public/src/images/sp1.png" class="imgs"><br><b>首页</b>
+            </div>
+        </a>
+        <a href="/mobile/user/index" style="width:20%;float: none;text-align:center;">
+            <div class="am-u-sm-4" style="width:20%;color: #E9524B;font-size: 1.2rem!important;">
+                <img src="/public/src/images/user1.png" class="imgs"><br><b>我的</b></div>
+        </a>
+
+        <a href="/mobile/user/coin" style="width:20%;float: none;text-align:center;">
+            <div class="am-u-sm-4" style="width:20%;color: #7a7a7a;font-size: 1.2rem!important;">
+                <img src="/public/src/images/qb.png" class="imgs"><br><b>钱包</b></div>
+        </a>
+    </div>
+</footer>
+
+
+<script>
+    $("#login_out_elem").on('click',function(){
+        layer.open({
+            content: '确定要退出登录吗？'
+            ,btn: ['取消', '确定']
+            ,skin: 'footer'
+            ,yes: function(index){
+                layer.close(index);
+            }
+            ,no:function(index){
+                window.location.href='/mobile/index/logout.html';
+            }
+        });
+    });
+
+    function getUserMoney(){
+        $.get("/mobile/user/getuserinfo",function(data){
+            console.log(data);
+            if(data.code == 1)
+            {
+                $('#user_phone').html(data.data.mobile);
+            }
+        });
+    }
+    getUserMoney();
+
+
+</script>
+
+
+
+
+</body></html>

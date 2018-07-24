@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    {include file="public/head"}
+    <link rel="stylesheet" href="__CSS__/mobile/loading.css">
+    <link rel="stylesheet" type="text/css" href="__CSS__/mobile/mui.picker.css" />
+    <style>
+    div{
+        background-color: transparent;!important;
+    }
+    .mui-poppicker li{
+        background-color: #ddd;
+    }
+    .mui-poppicker ul{
+        background-color: #ddd;
+    }
+    .mui-pciker-rule-ft{
+        z-index:999;
+    }
+    ..mui-pciker-list{
+        z-index:0;
+    }
+    </style>
+</head>
+<body>
+
+    <header class="top">
+		<span>个人资料</span>
+		<a onclick="window.history.back(-1)" class="top_ico top_backleft"></a>
+	</header>
+    <section class="jk_personData max_64">
+        <p class="border_b tac">个人基本资料将进行实名认证</p>
+        <form action="{:url('Info/personAuth')}" method="post" id="infoForm">
+            <div class="jk_wrapInput border_b clearfix">
+                <span>学历</span>
+                <select id="eduation" name="eduation"  class="selectCom" data-required="true" data-descriptions="xueli">
+                    <option selected disabled>请选择学历</option>
+                    <option value="研究生或以上" {$data.eduation=='研究生或以上' ? 'selected':''}>研究生或以上</option>
+                    <option value="大学本科（含双学历）" {$data.eduation=='大学本科（含双学历）' ? 'selected':''}>大学本科（含双学历）</option>
+                    <option value="大学专科" {$data.eduation=='大学专科' ? 'selected':''}>大学专科</option>
+                    <option value="高中或中专" {$data.eduation=='高中或中专' ? 'selected':''}>高中或中专</option>
+                    <option value="初中及以下" {$data.eduation=='初中及以下' ? 'selected':''}>初中及以下</option>
+                </select>
+                <i class="arrow_down"></i>
+            </div>
+            <div class="jk_wrapInput border_b clearfix">
+				<span>居住地址</span>
+                <div style="position: absolute;top: 0;right: 0;width: 70%;float: left;height: 100%;padding-left: 5%;" class="city-open-div"></div>
+                <input type="text" value="{$data.address}" placeholder="请选择居住地址" class="input_common" readonly="readonly" />
+                <input type="hidden" value="{$data.address}"  class="input_com" name="address"/>
+                <i class="arrow_down"></i>
+			</div>
+            <div class="jk_wrapInput border_b clearfix">
+				<span></span>
+				<input type="text" name="streetName" value="{$data.streetName}" placeholder="请填写街道地址" class="input_common" data-required="true" data-descriptions="jiedao" maxlength="100"/>
+			</div>
+            <div class="jk_wrapInput border_b clearfix">
+				<span>工作单位</span>
+				<input id="workUnit" name="workUnit" type="text"  value="{$data.workUnit}" placeholder="请填写工作单位名称" class="input_common" data-required="true" data-descriptions="danwei" maxlength="50"/>
+			</div>
+			<div class="jk_wrapInput border_b clearfix">
+				<span>单位地址</span>
+                <div style="position: absolute;top: 0;right: 0;width: 70%;float: left;height: 100%;padding-left: 5%;" class="city-open-div"></div>
+				<input type="text" value ="{$data.workAddress}" placeholder="请选择单位地址" class="input_common" />
+			    <input type="hidden" name="workAddress" value="{$data.workAddress}" class="input_com" />
+			    <i class="arrow_down"></i>
+			</div>
+            <div class="jk_wrapInput border_b clearfix">
+				<span></span>
+				<input name="workDetailAddress" type="text" value="{$data.workDetailAddress}" placeholder="填写单位具体地址" class="input_common" data-required="true" data-descriptions="jutidizhi" maxlength="100"/>
+			</div>
+            <p class="jk_personDataCom tac">联系人信息<font color="red">（近六个月需要联系）</font></p>
+            <div class="jk_wrapInput border_b clearfix  border_t">
+				<span>关系</span>
+				<select class="selectCom" name="relationship1" data-required="true" data-descriptions="guanxi">
+					<option selected disabled>请选择</option>
+					<option value="父亲" {$data.relationship1=='父亲' ? 'selected':''}> 父亲</option>
+					<option value="母亲" {$data.relationship1=='母亲' ? 'selected':''}> 母亲</option>
+					<option value="配偶" {$data.relationship1=='配偶' ? 'selected':''}> 配偶</option>
+					<option value="儿子" {$data.relationship1=='儿子' ? 'selected':''}> 儿子</option>
+					<option value="女儿" {$data.relationship1=='女儿' ? 'selected':''}> 女儿</option>
+					<option value="哥哥" {$data.relationship1=='哥哥' ? 'selected':''}> 哥哥</option>
+					<option value="弟弟" {$data.relationship1=='弟弟' ? 'selected':''}> 弟弟</option>
+					<option value="姐姐" {$data.relationship1=='姐姐' ? 'selected':''}> 姐姐</option>
+					<option value="妹妹" {$data.relationship1=='妹妹' ? 'selected':''}> 妹妹</option>
+				</select>
+				<i class="arrow_down"></i>
+			</div>
+            <div class="jk_wrapInput border_b clearfix">
+                <span>真实姓名</span>
+                <input type="text" value="{$data.rs_realname1}" placeholder="请输入真实姓名" name="rs_realname1" class="input_common" data-required="true" data-descriptions="guanxi1_realname" maxlength="50"/>
+            </div>
+            <div class="jk_wrapInput border_b  clearfix">
+                <span>手机号码</span>
+                <input  id="cks_number1" value="{$data.rs_phone1}" placeholder="请填写真实的手机号码" name="rs_phone1"  class="input_common" data-required="true" data-descriptions="guanxi_phone" data-conditional="cks_phone1" maxlength="11"/>
+            </div>
+            <div class="jk_wrapInput border_b clearfix ">
+				<span>关系</span>
+				<select class="selectCom" name="relationship2"  data-required="true"  data-descriptions="guanxi2" >
+					<option selected disabled>请选择</option>
+					<option value="同事" {$data.relationship2=='同事' ? 'selected':''}> 同事</option>
+					<option value="朋友" {$data.relationship2=='朋友' ? 'selected':''}> 朋友</option>
+					<option value="同学" {$data.relationship2=='同学' ? 'selected':''}> 同学</option>
+					<option value="其他" {$data.relationship2=='其他' ? 'selected':''}> 其他</option>
+				</select>
+				<i class="arrow_down"></i>
+			</div>
+			<div class="jk_wrapInput border_b clearfix">
+				<span>真实姓名</span>
+				<input type="text" placeholder="请输入真实姓名" value="{$data.rs_realname2}" name="rs_realname2" class="input_common" data-required="true" data-descriptions="guanxi2_realname" maxlength="50"/>
+			</div>
+			<div class="jk_wrapInput border_b clearfix">
+				<span>手机号码</span>
+				<input  id="cks_number2" value="{$data.rs_phone2}" placeholder="请填写真实的手机号码" name="rs_phone2" class="input_common"  data-required="true" data-descriptions="guanxi2_phone" data-conditional="cks_phone2" maxlength="11"/>
+			</div>
+			<div class="jk_loginSubmit mb_2" style="margin-top:1rem;">
+				<input type="button" value="保存" class="jk_btn"  id="btnSubmit"/>
+			</div>
+        </form>
+    </section>
+
+    <script src="__JS__/jquery.form.js"></script>
+    <script src="__JS__/mobile/mui.min.js"></script>
+    <script src="__JS__/mobile/mui.picker.min.js"></script>
+    <script src="__JS__/mobile/data.city.js"></script>
+    <script>
+    $(function(){
+        var city_picker = new mui.PopPicker({layer:3});
+        city_picker.setData(init_city_picker);
+        $(".city-open-div").on('click',function(){
+            var obj1 = $($(this).parent()).find("input[type='text']");
+            var obj2 = $($(this).parent()).find("input[type='hidden']");
+    		setTimeout(function(){
+    			city_picker.show(function(items){
+                    var city_val = (items[0] || {}).text + "," + (items[1] || {}).text + "," + (items[2] || {}).text;
+                    $(obj1).val(city_val);
+                    $(obj2).val(city_val);
+    			});
+    		},200);
+        });
+
+        function IsMobile(number){
+            var myreg = /^(((13[0-9]{1})|(15[0-9]{1})|(17[0-9]{1})|(18[0-9]{1}))+\d{8})$/;
+            if(!myreg.test(number))
+                return false;
+            else
+                return true;
+        }
+
+        $("#btnSubmit").on('click',function(){
+            var p_1 = $("#cks_number1").val();
+            var p_2 = $("#cks_number2").val();
+            if(!IsMobile(p_1) || !IsMobile(p_2)){
+                layer.open({
+                    content:'请输入规范的手机号',
+                    btn:'确定',
+                });
+                return false;
+            }
+            $("#infoForm").ajaxSubmit({
+                success:function(data){
+                    if(data.code == 1){
+                        layer.open({
+                            content:'保存成功',
+                            btn:'确定',
+                            end:function(){
+                                window.location.href=data.url;
+                            }
+                        });
+                    }else{
+                        layer.open({
+                            content:data.msg,
+                            skin:'msg',
+                            time:data.wait
+                        });
+                    }
+                }
+            });
+        });
+    });
+    </script>
+
+</body>
+</html>

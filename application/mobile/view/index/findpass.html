@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    {include file='public/head'}
+    <link rel="stylesheet" href="__CSS__/mobile/loading.css">
+    <style>
+    div{
+        background-color: transparent;!important
+    }
+    </style>
+</head>
+<body>
+    <header class="top">
+		<span>找回登录密码</span>
+		<a href="{:url('index/index')}" class="top_ico top_backleft"></a>
+	</header>
+
+    <img src="/public/src/images/denglu.png" alt="">
+    <div class="clearfix main_input border_b">
+        <div class="margin_lr fs_16"  style="height:4.4rem;">
+            <strong class="hl fc_6">手机号</strong>
+           	<div class="input_box">
+    	        <input type="text" id="mobile" maxlength="15" autocomplete="off" placeholder="请输入手机号" />
+    	    </div>
+        </div>
+    </div>
+    <div class="clearfix main_input border_b  clearfix">
+        <div class="margin_lr fs_16"  style="height:4.4rem;">
+    		<strong class="hl fc_6">验证码</strong>
+    		<div class="input_box">
+    			<input type="text"  name="imgCode" id="imgCode" maxlength="4" placeholder="图形验证码" />
+    			<a href="javascript:;" id="refush" class="fc_blue po_r border_l">
+                    <img src="{:captcha_src()}" width="80" height="32" name="code" id="code" />
+                </a>
+    		</div>
+    	</div>
+    </div>
+    <div class="clearfix main_input border_b  clearfix">
+        <div class="margin_lr fs_16"  style="height:4.4rem;">
+    		<strong class="hl fc_6">验证码</strong>
+    		<div class="input_box">
+    			<input type="text" id="smscode" maxlength="4" placeholder="短信验证码" />
+    			<a href="javascript:putyzm();" class="fc_blue po_r border_l" id="dtmbtn">获取验证码</a>
+    		</div>
+    	</div>
+    </div>
+    <div class="clearfix main_input border_b">
+        <div class="margin_lr fs_16"  style="height:4.4rem;">
+            <strong class="hl fc_6">新密码</strong>
+           	<div class="input_box">
+    	        <input type="password"  id="passwd" maxlength="18" autocomplete="off" placeholder="设置新密码" />
+    	    </div>
+        </div>
+    </div>
+    <div class="margin_lr fs_16 mt_20">
+    	<input type="submit" value="下一步"  style="background:#ee3944;" id="submit" class="btn btn_blue w_10">
+	</div>
+
+
+
+    <script>
+    var timeout = 0;
+    function resetcode(){
+        if(timeout > 0){
+            timeout--;
+            $("#dtmbtn").html(timeout+'秒重试');
+        }else{
+            $("#dtmbtn").html('获取验证码');
+        }
+    }
+    function putyzm(){
+        var mobile = $("#mobile").val();
+        var imgcode= $("#imgCode").val();
+        if(timeout > 0) return false;
+        $.post(
+            siteurl+"/mobile/index/sendcode",
+            {
+                mobile:mobile,
+                imgcode:imgcode,
+                type:'找回密码'
+            },
+            function(data,state){
+                if(ajaxState(state)){
+                    if(data.code != 1){
+                        layer.open({
+                            content:data.msg,
+                            skin:'msg',
+                            time:data.wait
+                        });
+                        $('#imgc').click();
+                    }else{
+                        timeout = 60;
+                        setInterval('resetcode()','1000');
+                    }
+                }
+            }
+        );
+    }
+    $(function(){
+        $("#code").on('click',function(){
+            $(this).attr('src',"{:captcha_src()}?t="+new Date() );
+        });
+        $('#submit').on('click',function(){
+            var mobile = $("#mobile").val();
+            var verify = $("#smscode").val();
+            var passwd = $("#passwd").val();
+            $.post(
+                siteurl+"/mobile/index/findpass",
+                {
+                    mobile:mobile,
+                    code:verify,
+                    passwd:passwd
+                },
+                function (data,state){
+                    if(ajaxState(state)){
+                        if(data.code != 1){
+                            layer.open({
+                                content:data.msg,
+                                skin:'msg',
+                                time:data.wait
+                            });
+                            $('#imgc').click();
+                        }else{
+                            layer.open({
+                                content:'重置密码成功',
+                                skin:'msg',
+                                time:data.wait
+                            });
+                            setTimeout(function(){window.location.href = data.url;},data.wait * 1000);
+                        }
+                    }
+                }
+            );
+        });
+    });
+    </script>
+
+</body>
+</html>

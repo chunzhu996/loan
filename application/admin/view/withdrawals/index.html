@@ -1,0 +1,75 @@
+{include file="Public/mainHead"}
+<h3>
+    提现订单列表
+</h3>
+
+<div class="filter">
+    <form method="get" ajax='0'>
+        <input name="seach[id]" type="text" class="inpMain" value="{$seach.id}" placeholder="以订单ID查找" size="20" />
+        <input name="seach[ordernum]" type="text" class="inpMain" value="{$seach.ordernum}" placeholder="以订单编号查找" size="20" />
+        <input name="seach[username]" type="text" class="inpMain" value="{$seach.username}" placeholder="以用户名查找" size="20" />
+        <select name="seach[status]">
+            <option value="-1">全部订单</option>
+            <option value="0" {if condition="$seach['status'] eq 0"}selected{/if} >待审核</option>
+            <option value="2" {if condition="$seach['status'] eq 2"}selected{/if} >已拒绝</option>
+            <option value="1" {if condition="$seach['status'] eq 1"}selected{/if} >成功</option>
+        </select>
+        <input name="submit" class="btnGray" type="submit" value="筛选" />
+    </form>
+</div>
+
+
+    <table width="100%" border="0" cellpadding="8" cellspacing="0" class="tableBasic">
+        <tr>
+            <th width="50" align="center">ID</th>
+            <th width="50" align="center">订单号</th>
+            <th align="center">所属用户</th>
+            <th align="center">提现金额</th>
+            <th align="center">银行卡号</th>
+            <th align="center">预留手机</th>
+            <th align="center">开户姓名</th>
+            <th align="center">订单创建时间</th>
+            <th align="center">状态</th>
+            <th align="center">操作</th>
+        </tr>
+        {php}$status = [0=>'待审核',1=>'成功',2=>'已拒绝'];{/php}
+        {volist name="data" id="v"}
+            {php}if(!empty($v->user->info['bankAuth'])) $bank=json_decode($v->user->info['bankAuth'],true);{/php}
+        <tr dataId="{$v.id}">
+            <td align="center">{$v.id}</td>
+            <td align="center">{$v.ordernum}</td>
+            <td align="center">{$v.user.mobile|default="用户不存在"}</td>
+            <td align="center">{$v.money}元</td>
+            <td align="center">{$bank.card|default="信息不存在"}</td>
+            <td align="center">{$bank.phone|default="信息不存在"}</td>
+            <td align="center">{$v.user.info.name|default="信息不存在"}</td>
+            <td align="center">{$v.add_time|date="Y-m-d H:i:s",###}</td>
+            <td align="center">
+                {$status[$v['status']]}
+            </td>
+            <td align="center">
+                {if condition="$v['status'] eq 0"}
+                    <a href="javascript:agreeOrder('{$v.ordernum}');" class="btn">通过审核</a>
+                    <a href="javascript:rejectOrder('{$v.ordernum}');" class="btnOrange">驳回订单</a>
+                {/if}
+                {if condition="$v['status'] eq 1"}
+                    <a href="javascript:delOrder('{$v.id}','{$v.ordernum}');" class="btnRed">删除订单</a>
+                {/if}
+                {if condition="$v['status'] eq 2"}
+                    <a href="javascript:viewRejectInfo('{$v.id}','{$v.error}');" class="btnGray">驳回原因</a>
+                    <a href="javascript:delOrder('{$v.id}','{$v.ordernum}');" class="btnRed">删除订单</a>
+                {/if}
+            </td>
+        </tr>
+        {/volist}
+    </table>
+    <div class="list-page">
+        {$page}
+    </div>
+
+
+</div>
+
+
+{include file="Public/mainFoot"}
+<script src="__JS__/page/admin_withdrawals_index.js"></script>

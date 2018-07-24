@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    {include file="public/head"}
+    <link rel="stylesheet" href="__CSS__/mobile/loading.css">
+    <link rel="stylesheet" type="text/css" href="__CSS__/mobile/LArea.css" />
+    <style>
+    div{
+        background-color: transparent;!important
+    }
+    </style>
+</head>
+<body>
+
+    <header class="top">
+		<span>确认借款</span>
+		<a onclick="window.history.back(-1)" class="top_ico top_backleft"></a>
+	</header>
+    <section class="jk_personData max_64" style='margin-bottom:20rem;'>
+        <p class="border_b tac" style="font-size: 1.2rem;">借款申请审核成功后款项实时存入账户钱包</p>
+        <form action="{:url('Loan/confirmLoan')}" method="post" id="LoanForm">
+            <input type="hidden" value="{$data.money}" name="money"/>
+            <input type="hidden" value="{$data.time}" name="time" />
+            <input type="hidden" value="{$data.servicecharge}" name="servicecharge" />
+            <div class="jk_wrapInput border_b clearfix">
+				<span>借款金额</span>
+                <span class="input_common" style="margin-left: 1rem;" id="loan-money">{$data.money} 元</span>
+			</div>
+            <div class="jk_wrapInput border_b clearfix">
+				<span>借款期限</span>
+                <span class="input_common" style="margin-left: 1rem;" id="loan-time">{$data.time} {$data.time_n}</span>
+			</div>
+
+            <div class="jk_wrapInput border_b clearfix">
+                <span>月利息</span>
+                <span class="input_common" style="margin-left: 1rem;" id="monthMoney">t66</span>
+            </div>
+
+            <div class="jk_wrapInput border_b clearfix">
+                <span>总额还款</span>
+                <span class="input_common" id="total-money" style="margin-left: 1rem;">10001010 元</span>
+            </div>
+
+            <div class="jk_wrapInput border_b clearfix">
+                <span>每月还款</span>
+                <span class="input_common" id="per-expect" style="margin-left: 1rem;">10001010 元</span>
+            </div>
+
+            <div class="jk_wrapInput border_b clearfix">
+				<span>年利率</span>
+                <span class="input_common" style="margin-left: 1rem;">{$rate * 1000} （厘）</span>
+			</div>
+
+            <div class="jk_wrapInput border_b clearfix">
+				<span>首期还款日</span>
+                <span class="input_common" style="margin-left: 1rem;">{$data.lastTime}</span>
+			</div>
+            <div class="jk_wrapInput border_b clearfix">
+                <span>实际到账金额</span>
+                <span class="input_common" style="margin-left: 1rem;">{$data.realMoney} 元</span>
+            </div>
+            <!--<div class="jk_wrapInput border_b clearfix">-->
+                <!--<span>还款金额</span>-->
+                <!--<span class="input_common" style="margin-left: 1rem;">{$data.allMoney} 元</span>-->
+            <!--</div>-->
+
+            <div class="jk_wrapInput border_b clearfix">
+                <span>审核费用</span>
+                {if condition="$data.servicecharge eq null"}
+
+                {else /}
+                <span class="input_common" style="margin-left: 1rem;">{$data.servicecharge} 元 <em style="font-size: 12px">(审核费用直接从账户余额扣除)</em></span>
+                {/if}
+            </div>
+
+            <p class="border_b tac" style="font-size: 1.3rem;line-height: 4rem;">
+                继续操作表示您同意 <a class="a_blue" href="javascript:showXieYi('__PUBLIC__/userLoan.html');"> 《借款协议》 </a>
+            </p>
+
+			<div class="jk_loginSubmit mb_2" style="margin-top:1rem;">
+				<input type="button" value="确认借款" class="jk_btn"  id="btnSubmit"/>
+			</div>
+        </form>
+    </section>
+
+    
+    <script src="__JS__/jquery.form.js"></script>
+    <script>
+        $(function(){
+            $('#btnSubmit').on('click',function(){
+                $('#LoanForm').ajaxSubmit({
+                    success:function(data){
+                        if(data.code == 1){
+                            layer.open({
+                                content:'您的借款申请已提交,请耐心等待审核.审核结果将以短信发送您的手机.',
+                                btn:'确定',
+                                yes:function(){
+                                    window.location.href = data.url;
+                                },
+                                shadeClose:false
+                            });
+                        }else{
+                            layer.open({
+                                content:data.msg,
+                                shadeClose:false,
+                                btn:'前往查看',
+                                yes:function(){
+                                    window.location.href = '/mobile/loan/lists';
+                                },
+                            });
+                        }
+                        return false;
+                    }
+                });
+            });
+        });
+    </script>
+
+    <script>
+        $(function()
+        {
+            // 10000  12   66
+            //899.3 - 66 = 833.3
+
+
+            //一个月的利息 = 金额 * 0.0066;
+            //金额 10000 元 期限：12期  11110元
+
+            var rate = '{$rate}';
+           // console.log(rate);
+
+            var money = $('#loan-money').html();
+            var time = $('#loan-time').html();
+
+            $('#per-expect').html(toTotal(money,time)  + " 元");
+            $('#total-money').html(Total(money,time)  + " 元");
+            $('#monthMoney').html(parseInt(money) * rate + " 元");
+
+
+            //每月还款
+            function toTotal(m,t)
+            {
+                var money = parseInt(m);
+                var time = parseInt(t);
+                var result = ((money * rate ) * time + money)/time;
+                return result.toFixed(2);
+            }
+
+
+            //总还款金额
+            function Total(m,t)
+            {
+                var money = parseInt(m);
+                var time = parseInt(t);
+                var result = ((money * rate ) * time + money);
+                return result.toFixed(2);
+            }
+
+            //改变期数或金额
+            function changeMoneyOrExpect()
+            {
+                var money = $('#loan-money').html();
+                var time = $('#loan-time').html();
+                $('#txt').html(toTotal(money,time) + " 元");
+            }
+
+            $('#loan-money').change(function()
+            {
+                changeMoneyOrExpect();
+            });
+
+            $('#loan-time').change(function()
+            {
+                changeMoneyOrExpect();
+            });
+
+
+        });
+    </script>
+
+</body>
+</html>

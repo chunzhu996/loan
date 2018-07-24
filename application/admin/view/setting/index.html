@@ -1,0 +1,506 @@
+{include file="Public/mainHead"}
+
+<style>
+    #erweima tr 
+    {
+        border: 2px solid #000;
+        font-size:16px;
+    }
+    #erweima td
+    {
+        padding: 8px;
+    }
+    .start,.delete,.useless
+    {
+        width:80px;
+        height: 25px;
+
+        color: #fff;
+        font-weight: 700;
+    }
+    .start
+    {
+        background: #884efc;
+    }
+    .delete
+    {
+        background: #fc110f;
+    }
+    .useless
+    {
+        background: #474c50;
+    }
+
+</style>
+<script type="text/javascript" src="__JS__/jquery.tab.js"></script>
+<h3>系统设置</h3>
+    <script type="text/javascript">
+        $(function(){ $(".idTabs").idTabs(); });
+    </script>
+    <div class="idTabs">
+    <ul class="tab">
+        <li><a href="#site">网站设置</a></li>
+        <li><a href="#api">接口设置</a></li>
+        <li><a href="#loan">借款设置</a></li>
+        <li><a href="#erweima">二维码</a></li>
+        <!-- 其他扩展设置列表 -->
+
+        <!-- 其他扩展设置列表 -->
+    </ul>
+        <div class="items">
+            <div id="site">
+<form action="{:url('Setting/index')}" method="post">
+<table width="100%" border="0" cellpadding="8" cellspacing="0" class="tableBasic">
+    <tr>
+        <th width="131">名称</th>
+        <th>内容</th>
+    </tr>
+    <tr>
+        <td align="right">站点名称</td>
+        <td>
+            <input type="text" name="name" value="{$Think.config.site.name}" size="80" class="inpMain" />
+        </td>
+    </tr>
+    <tr>
+        <td align="right">站点标题</td>
+        <td>
+            <input type="text" name="title" value="{$Think.config.site.title}" size="80" class="inpMain" />
+        </td>
+    </tr>
+    <tr>
+        <td align="right">站点关键字</td>
+        <td>
+            <input type="text" name="keywords" value="{$Think.config.site.keywords}" size="80" class="inpMain" />
+        </td>
+    </tr>
+    <tr>
+        <td align="right">站点描述</td>
+        <td>
+            <input type="text" name="description" value="{$Think.config.site.description}" size="80" class="inpMain" />
+        </td>
+    </tr>
+    <tr>
+        <td align="right">站点标志</td>
+        <td>
+            <input type="text" name="logo" value="{$Think.config.site.logo}" size="80" class="inpMain" />
+            <a href="javascript:;" datatype="upload-img" callbackinp="logo" class="btnGray">上传图片</a>
+        </td>
+    </tr>
+    <tr>
+        <td align="right">是否关闭网站</td>
+        <td>
+            <label for="site_closed_0">
+                <input type="radio" name="closed" id="site_closed_0" value="0" {$Think.config.site.closed ?'':'checked="true"'}>
+            否</label>
+            <label for="site_closed_1">
+                <input type="radio" name="closed" id="site_closed_1" value="1" {$Think.config.site.closed ?'checked="true"':''}>
+            是</label>
+        </td>
+    </tr>
+    <tr>
+        <td align="right">上传大小限制</td>
+        <td>
+            <input type="text" name="maxupload" value="{$Think.config.site.maxupload}" size="80" class="inpMain" />
+            <span> 单位(Mb)</span>
+        </td>
+    </tr>
+    <tr>
+        <td align="right">允许上传后缀</td>
+        <td>
+            <input type="text" name="fileallow" value="{$Think.config.site.fileallow}" size="80" class="inpMain" />
+            <span> * 以英文逗号隔开</span>
+        </td>
+    </tr>
+    <tr>
+        <td align="right">ICP备案证书号</td>
+        <td>
+            <input type="text" name="icp" value="{$Think.config.site.icp}" size="80" class="inpMain" />
+        </td>
+    </tr>
+    <tr>
+        <td align="right">统计/客服代码调用</td>
+        <td>
+            <textarea name="code" cols="83" rows="8" class="textArea" />{$Think.config.site.code}</textarea>
+        </td>
+    </tr>
+</table>
+<input type="hidden" name="action" value="site">
+</form>
+            </div>
+
+            <div id="api">
+                    <form action="{:url('Setting/index')}" method="post">
+<table width="100%" border="0" cellpadding="8" cellspacing="0" class="tableBasic">
+    <tr>
+        <th width="131">名称</th>
+        <th>内容</th>
+    </tr>
+    <tr>
+        <td align="right">短信/实名调用key</td>
+        <td>
+            <input type="text" name="smskey" value="{$Think.config.api.smskey}" size="80" class="inpMain" />
+        </td>
+    </tr>
+    <tr>
+        <td align="right">注册短信模板</td>
+        <td>
+            <input type="text" name="regtpl" value="{$Think.config.api.regtpl}" size="20" class="inpMain" />
+        </td>
+    </tr>
+    <tr>
+        <td align="right">找回密码模板</td>
+        <td>
+            <input type="text" name="findtpl" value="{$Think.config.api.findtpl}" size="20" class="inpMain" />
+        </td>
+    </tr>
+    <tr>
+        <td align="right">借款审核失败模板</td>
+        <td>
+            <input type="text" name="loanreject" value="{$Think.config.api.loanreject}" size="20" class="inpMain" />
+        </td>
+    </tr>
+    <tr>
+        <td align="right">借款审核成功模板</td>
+        <td>
+            <input type="text" name="loanagree" value="{$Think.config.api.loanagree}" size="20" class="inpMain" />
+        </td>
+    </tr>
+    <tr>
+        <td align="right">借款还款成功模板</td>
+        <td>
+            <input type="text" name="loanrepayment" value="{$Think.config.api.loanrepayment}" size="20" class="inpMain" />
+        </td>
+    </tr>
+    <tr>
+        <td align="right">提现申请模板</td>
+        <td>
+            <input type="text" name="withdrawals" value="{$Think.config.api.withdrawals}" size="20" class="inpMain" />
+        </td>
+    </tr>
+    <tr>
+        <td align="right">提现失败模板</td>
+        <td>
+            <input type="text" name="withdrawalsreject" value="{$Think.config.api.withdrawalsreject}" size="20" class="inpMain" />
+        </td>
+    </tr>
+    <tr>
+        <td align="right">提现成功模板</td>
+        <td>
+            <input type="text" name="withdrawalsagree" value="{$Think.config.api.withdrawalsagree}" size="20" class="inpMain" />
+        </td>
+    </tr>
+
+    <tr>
+        <td align="right">今日到期模板</td>
+        <td>
+            <input type="text" name="todayExpires" value="{$Think.config.api.todayExpires}" size="20" class="inpMain" />
+        </td>
+    </tr>
+
+    <tr>
+        <td align="right">逾期提醒模板</td>
+        <td>
+            <input type="text" name="overdueReminder" value="{$Think.config.api.overdueReminder}" size="20" class="inpMain" />
+        </td>
+    </tr>
+
+    <tr>
+        <td align="right">运营商key</td>
+        <td>
+            <input type="text" name="mkey" value="{$Think.config.api.mkey}" size="80" class="inpMain" />
+        </td>
+    </tr>
+    <tr>
+        <td align="right">淘宝key</td>
+        <td>
+            <input type="text" name="tbkey" value="{$Think.config.api.tbkey}" size="80" class="inpMain" />
+        </td>
+    </tr>
+    <tr>
+        <td align="right">支付宝PID</td>
+        <td>
+            <input type="text" name="alipaypid" value="{$Think.config.api.alipaypid}" size="80" class="inpMain" />
+        </td>
+    </tr>
+    <tr>
+        <td align="right">支付宝密钥</td>
+        <td>
+            <input type="text" name="alipaykey" value="{$Think.config.api.alipaykey}" size="80" class="inpMain" />
+        </td>
+    </tr>
+</table>
+<input type="hidden" name="action" value="api">
+</form>
+            </div>
+
+
+            <div id="loan">
+                <form action="{:url('Setting/index')}" method="post">
+                <table width="100%" border="0" cellpadding="8" cellspacing="0" class="tableBasic">
+                    <tr>
+                        <th width="131">名称</th>
+                        <th>内容</th>
+                    </tr>
+                    <tr>
+                        <td align="right">借款金额</td>
+                        <td>
+                            <input type="text" name="money" value="{$Think.config.loan.money}" size="80" class="inpMain" />
+                            <span>多个金额用英文逗号","隔开</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right">借款期限</td>
+                        <td>
+                            <input type="text" name="time" value="{$Think.config.loan.time}" size="80" class="inpMain" />
+                            <span>多个期限用英文逗号","隔开</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right">期限单位</td>
+                        <td>
+                            <label for="time_day">
+                                <input type="radio" name="time_n" value="day" {$Think.config.loan.time_n == 'month' ?'':'checked="true"'}>
+                            天</label>
+                            <label for="time_month">
+                                <input type="radio" name="time_n" value="month" {$Think.config.loan.time_n == 'month' ?'checked="true"':''}>
+                            月</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right">借款利息</td>
+                        <td>
+                            <input type="text" name="rate" value="{$Think.config.loan.rate}" size="20" class="inpMain" />
+                            <span>单位(%) 根据期限单位含义不同("天"为日息，"月"为月息) </span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right">是否开启服务费用</td>
+                        <td>
+                            <label for="serviceStatus">
+                                <input type="radio" name="serviceStatus" value="1" {$Think.config.loan.serviceStatus =='1'?'checked':''}> 是
+                            </label>
+                            <label for="serviceStatus">
+                                <input type="radio" name="serviceStatus" value="0" {$Think.config.loan.serviceStatus!=='1'?'checked':''}> 否
+                            </label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right">服务费用</td>
+                        <td>
+                            <input type="text" name="servicecharge" value="{$Think.config.loan.servicecharge}" size="20" class="inpMain" />
+                            <span>单位(%) 除利息外额外收取的费用</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right">还款方式</td>
+                        <td>
+                            <label for="time_day">
+                                <input type="radio" name="repaymenttype" value="0" {$Think.config.loan.repaymenttype == '1' ?'':'checked="true"'}>
+                            扣除利息到期还款本金</label>
+                            <label for="time_month">
+                                <input type="radio" name="repaymenttype" value="1" {$Think.config.loan.repaymenttype == '1' ?'checked="true"':''}>
+                            到期还款本金和利息</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right">逾期费率</td>
+                        <td>
+                            <input type="text" name="overdue" value="{$Think.config.loan.overdue}" size="20" class="inpMain" />
+                            <span>% 逾期日开始每日按照借款金额(非应还金额)百分比加收逾期费用</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right">提现最低金额</td>
+                        <td>
+                            <input type="text" name="withdrawalsminmoney" value="{$Think.config.loan.withdrawalsminmoney}" size="8" class="inpMain" />
+                            <span>元</span>
+                        </td>
+                    </tr>
+                <tr>
+                        <td align="right">是否开启邀请码</td>
+                        <td>
+                            <label for="serviceStatus">
+                                <input type="radio" name="isusercode" value="1" {$Think.config.loan.isusercode =='1'?'checked':''}> 是
+                            </label>
+                            <label for="serviceStatus">
+                                <input type="radio" name="isusercode" value="0" {$Think.config.loan.isusercode!=='1'?'checked':''}> 否
+                            </label>
+                        </td>
+                    </tr>
+                 <tr>
+                        <td align="right">注册邀请码</td>
+                        <td>
+                            <input type="text" name="usercode" value="{$Think.config.loan.usercode}" size="20" class="inpMain" />
+
+                        </td>
+                    </tr>
+                <tr>
+                        <td align="right">是否开启放款码</td>
+                        <td>
+                            <label for="serviceStatus">
+                                <input type="radio" name="ismoneycode" value="1" {$Think.config.loan.ismoneycode =='1'?'checked':''}> 是
+                            </label>
+                            <label for="serviceStatus">
+                                <input type="radio" name="ismoneycode" value="0" {$Think.config.loan.ismoneycode!=='1'?'checked':''}> 否
+                            </label>
+                        </td>
+                    </tr>
+                 <tr>
+                        <td align="right">提现放款码</td>
+                        <td>
+                            <input type="text" name="moneycode" value="{$Think.config.loan.moneycode}" size="20" class="inpMain" />
+
+                        </td>
+                    </tr>
+                </table>
+                <input type="hidden" name="action" value="loan">
+                </form>
+                            </div>
+                            <!-- 其他扩展设置列表 -->
+                            <!-- 其他扩展设置列表 -->
+            </div>
+
+
+        <div id="erweima">
+            <form class="erweimaform" action="{:url('Setting/uploadEwm')}" enctype="multipart/form-data" method="post">
+                <table style="width: 100%;text-align:center;" >
+                    <tr>
+                        <td style="width: 140px;">序号</td>
+                        <td>图片</td>
+                        <td>备注</td>
+                        <td>上传时间</td>
+                        <td>是否启用</td>
+                        <td>操作</td>
+                    </tr>
+
+                    {volist name="list" id="v" key="k"}
+                    <tr>
+                        <td>{$k}</td>
+                        <td>
+                            <img src="/public/uploads/{$v.url}" alt="" style="width: 100px;height: 40px;">
+                        </td>
+                        <td>{$v.mark}</td>
+                        <td>{$v.create_time}</td>
+                        <td>{$v.is_using?'使用中':'尚未使用'}</td>
+                        <td>
+                            {if condition="$v.is_using==0"}
+                                <button type="button" onclick="startPhoto({$v.id})"  class="start">启用</button>
+                                {else /}
+                                <button type="button" class="useless">禁用</button>
+                            {/if}
+                            <button type="button" class="delete">删除</button>
+                        </td>
+                    </tr>
+                    {/volist}
+                    <tr>
+                        <td colspan="3">
+                            添加新的收款图
+                        </td>
+                        <td>
+                            <input type="file" name="erweima" class="erweima"
+                                   style="margin-top: 15px;margin-bottom: 15px;">
+                        </td>
+                        <td >
+                            <textarea placeholder="请输入收款图片的备注" name="mark" id="" cols="30" rows="10" style="border: 1px solid #e5e5e5;height: 40px;"></textarea>
+                        </td>
+                        <td>
+                            <button id="postImg" style="width: 200px;height: 30px;cursor:pointer;">保存</button>
+                        </td>
+                    </tr>
+                </table>
+
+
+
+
+
+
+            </form>
+        </div>
+
+    <table width="100%" border="0" cellpadding="8" cellspacing="0" class="tableBasic">
+        <tr>
+            <td width="131"></td>
+            <td>
+                <button class="btn" id="saveBtn">保存设置</button>
+            </td>
+        </tr>
+    </table>
+</div>
+<script>
+    $(function(){
+        $('#saveBtn').click(function()
+        {
+            $(".idTabs .items div[style]").each(function(){
+                if($(this).css("display") == "block")
+                {
+                    var formObj = $(this).find("form");
+                    $(formObj).ajaxSubmit({
+                        success:function(data){
+                            if(data.code){
+                                layer.alert("操作成功");
+                            }else{
+
+                                layer.msg(data.msg,{
+                                    time: 10000 //2秒关闭（如果不配置，默认是3秒）
+                                },function(){
+                                    window.location.reload();
+                                });
+                            }
+                        }
+                    });
+                }
+            });
+        });
+        $("input[name='logo']").mouseover(function(){
+            var imgurl = $(this).val();
+            if(imgurl != '' && imgurl != null){
+                $('body').after("<div id='logoShow' style='position:absolute'><img src='"+imgurl+"' alt='logo'  height='100px' /></div>");
+                var pos = getXY(event);
+                $("#logoShow").attr('style','left:'+pos.x + 'px;position:absolute;top:'+pos.y + "px;");
+            }
+        });
+        $("input[name='logo']").mouseout(function(){
+            $("#logoShow").remove();
+        });
+
+        //开启图片
+
+
+
+
+
+    });
+
+
+    function startPhoto(id)
+    {
+
+        $.ajax({
+            url:'/admin/setting/startPhoto',
+            type:'post',
+            data:{photo_id:id},
+            success:function(data)
+            {
+                layer.msg(data.msg);
+                window.location.reload();
+            },
+            error:function(err)
+            {
+                console.log(err);
+            }
+        })
+
+
+    }
+
+
+    function getXY(eve) {
+        var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+        var scrollLeft = document.documentElement.scrollLeft || document.body.scrollLeft;
+        return {x : scrollLeft + eve.clientX,y : scrollTop + eve.clientY };
+    }
+
+
+
+</script>
+{include file="Public/mainFoot"}

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    {include file='public/head'}
+    <link rel="stylesheet" href="__CSS__/mobile/loading.css">
+    <style>
+    div{
+        background-color: transparent;!important
+    }
+    </style>
+</head>
+<body>
+    <header class="top">
+        <span>登录</span>
+        <a href="{:url('index/index')}" class="top_ico top_backleft"></a>
+        <a href="{:url('index/reg')}" class="r_off" style="display:block;">注册</a>
+    </header>
+
+    <form class="nwd-formUi"  autocomplete="off">
+        <div class="main_input border_tb mt_20 clearfix">
+            <div class="margin_lr fs_16">
+                <strong class="hl fc_6">手机号</strong>
+                <div class="input_box">
+                    <input type="text" name="username" id="username" placeholder="请输入手机号" >
+                </div>
+            </div>
+        </div>
+        <div class="main_input border_tb mt_20 clearfix">
+	        <div class="margin_lr fs_16">
+	            <strong class="hl fc_6">密码</strong>
+	            <div class="input_box">
+	                <input type="password" name="pwd" id="pwd" placeholder="请输入密码" />
+	                <a href="{:url('index/findpass')}" class="fc_blue po_r">忘记密码</a>
+	            </div>
+	        </div>
+        </div>
+        <div class="margin_lr fs_16 mt_10 mb_5">
+    		<input type="button" id="userLoginBtn" value="登 录" class="btn btn_orange w_10 mb_10">
+    	</div>
+    </form>
+
+    <footer class="footer_all">
+        <div class="tc">
+    	    <span class="pr_15 fc_blue" onclick="window.location.href='tel:88888888'">
+               
+            </span>
+    	    <span class="pr_15 fc_blue" onclick="window.location.href='tel:88888888'">
+               
+            </span>
+        </div>
+        <p class="tc fc_9 fs_14">
+            &copy;2018 和信贷  京ICP证 100953号<br>
+        </p>
+    </footer>
+
+    {include file='public/foot'}
+
+    <script>
+    $(function(){
+        $("#userLoginBtn").on('click',function(){
+            var mobile = $("#username").val();
+            var passwd = $("#pwd").val();
+            $.post(
+                siteurl+"/mobile/index/login",
+                {
+                    mobile:mobile,
+                    passwd:passwd
+                },
+                function(data,state){
+                    if(ajaxState(state)){
+                        if(data.code != 1){
+                            layer.open({
+                                content:data.msg,
+                                skin:'msg',
+                                time:data.wait
+                            });
+                        }else{
+                            layer.open({
+                                content:'登录成功',
+                                skin:'msg',
+                                time:data.wait
+                            });
+                            setTimeout(function(){window.location.href = data.url;},data.wait*1000);
+                        }
+                    }
+                }
+            );
+        });
+    });
+    </script>
+
+</body>
+</html>

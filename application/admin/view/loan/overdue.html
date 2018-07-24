@@ -1,0 +1,64 @@
+{include file="Public/mainHead"}
+<h3>
+    已逾期借款列表
+</h3>
+
+<div class="filter">
+    <form action="{:url('Loan/overdue')}" method="get" ajax='0'>
+        <input name="seach[id]" type="text" class="inpMain" value="{$seach.id}" placeholder="以借款编号查找" size="20" />
+        <input name="seach[username]" type="text" class="inpMain" value="{$seach.username}" placeholder="以用户名查找" size="20" />
+        <input name="submit" class="btnGray" type="submit" value="筛选" />
+    </form>
+</div>
+
+<table width="100%" border="0" cellpadding="8" cellspacing="0" class="tableBasic">
+    <tr>
+        <th width="50" align="center">借款编号</th>
+        <th align="left">借款用户</th>
+        <th align="center">明细</th>
+        <th align="center">借款资料</th>
+        <th align="center">逾期天数</th>
+        <th align="center">逾期费用</th>
+        <th align="center">申请时间</th>
+        <th align="center">订单操作</th>
+    </tr>
+    {php}$status = [0=>'等待审核',1=>'订单完成',2=>'订单驳回',3=>'等待还款'];{/php}
+    {volist name="data" id="v"}
+    <tr dataId="{$v.id}">
+        <td align="center">{$v.id}</td>
+        <td>{$v.mobile|default="用户不存在"}</td>
+        <td align="center">
+            <a href="javascript:viewLoanInfo('{$v.id}','{$v.borrowmoney}','{$v.realmoney}','{$v.borrowtime}','{$v.rate}','{$v.time_n}','{$v.ratemoney}','{$v.servicecharge}','{$v.lasttime}','{$v.overdue}','{$v.allmoney}','{$Think.config.loan.overdue}','{$v.overdueday}');">查看借款明细</a>
+        </td>
+        <td align="center">
+            <a href="javascript:viewLoanAuth('{$v.id}');">查看借款资料</a>
+        </td>
+        <td align="center">
+            {$v.overdueday}
+        </td>
+        <td align="center">
+            {$v.overdue} 元
+        </td>
+        <td align="center">{$v.add_time}</td>
+        <td align="center">
+            {if condition="$v['mobile']"}
+                {if condition="$v['status'] eq 0"}
+                    <a href="javascript:agreeLoan('{$v.id}');" class="btn">通过审核</a>
+                    <a href="javascript:rejectLoan('{$v.id}');" class="btnOrange">驳回订单</a>
+                {/if}
+                {if condition="$v['status'] eq 2"}
+                    <a href="javascript:viewRejectInfo('{$v.id}','{$v.errorstr}');" class="btnGray">驳回原因</a>
+                {/if}
+                {if condition="$v['status'] eq 3"}
+                    <a href="javascript:setRepayment('{$v.id}');" class="btn">手动还款</a>
+                {/if}
+            {/if}
+        </td>
+    </tr>
+    {/volist}
+</table>
+<div class="list-page">
+    {$page}
+</div>
+{include file="Public/mainFoot"}
+<script src="__JS__/page/admin_loan_index.js"></script>

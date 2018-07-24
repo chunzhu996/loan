@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    {include file="public/head"}
+    <link rel="stylesheet" href="__CSS__/mobile/loading.css">
+    <style>
+    div{
+        background-color: transparent;!important
+    }
+    </style>
+</head>
+<body>
+    <section class="max_64 jk_perfectData border_b">
+        <p class="jk_pCom border_b f_333">完善资料，贷款和你仅一步之遥。</p>
+        <div pTypeCode="A_BASE_INF" pStatus="0" pName="个人资料" class="item_btn jk_perfectDataCom clearfix border_b" id='baseInfo'>
+		  	<span class="fl jk_perfectDataComIcon jk_A_BASE_INF_icon"></span>
+		  	<article class="fl clearfix mt_1 ml_1">
+		  		<p class="fs15">个人资料</p>
+		  		<div class="fl identityAuth">
+		  			<span>实名认证</span>
+		  			<i class="jk_icon_0"></i>
+		  		</div>
+		  		<div class="fl personAuth">
+		  			<span>个人资料</span>
+		  			<i class="jk_icon_0"></i>
+		  		</div>
+		  	</article>
+		    <span class=" jk_perfectSpan f_status_0">待完善</span>
+		</div>
+        <div pTypeCode="B_QUALIFY_VERIFY" pStatus="0" pName="资格验证" class="item_btn jk_perfectDataCom clearfix border_b" id='otherInfo'>
+            <span class="fl jk_perfectDataComIcon jk_B_QUALIFY_VERIFY_icon"></span>
+            <article class="fl clearfix mt_1 ml_1">
+                <p class="fs15">资格验证</p>
+                <div class="fl mobileAuth">
+                    <span>运营商授权</span>
+                    <i class="jk_icon_0"></i>
+                </div>
+                <div class="fl taobaoAuth">
+                    <span>淘宝认证</span>
+                    <i class="jk_icon_0"></i>
+                </div>
+            </article>
+            <span class=" jk_perfectSpan f_status_0" >待完善</span>
+        </div>
+        <div pTypeCode="C_UPLOAD_PIC" pStatus="0" pName="资料上传" class="item_btn jk_perfectDataCom clearfix border_b" id='photoInfo'>
+            <span class="fl jk_perfectDataComIcon jk_C_UPLOAD_PIC_icon"></span>
+            <article class="fl clearfix mt_1 ml_1">
+                <p class="fs15">资料上传</p>
+                <div class="fl photoAuth">
+                    <span>身份证照片&个人照片</span>
+                    <i class="jk_icon_0"></i>
+                </div>
+            </article>
+            <span class=" jk_perfectSpan f_status_0" >待完善</span>
+        </div>
+        <div pTypeCode="D_BANK_CARD" pStatus="0" pName="绑定银行卡" class="item_btn jk_perfectDataCom clearfix border_b" id='bankInfo'>
+            <span class="fl jk_perfectDataComIcon jk_D_BANK_CARD_icon"></span>
+            <article class="fl clearfix mt_1 ml_1">
+                <p class="fs15">绑定银行卡</p>
+                <div class="fl bankAuth">
+                    <span>绑定提现银行卡</span>
+                    <i class="jk_icon_0"></i>
+                </div>
+            </article>
+            <span class=" jk_perfectSpan f_status_0" >待完善</span>
+        </div>
+    </section>
+
+    <div id="login_out_elem" style="display:block;" class="margin_lr">
+        <input type="button" value="退出登录" class="btn w_10  mt_10 bg_white btn_border_red">
+    </div>
+
+    {include file="public/foot"}
+    <script>
+        var idata;
+        function getUserAuth(){
+            $.get("{:url('Info/getInfoAuth')}",function(data,state){
+                if(ajaxState(state)){
+                    layer.closeAll();
+                    if(data.code == 1){
+                        idata = data.data;
+                        //实名认证状态
+                        if(idata.name == 1 && idata.idcard == 1){
+                            $('.identityAuth i').removeClass('jk_icon_0');
+                            $('.identityAuth i').addClass('jk_icon_1');
+                        }
+                        if(idata.personAuth == 1){
+                            $('.personAuth i').removeClass('jk_icon_0');
+                            $('.personAuth i').addClass('jk_icon_1');
+                        }
+                        if(idata.name == 1 && idata.idcard == 1 && idata.personAuth == 1){
+                            var obj = $($('.identityAuth').parent()).parent();
+                            var obj = $(obj).find("span:last");
+                            $(obj).removeClass('f_status_0');
+                            $(obj).addClass('f_status_1');
+                            $(obj).html('已完善');
+                        }
+                        if(idata.mobileAuth == 1){
+                            $('.mobileAuth i').removeClass('jk_icon_0');
+                            $('.mobileAuth i').addClass('jk_icon_1');
+                        }
+                        if(idata.taobaoAuth == 1){
+                            $('.taobaoAuth i').removeClass('jk_icon_0');
+                            $('.taobaoAuth i').addClass('jk_icon_1');
+                        }
+                        if(idata.mobileAuth == 1 && idata.taobaoAuth == 1){
+                            var obj = $($('.mobileAuth').parent()).parent();
+                            var obj = $(obj).find("span:last");
+                            $(obj).removeClass('f_status_0');
+                            $(obj).addClass('f_status_1');
+                            $(obj).html('已完善');
+                        }
+                        if(idata.photoAuth == 1){
+                            $('.photoAuth i').removeClass('jk_icon_0');
+                            $('.photoAuth i').addClass('jk_icon_1');
+                            var obj = $($('.photoAuth').parent()).parent();
+                            var obj = $(obj).find("span:last");
+                            $(obj).removeClass('f_status_0');
+                            $(obj).addClass('f_status_1');
+                            $(obj).html('已完善');
+                        }
+                        if(idata.bankAuth == 1){
+                            $('.bankAuth i').removeClass('jk_icon_0');
+                            $('.bankAuth i').addClass('jk_icon_1');
+                            var obj = $($('.bankAuth').parent()).parent();
+                            var obj = $(obj).find("span:last");
+                            $(obj).removeClass('f_status_0');
+                            $(obj).addClass('f_status_1');
+                            $(obj).html('已完善');
+                        }
+                    }else{
+                        layer.open({
+                            content:'信息请求失败'
+                        });
+                    }
+                }
+            });
+        }
+
+        $(function(){
+            //更新显示
+            layer.open({
+                type: 2,
+                shadeClose:false
+            });
+            getUserAuth();
+            setInterval(getUserAuth,5000);//定时刷新
+            $("#login_out_elem").on('click',function(){
+                layer.open({
+                    content: '确定要退出登录吗？'
+                    ,btn: ['取消', '确定']
+                    ,skin: 'footer'
+                    ,yes: function(index){
+                        layer.close(index);
+                    }
+                    ,no:function(index){
+                        window.location.href='{:url("index/logout")}';
+                    }
+                });
+            });
+
+            //基础资料点击
+            $('#baseInfo').on('click',function(){
+                if(idata.name == 1 && idata.idcard == 1){
+                    window.location.href = "{:url('info/personAuth')}";
+                }else{
+                    window.location.href = "{:url('info/identityAuth')}";
+                }
+            });
+            //资格认证点击
+            $('#otherInfo').on('click',function(){
+                if(idata.personAuth == 1){
+                    layer.open({
+                        content: '请选择认证项'
+                        ,btn: ['淘宝认证', '运营商认证']
+                        ,yes: function(index){
+                            layer.close(index);
+                            //淘宝认证
+                            if(idata.taobaoAuth == 1){
+                                layer.open({
+                                    content: '您已完成认证,是否重新认证',
+                                    btn:['确定','取消'],
+                                    yes: function (index){
+                                        getH5Url("{:url('info/taobaoAuth')}");
+                                    }
+                                });
+                            }else{
+                                getH5Url("{:url('info/taobaoAuth')}");
+                            }
+                        }
+                        ,no:function(index){
+                            layer.close(index);
+                            //运营商认证
+                            if(idata.mobileAuth == 1){
+                                layer.open({
+                                    content: '您已完成认证,是否重新认证',
+                                    btn:['确定','取消'],
+                                    yes: function (index){
+                                        getH5Url("{:url('info/mobileAuth')}");
+                                    }
+                                });
+                            }else{
+                                getH5Url("{:url('info/mobileAuth')}");
+                            }
+                        }
+                    });
+                }else{
+                    layer.open({
+                        content:'请先填写个人资料'
+                    });
+                }
+            });
+            //资料上传点击
+            $('#photoInfo').on('click',function(){
+                window.location.href = "{:url('info/photoAuth')}";
+            });
+            //银行卡绑定点击
+            $("#bankInfo").on('click',function(){
+                if(idata.bankAuth == 1){
+                    layer.open({
+                        content:'您已绑定银行卡,是否更换绑定',
+                        btn:['确定','取消'],
+                        yes:function(index){
+                            window.location.href = "{:url('info/bankAuth')}";
+                        }
+                    });
+                }else{
+                    window.location.href = "{:url('info/bankAuth')}";
+                }
+            });
+        });
+
+        //资格认证获取H5地址
+        function getH5Url(url){
+            layer.closeAll();
+            layer.open({
+                type:2,
+                shadeClose:false
+            });
+            $.get(url,function(data,state){
+                layer.closeAll();
+                if(ajaxState(state)){
+                    if(data.code == 1){
+                        layer.open({
+                            content: '即将转入授权页面,授权成功后需等待几分钟同步数据'
+                        });
+                        setTimeout(function(){window.location.href = data.url;},5000);
+                    }else{
+                        layer.open({
+                            content: data.msg,
+                            skin:'msg',
+                            time:data.wait
+                        });
+                    }
+                }
+            });
+        }
+    </script>
+
+</body>
+</html>

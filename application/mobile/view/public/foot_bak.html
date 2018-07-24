@@ -1,0 +1,29 @@
+<script>var siteurl="http://{$Request.host}";</script>
+<script src="__JS__/jquery-1.7.2.min.js"></script>
+<script src="__JS__/mobile/layer.js"></script>
+
+{php}$js_p = strtolower(Request()->controller().'_'.Request()->action());{/php}
+{switch name="js_p"}
+    {case value="index_index|user_coin|loan_lists|user_index"}
+    <link rel="stylesheet" href="__CSS__/mobile/loading.css">
+    <div class="footDiv"></div>
+    <nav class="footer border_t" id="footer">
+    	<a href="{:url('index/index')}" {if condition="$js_p eq 'index_index'"}class="nav_on"{/if}>
+            <span></span>申请借款
+        </a>
+    	<a href="{:url('user/coin')}" {if condition="$js_p eq 'user_coin'"}class="nav_on"{/if}>
+            <span></span>我的钱包
+        </a>
+    	<a href="{:url('loan/lists')}" {if condition="$js_p eq 'loan_lists'"}class="nav_on"{/if}>
+            <span></span>我的借款
+        </a>
+    	<a href="{:url('user/index')}" {if condition="$js_p eq 'user_index'"}class="nav_on"{/if}>
+            <span></span>用户中心
+        </a>
+    </nav>
+    {/case}
+{/switch}
+
+<div style="display:none;">
+    {$Think.config.site.code}
+</div>
