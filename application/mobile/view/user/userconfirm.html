@@ -116,10 +116,10 @@
                 <div class="am-panel am-panel-default ramn" id="bankAuth">
                     <div class="am-panel-bd">
                         <div class="am-fl">
-                            <img src="/public/src/images/yhk.png" class="imgs" /> &nbsp;银行卡绑定
+                            <img src="/public/src/images/yhk.png" class="imgs" /> &nbsp;银行卡添加
                         </div>
                         <div class="am-fr">
-                            <span>未认证</span>
+                            <span>未添加</span>
                         </div> &nbsp;
                     </div>
                     <!--/div>
@@ -172,8 +172,10 @@
 </script>
 <script>
     var idata;
+    var flag = false;
     function getUserAuth()
     {
+
         $.get("/mobile/info/getinfoauth.html",function(data,state)
         {
             if(ajaxState(state)){
@@ -182,45 +184,49 @@
                     idata = data.data;
                     //console.log(idata);
                     //实名认证状态
+                    if(idata.is_change == 1 || idata.is_change == '1' )
+                    {
+                        flag = true;
+                    }
                     if(idata.name == 1 && idata.idcard == 1)
                     {
-                        $('#baseInfo span').html('已认证');
+                        $('#baseInfo span').html('已认证').css({'color':'red','font-size':'1.6rem','font-weight':700});
                     }else{
                         $('#baseInfo span').html('未认证');
                     }
                     if(idata.personAuth == 1){
 
-                        $('#personAuth span').html('已认证');
+                        $('#personAuth span').html('已认证').css({'color':'red','font-size':'1.6rem','font-weight':700});
                     }else{
                         $('#personAuth span').html('未认证');
                     }
                     if(idata.mobileAuth == 1){
 
-                        $('#mobileAuth span').html('已认证');
+                        $('#mobileAuth span').html('已认证').css({'color':'red','font-size':'1.6rem','font-weight':700});
                     }else{
                         $('#mobileAuth span').html('未认证');
                     }
                     if(idata.taobaoAuth == 1){
 
-                        $('#taobaoAuth span').html('已认证');
+                        $('#taobaoAuth span').html('已认证').css({'color':'red','font-size':'1.6rem','font-weight':700});
                     }else{
                         $('#taobaoAuth span').html('未认证');
                     }
                     if(idata.photoAuth == 1){
 
-                        $('#photoAuth span').html('已认证');
+                        $('#photoAuth span').html('已认证').css({'color':'red','font-size':'1.6rem','font-weight':700});
                     }else{
                         $('#photoAuth span').html('未认证');
                     }
                     if(idata.bankAuth == 1){
 
-                        $('#bankAuth span').html('已认证');
+                        $('#bankAuth span').html('已添加').css({'color':'red','font-size':'1.6rem','font-weight':700});
                     }else{
-                        $('#bankAuth span').html('未认证');
+                        $('#bankAuth span').html('未添加');
                     }
                     if(idata.zhimaAuth == 1){
 
-                        $('#aliAuth span').html('已认证');
+                        $('#aliAuth span').html('已认证').css({'color':'red','font-size':'1.6rem','font-weight':700});
                     }else{
                         $('#aliAuth span').html('未认证');
                     }
@@ -275,10 +281,14 @@
 
             }
         });
-        $('#personAuth').on('click',function(){
-            if(idata.personAuth == 1){
+        $('#personAuth').on('click',function()
+        {
+            if(idata.personAuth == 1)
+            {
                 layer.open({content: '您已成功认证'});
-            }else{
+            }
+            else
+            {
                 layer.open({
                     content: '请选择认证项'
                     ,btn: ['资料认证']
@@ -373,10 +383,26 @@
             }
         });
         //银行卡绑定点击
-        $("#bankAuth").on('click',function(){
-            if(idata.bankAuth == 1){
-                layer.open({content: '您已成功认证'});
-            }else{
+        $("#bankAuth").on('click',function()
+        {
+
+            //
+            if(idata.bankAuth == 1 && flag)
+            {
+                //layer.open({content: '您已成功认证'});
+                layer.open({
+                    content: '请选择添加项'
+                    ,btn: ['银行卡添加']
+                    ,yes: function(index){
+                        layer.close(index);
+                        window.location.href = "/mobile/info/bankauth.html";
+
+                    }
+                });
+                return;
+            }
+            if(idata.bankAuth != 1)
+            {
                 layer.open({
                     content: '请选择认证项'
                     ,btn: ['银行卡认证']
@@ -386,8 +412,14 @@
 
                     }
                 });
-
             }
+
+            if(idata.bankAuth == 1 && !flag)
+            {
+                layer.open({content: '您已成功认证'});
+                return;
+            }
+
         });
     });
 
@@ -398,7 +430,8 @@
             type:2,
             shadeClose:false
         });
-        $.get(url,function(data,state){
+        $.get(url,function(data,state)
+        {
             layer.closeAll();
             if(ajaxState(state)){
                 if(data.code == 1){

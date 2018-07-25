@@ -12,7 +12,7 @@
 <body>
 
     <header class="top">
-        <span>银行卡绑定</span>
+        <span>银行卡添加</span>
         <a href="{:url('user/index')}" class="top_ico top_backleft"></a>
     </header>
 
@@ -28,11 +28,15 @@
             </div>
             <div class="jk_wrapInput border_t border_b">
                 <span>银行卡号</span>
-                <input type="tel" name="bankcard" value="" placeholder="请输入您的借记卡卡号" class="input_common bankSplit" />
+                {if condition="$data.card"}
+                <input type="tel" name="bankcard" readonly disabled  value="{$data.card}" placeholder="请输入您的借记卡卡号" class="input_common bankSplit" />
+                {else/}
+                <input type="tel" name="bankcard"  value="" placeholder="请输入您的借记卡卡号" class="input_common bankSplit" />
+                {/if}
             </div>
             <div class="jk_wrapInput border_b">
                 <span>预留手机号</span>
-                <input name="phone" type="tel" class="input_common" placeholder="银行预留手机号码 " data-required="true" data-descriptions="add_phonenumber" />
+                <input name="phone" type="tel" value="{$data.phone}" class="input_common" placeholder="银行预留手机号码 " data-required="true" data-descriptions="add_phonenumber" />
             </div>
             <div class="jk_bindCreditInfo mt_1">
 				<p>请确认：</p>
@@ -41,7 +45,9 @@
 				<p>3. 预留手机填写正确（影响资金提现）</p>
 			</div>
             <div class="jk_loginSubmit" style="margin-top: 1.5rem;">
+                {if condition="!$data.card"}
                 <input type="submit" value="确认绑定" id="addDebitCardBtn" class="jk_btn"  />
+                {/if}
             </div>
         </form>
     </section>

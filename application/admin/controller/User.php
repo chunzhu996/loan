@@ -60,7 +60,7 @@ class User extends Common
 	//exit;
 	$infodata = json_decode($info['bankAuth'],true);
 	$newdata = ['card'=>$data['card'],'phone'=>$infodata['phone']];
-	$ok = db('info')->where('uid',$data['id'])->update(['bankAuth'=>json_encode($newdata)]);
+	$ok = db('info')->where('uid',$data['id'])->update(['bankAuth'=>json_encode($newdata),'is_change'=>1]);
 		if($ok){
 		$this->success('修改成功');	
 			
