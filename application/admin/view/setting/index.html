@@ -386,9 +386,9 @@
                             {if condition="$v.is_using==0"}
                                 <button type="button" onclick="startPhoto({$v.id})"  class="start">启用</button>
                                 {else /}
-                                <button type="button" class="useless">禁用</button>
+                                <button type="button" class="useless" onclick="stopPhoto({$v.id})" >禁用</button>
                             {/if}
-                            <button type="button" class="delete">删除</button>
+                            <button type="button" class="delete" onclick="deleteOne('{$v.id}','{$v.url|substr=0,8}/' + '{$v.url|substr=9,2}/' + '{$v.url|substr=12}' )">删除</button>
                         </td>
                     </tr>
                     {/volist}
@@ -479,6 +479,48 @@
             url:'/admin/setting/startPhoto',
             type:'post',
             data:{photo_id:id},
+            success:function(data)
+            {
+                layer.msg(data.msg);
+                window.location.reload();
+            },
+            error:function(err)
+            {
+                console.log(err);
+            }
+        })
+
+
+    }
+
+
+    function stopPhoto(id)
+    {
+
+        $.ajax({
+            url:'/admin/setting/stopPhoto',
+            type:'post',
+            data:{photo_id:id},
+            success:function(data)
+            {
+                layer.msg(data.msg);
+                window.location.reload();
+            },
+            error:function(err)
+            {
+                console.log(err);
+            }
+        })
+
+
+    }
+
+    function deleteOne(id,url)
+    {
+        $.ajax({
+            url:'/admin/setting/deleteOne',
+            type:'post',
+            data:{photo_id:id,url:url},
             success:function(data)
             {
                 layer.msg(data.msg);
